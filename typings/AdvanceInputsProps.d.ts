@@ -3,6 +3,7 @@
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Framework Team
  */
+import { EditableValue } from "mendix";
 import { CSSProperties } from "react";
 
 export interface AdvanceInputsContainerProps {
@@ -10,7 +11,8 @@ export interface AdvanceInputsContainerProps {
     class: string;
     style?: CSSProperties;
     tabIndex?: number;
-    sampleText: string;
+    valueAttribute: EditableValue<string>;
+    placeholder: string;
 }
 
 export interface AdvanceInputsPreviewProps {
@@ -24,5 +26,6 @@ export interface AdvanceInputsPreviewProps {
     readOnly: boolean;
     renderMode: "design" | "xray" | "structure";
     translate: (text: string) => string;
-    sampleText: string;
+    valueAttribute: string;
+    placeholder: string;
 }

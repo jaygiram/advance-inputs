@@ -1,9 +1,20 @@
 import { ReactElement } from "react";
-import { HelloWorldSample } from "./components/HelloWorldSample";
+
 import { AdvanceInputsPreviewProps } from "../typings/AdvanceInputsProps";
 
-export function preview({ sampleText }: AdvanceInputsPreviewProps): ReactElement {
-    return <HelloWorldSample sampleText={sampleText} />;
+import "./ui/AdvanceInputs.css";
+
+export function preview({ placeholder }: AdvanceInputsPreviewProps): ReactElement {
+    return (
+        <div className="advance-inputs">
+            <input
+                className="advance-inputs__input"
+                type="text"
+                placeholder={placeholder || "Enter a value"}
+                disabled
+            />
+        </div>
+    );
 }
 
 export function getPreviewCss(): string {
