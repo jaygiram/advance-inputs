@@ -13,6 +13,13 @@ export interface AdvanceInputsContainerProps {
     tabIndex?: number;
     valueAttribute: EditableValue<string>;
     placeholder: string;
+    showLabel: boolean;
+    labelText: string;
+    required: boolean;
+    requiredIndicator: string;
+    showHelperText: boolean;
+    helperText: string;
+    reserveMessageSpace: boolean;
 }
 
 export interface AdvanceInputsPreviewProps {
@@ -28,4 +35,11 @@ export interface AdvanceInputsPreviewProps {
     translate: (text: string) => string;
     valueAttribute: string;
     placeholder: string;
+    showLabel: boolean;
+    labelText: string;
+    required: boolean;
+    requiredIndicator: string;
+    showHelperText: boolean;
+    helperText: string;
+    reserveMessageSpace: boolean;
 }

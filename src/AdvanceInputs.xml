@@ -49,5 +49,68 @@
                 </description>
             </property>
         </propertyGroup>
+
+        <propertyGroup caption="Label">
+            <property
+                key="showLabel"
+                type="boolean"
+                defaultValue="true"
+            >
+                <caption>Show label</caption>
+            </property>
+
+            <property
+                key="labelText"
+                type="string"
+                required="false"
+                defaultValue=""
+            >
+                <caption>Label text</caption>
+            </property>
+
+            <property
+                key="required"
+                type="boolean"
+                defaultValue="false"
+            >
+                <caption>Required</caption>
+            </property>
+
+            <property
+                key="requiredIndicator"
+                type="string"
+                required="false"
+                defaultValue="*"
+            >
+                <caption>Required indicator</caption>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Supporting Text">
+            <property
+                key="showHelperText"
+                type="boolean"
+                defaultValue="false"
+            >
+                <caption>Show helper text</caption>
+            </property>
+
+            <property
+                key="helperText"
+                type="string"
+                required="false"
+                defaultValue=""
+            >
+                <caption>Helper text</caption>
+            </property>
+
+            <property
+                key="reserveMessageSpace"
+                type="boolean"
+                defaultValue="false"
+            >
+                <caption>Reserve message space</caption>
+            </property>
+        </propertyGroup>
     </properties>
 </widget>
