@@ -28,6 +28,38 @@ function resolvePreviewIcon(icon: unknown): WebIcon | undefined {
     return icon as WebIcon;
 }
 
+function resolveAutocomplete(
+    value: AdvanceInputsPreviewProps["autocomplete"]
+):
+    | "off"
+    | "on"
+    | "name"
+    | "given-name"
+    | "family-name"
+    | "email"
+    | "username"
+    | "current-password"
+    | "new-password"
+    | "tel"
+    | "organization" {
+    switch (value) {
+        case "givenName":
+            return "given-name";
+
+        case "familyName":
+            return "family-name";
+
+        case "currentPassword":
+            return "current-password";
+
+        case "newPassword":
+            return "new-password";
+
+        default:
+            return value;
+    }
+}
+
 export function preview({
     placeholder,
     showLabel,
@@ -82,11 +114,6 @@ export function preview({
             ? maxLength
             : undefined;
 
-    /*
-     * The Studio Pro preview input has an empty value.
-     * Therefore, the clear button is hidden when
-     * hideClearWhenEmpty is enabled.
-     */
     const showClearButton =
         suffixBehavior === "clear" && !hideClearWhenEmpty;
 
@@ -120,7 +147,10 @@ export function preview({
         hidePasswordAriaLabel ||
         "Show password";
 
-    const describedById = shouldShowHelperText ? helperTextId : undefined;
+    const describedById =
+        shouldShowHelperText
+            ? helperTextId
+            : undefined;
 
     return (
         <div className="advance-inputs">
@@ -156,7 +186,7 @@ export function preview({
                     value=""
                     placeholder={placeholder || "Enter a value"}
                     inputType={inputType}
-                    autocomplete={autocomplete}
+                    autocomplete={resolveAutocomplete(autocomplete)}
                     inputMode={inputMode}
                     spellCheck={spellCheck}
                     autoFocus={false}
@@ -167,7 +197,7 @@ export function preview({
                     onChange={() => undefined}
                 />
 
-                {showClearButton && (
+                {showClearButton ? (
                     <IconButton
                         position="suffix"
                         appearance={suffixAppearance}
@@ -183,9 +213,9 @@ export function preview({
                             className="advance-inputs__built-in-icon"
                         />
                     </IconButton>
-                )}
+                ) : null}
 
-                {showPasswordToggle && (
+                {showPasswordToggle ? (
                     <IconButton
                         position="suffix"
                         appearance={suffixAppearance}
@@ -201,9 +231,9 @@ export function preview({
                             className="advance-inputs__built-in-icon"
                         />
                     </IconButton>
-                )}
+                ) : null}
 
-                {showCustomSuffix && (
+                {showCustomSuffix ? (
                     <Suffix
                         show={showSuffix}
                         contentType={suffixContentType}
@@ -221,7 +251,7 @@ export function preview({
                         isExecuting={false}
                         onClick={() => undefined}
                     />
-                )}
+                ) : null}
             </div>
 
             {shouldShowHelperText ? (

@@ -57,6 +57,7 @@
                 defaultValue="true"
             >
                 <caption>Show label</caption>
+                <description/>
             </property>
 
             <property
@@ -66,6 +67,7 @@
                 defaultValue=""
             >
                 <caption>Label text</caption>
+                <description/>
             </property>
 
             <property
@@ -74,6 +76,7 @@
                 defaultValue="false"
             >
                 <caption>Required</caption>
+                <description/>
             </property>
 
             <property
@@ -83,6 +86,7 @@
                 defaultValue="*"
             >
                 <caption>Required indicator</caption>
+                <description/>
             </property>
         </propertyGroup>
 
@@ -93,6 +97,7 @@
                 defaultValue="false"
             >
                 <caption>Show helper text</caption>
+                <description/>
             </property>
 
             <property
@@ -102,6 +107,7 @@
                 defaultValue=""
             >
                 <caption>Helper text</caption>
+                <description/>
             </property>
 
             <property
@@ -110,6 +116,7 @@
                 defaultValue="false"
             >
                 <caption>Reserve message space</caption>
+                <description/>
             </property>
         </propertyGroup>
 
@@ -120,6 +127,7 @@
                 defaultValue="false"
             >
                 <caption>Show prefix</caption>
+                <description/>
             </property>
 
             <property
@@ -128,6 +136,7 @@
                 defaultValue="icon"
             >
                 <caption>Prefix content type</caption>
+                <description/>
                 <enumerationValues>
                     <enumerationValue key="icon">Icon</enumerationValue>
                     <enumerationValue key="text">Text</enumerationValue>
@@ -140,6 +149,7 @@
                 required="false"
             >
                 <caption>Prefix icon</caption>
+                <description/>
             </property>
 
             <property
@@ -149,6 +159,7 @@
                 defaultValue=""
             >
                 <caption>Prefix text</caption>
+                <description/>
             </property>
 
             <property
@@ -157,6 +168,7 @@
                 defaultValue="plain"
             >
                 <caption>Prefix appearance</caption>
+                <description/>
                 <enumerationValues>
                     <enumerationValue key="plain">Plain</enumerationValue>
                     <enumerationValue key="soft">Soft</enumerationValue>
@@ -172,6 +184,7 @@
                 defaultValue="false"
             >
                 <caption>Interactive</caption>
+                <description/>
             </property>
 
             <property
@@ -180,6 +193,7 @@
                 required="false"
             >
                 <caption>On click</caption>
+                <description/>
             </property>
 
             <property
@@ -189,6 +203,7 @@
                 defaultValue=""
             >
                 <caption>Tooltip</caption>
+                <description/>
             </property>
 
             <property
@@ -198,6 +213,7 @@
                 defaultValue=""
             >
                 <caption>Accessibility label</caption>
+                <description/>
             </property>
         </propertyGroup>
 
@@ -208,6 +224,7 @@
                 defaultValue="false"
             >
                 <caption>Show suffix</caption>
+                <description/>
             </property>
 
             <property
@@ -216,6 +233,7 @@
                 defaultValue="icon"
             >
                 <caption>Suffix content type</caption>
+                <description/>
                 <enumerationValues>
                     <enumerationValue key="icon">Icon</enumerationValue>
                     <enumerationValue key="text">Text</enumerationValue>
@@ -228,6 +246,7 @@
                 required="false"
             >
                 <caption>Suffix icon</caption>
+                <description/>
             </property>
 
             <property
@@ -237,6 +256,7 @@
                 defaultValue=""
             >
                 <caption>Suffix text</caption>
+                <description/>
             </property>
 
             <property
@@ -245,6 +265,7 @@
                 defaultValue="plain"
             >
                 <caption>Suffix appearance</caption>
+                <description/>
                 <enumerationValues>
                     <enumerationValue key="plain">Plain</enumerationValue>
                     <enumerationValue key="soft">Soft</enumerationValue>
@@ -323,6 +344,7 @@
                 defaultValue="false"
             >
                 <caption>Interactive</caption>
+                <description/>
             </property>
 
             <property
@@ -331,6 +353,7 @@
                 required="false"
             >
                 <caption>On click</caption>
+                <description/>
             </property>
 
             <property
@@ -340,6 +363,7 @@
                 defaultValue=""
             >
                 <caption>Tooltip</caption>
+                <description/>
             </property>
 
             <property
@@ -349,6 +373,7 @@
                 defaultValue=""
             >
                 <caption>Accessibility label</caption>
+                <description/>
             </property>
         </propertyGroup>
 
@@ -372,29 +397,30 @@
                 </enumerationValues>
             </property>
 
-            <property
-                key="autocomplete"
-                type="enumeration"
-                defaultValue="off"
-            >
-                <caption>Autocomplete</caption>
-                <description>
-                    Sets the browser autocomplete hint so the input can participate in form autofill and saved-value suggestions.
-                </description>
-                <enumerationValues>
-                    <enumerationValue key="off">Off</enumerationValue>
-                    <enumerationValue key="on">On</enumerationValue>
-                    <enumerationValue key="name">Name</enumerationValue>
-                    <enumerationValue key="given-name">Given name</enumerationValue>
-                    <enumerationValue key="family-name">Family name</enumerationValue>
-                    <enumerationValue key="email">Email</enumerationValue>
-                    <enumerationValue key="username">Username</enumerationValue>
-                    <enumerationValue key="current-password">Current password</enumerationValue>
-                    <enumerationValue key="new-password">New password</enumerationValue>
-                    <enumerationValue key="tel">Telephone</enumerationValue>
-                    <enumerationValue key="organization">Organization</enumerationValue>
-                </enumerationValues>
-            </property>
+          <property
+    key="autocomplete"
+    type="enumeration"
+    defaultValue="off"
+>
+    <caption>Autocomplete</caption>
+    <description>
+        Sets the browser autocomplete hint so the input can participate in form autofill and saved-value suggestions.
+    </description>
+
+    <enumerationValues>
+        <enumerationValue key="off">Off</enumerationValue>
+        <enumerationValue key="on">On</enumerationValue>
+        <enumerationValue key="name">Name</enumerationValue>
+        <enumerationValue key="givenName">Given name</enumerationValue>
+        <enumerationValue key="familyName">Family name</enumerationValue>
+        <enumerationValue key="email">Email</enumerationValue>
+        <enumerationValue key="username">Username</enumerationValue>
+        <enumerationValue key="currentPassword">Current password</enumerationValue>
+        <enumerationValue key="newPassword">New password</enumerationValue>
+        <enumerationValue key="tel">Telephone</enumerationValue>
+        <enumerationValue key="organization">Organization</enumerationValue>
+    </enumerationValues>
+</property>
 
             <property
                 key="inputMode"

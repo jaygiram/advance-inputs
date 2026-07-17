@@ -22,12 +22,12 @@ export type AutocompleteEnum =
     | "off"
     | "on"
     | "name"
-    | "given-name"
-    | "family-name"
+    | "givenName"
+    | "familyName"
     | "email"
     | "username"
-    | "current-password"
-    | "new-password"
+    | "currentPassword"
+    | "newPassword"
     | "tel"
     | "organization";
 
