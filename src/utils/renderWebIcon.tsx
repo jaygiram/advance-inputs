@@ -1,15 +1,22 @@
 import { ReactElement } from "react";
 import type { WebIcon } from "mendix";
 
+type SupportedWebIcon =
+    | WebIcon
+    | {
+          type: "icon";
+          iconClass: string;
+      };
+
 export function renderWebIcon(
-    icon?: WebIcon,
+    icon?: SupportedWebIcon,
     className = "advance-inputs__icon"
 ): ReactElement | null {
     if (!icon) {
         return null;
     }
 
-    if (icon.type === "glyph") {
+    if (icon.type === "glyph" || icon.type === "icon") {
         return (
             <span
                 className={[className, icon.iconClass].filter(Boolean).join(" ")}
