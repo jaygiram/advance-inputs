@@ -255,6 +255,69 @@
             </property>
 
             <property
+                key="suffixBehavior"
+                type="enumeration"
+                defaultValue="custom"
+            >
+                <caption>Suffix behavior</caption>
+                <description>
+                    Chooses whether the suffix uses custom content and actions, clears the input, or toggles password visibility. Password toggle is only meaningful when the input type is password.
+                </description>
+                <enumerationValues>
+                    <enumerationValue key="custom">Custom content</enumerationValue>
+                    <enumerationValue key="clear">Clear input</enumerationValue>
+                    <enumerationValue key="passwordToggle">Show or hide password</enumerationValue>
+                </enumerationValues>
+            </property>
+
+            <property
+                key="clearAriaLabel"
+                type="string"
+                required="false"
+                defaultValue="Clear input"
+            >
+                <caption>Clear button accessibility label</caption>
+                <description>
+                    Accessible label used for the built-in clear button when clear input behavior is selected.
+                </description>
+            </property>
+
+            <property
+                key="showPasswordAriaLabel"
+                type="string"
+                required="false"
+                defaultValue="Show password"
+            >
+                <caption>Show password accessibility label</caption>
+                <description>
+                    Accessible label used when the built-in password toggle shows the password value.
+                </description>
+            </property>
+
+            <property
+                key="hidePasswordAriaLabel"
+                type="string"
+                required="false"
+                defaultValue="Hide password"
+            >
+                <caption>Hide password accessibility label</caption>
+                <description>
+                    Accessible label used when the built-in password toggle hides the password value.
+                </description>
+            </property>
+
+            <property
+                key="hideClearWhenEmpty"
+                type="boolean"
+                defaultValue="true"
+            >
+                <caption>Hide clear button when empty</caption>
+                <description>
+                    Hides the built-in clear button when the input value is empty. This only applies to clear input behavior.
+                </description>
+            </property>
+
+            <property
                 key="suffixInteractive"
                 type="boolean"
                 defaultValue="false"
@@ -375,6 +438,11 @@
                     Sets the maximum number of characters the browser allows when length limiting is enabled.
                 </description>
             </property>
+
+   
+           
+
+     
 
             <property
                 key="spellCheck"

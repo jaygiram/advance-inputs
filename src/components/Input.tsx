@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, KeyboardEvent, ReactElement } from "react";
+import { FocusEvent, KeyboardEvent, ReactElement } from "react";
 
 export interface InputProps {
     id: string;
@@ -10,6 +10,7 @@ export interface InputProps {
     spellCheck: boolean;
     autoFocus: boolean;
     maxLength?: number;
+    tabIndex?: number;
     readOnly?: boolean;
     disabled?: boolean;
     required?: boolean;
@@ -32,6 +33,7 @@ export function Input({
     spellCheck,
     autoFocus,
     maxLength,
+    tabIndex,
     readOnly,
     disabled,
     required,
@@ -43,12 +45,13 @@ export function Input({
     onBlur,
     onKeyDown
 }: InputProps): ReactElement {
-    const inputClassName = ["advance-inputs__input", className].filter(Boolean).join(" ");
+    const inputClassName = ["advance-inputs__input", className]
+        .filter(Boolean)
+        .join(" ");
 
     return (
         <input
             id={id}
-            className={inputClassName}
             type={inputType}
             value={value}
             placeholder={placeholder}
@@ -57,13 +60,15 @@ export function Input({
             spellCheck={spellCheck}
             autoFocus={autoFocus}
             maxLength={maxLength}
+            tabIndex={tabIndex}
             readOnly={readOnly}
             disabled={disabled}
             required={required}
             aria-required={required || undefined}
             aria-invalid={ariaInvalid || undefined}
             aria-describedby={ariaDescribedBy}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => onChange(event.target.value)}
+            className={inputClassName}
+            onChange={event => onChange(event.target.value)}
             onFocus={onFocus}
             onBlur={onBlur}
             onKeyDown={onKeyDown}

@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import type { WebIcon } from "mendix";
 
 import { renderWebIcon } from "../utils/renderWebIcon";
@@ -14,6 +14,7 @@ export interface IconButtonProps {
     disabled?: boolean;
     isExecuting?: boolean;
     onClick: () => void;
+    children?: ReactNode;
 }
 
 export function IconButton({
@@ -26,10 +27,14 @@ export function IconButton({
     tooltip,
     disabled,
     isExecuting,
-    onClick
+    onClick,
+    children
 }: IconButtonProps): ReactElement | null {
+    const hasChildren = Boolean(children);
     const shouldRender =
-        (contentType === "icon" && Boolean(icon)) || (contentType === "text" && Boolean(text && text.trim()));
+        hasChildren ||
+        (contentType === "icon" && Boolean(icon)) ||
+        (contentType === "text" && Boolean(text && text.trim()));
 
     if (!shouldRender) {
         return null;
@@ -54,7 +59,7 @@ export function IconButton({
             onClick={onClick}
             onMouseDown={event => event.preventDefault()}
         >
-            {contentType === "icon" ? renderWebIcon(icon) : text}
+            {children ?? (contentType === "icon" ? renderWebIcon(icon) : text)}
             {isExecuting ? <span className="advance-inputs__affix-loader" aria-hidden="true" /> : null}
         </button>
     );

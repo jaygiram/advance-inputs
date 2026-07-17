@@ -14,6 +14,8 @@ export type SuffixContentTypeEnum = "icon" | "text";
 
 export type SuffixAppearanceEnum = "plain" | "soft" | "outlined" | "filled" | "attached";
 
+export type SuffixBehaviorEnum = "custom" | "clear" | "passwordToggle";
+
 export type InputTypeEnum = "text" | "password" | "email" | "tel" | "url" | "search";
 
 export type AutocompleteEnum =
@@ -59,6 +61,11 @@ export interface AdvanceInputsContainerProps {
     suffixIcon?: DynamicValue<WebIcon>;
     suffixText: string;
     suffixAppearance: SuffixAppearanceEnum;
+    suffixBehavior: SuffixBehaviorEnum;
+    clearAriaLabel: string;
+    showPasswordAriaLabel: string;
+    hidePasswordAriaLabel: string;
+    hideClearWhenEmpty: boolean;
     suffixInteractive: boolean;
     suffixAction?: ActionValue;
     suffixTooltip: string;
@@ -114,6 +121,11 @@ export interface AdvanceInputsPreviewProps {
         | undefined;
     suffixText: string;
     suffixAppearance: SuffixAppearanceEnum;
+    suffixBehavior: SuffixBehaviorEnum;
+    clearAriaLabel: string;
+    showPasswordAriaLabel: string;
+    hidePasswordAriaLabel: string;
+    hideClearWhenEmpty: boolean;
     suffixInteractive: boolean;
     suffixAction: {} | null;
     suffixTooltip: string;

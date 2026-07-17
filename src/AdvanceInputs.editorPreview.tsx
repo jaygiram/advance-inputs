@@ -2,7 +2,9 @@ import { ReactElement } from "react";
 import type { WebIcon } from "mendix";
 
 import { AdvanceInputsPreviewProps } from "../typings/AdvanceInputsProps";
+import { BuiltInIcon } from "./components/BuiltInIcon";
 import { HelperText } from "./components/HelperText";
+import { IconButton } from "./components/IconButton";
 import { Input } from "./components/Input";
 import { Label } from "./components/Label";
 import { Prefix } from "./components/Prefix";
@@ -41,7 +43,7 @@ export function preview({
     enableMaxLength,
     maxLength,
     spellCheck,
-    autoFocus,
+    autoFocus: _autoFocus,
     showPrefix,
     prefixContentType,
     prefixIcon,
@@ -55,23 +57,68 @@ export function preview({
     suffixIcon,
     suffixText,
     suffixAppearance,
+    suffixBehavior,
+    clearAriaLabel,
+    showPasswordAriaLabel,
+    hidePasswordAriaLabel,
+    hideClearWhenEmpty,
     suffixInteractive,
     suffixTooltip,
     suffixAriaLabel
 }: AdvanceInputsPreviewProps): ReactElement {
     const previewInputId = "advance-inputs-preview";
     const helperTextId = `${previewInputId}-helper`;
-    const shouldShowHelperText = showHelperText && Boolean(helperText?.trim());
+
+    const shouldShowHelperText =
+        showHelperText && Boolean(helperText?.trim());
+
     const resolvedPrefixIcon = resolvePreviewIcon(prefixIcon);
     const resolvedSuffixIcon = resolvePreviewIcon(suffixIcon);
 
+    const resolvedMaxLength =
+        enableMaxLength &&
+        typeof maxLength === "number" &&
+        maxLength > 0
+            ? maxLength
+            : undefined;
+
+    /*
+     * The Studio Pro preview input has an empty value.
+     * Therefore, the clear button is hidden when
+     * hideClearWhenEmpty is enabled.
+     */
+    const showClearButton =
+        suffixBehavior === "clear" && !hideClearWhenEmpty;
+
+    const showPasswordToggle =
+        suffixBehavior === "passwordToggle" &&
+        inputType === "password";
+
+    const showCustomSuffix =
+        suffixBehavior === "custom" &&
+        showSuffix;
+
+    const hasVisibleSuffix =
+        showClearButton ||
+        showPasswordToggle ||
+        showCustomSuffix;
+
     const controlClassName = [
         "advance-inputs__control",
-        showPrefix ? "advance-inputs__control--has-prefix" : undefined,
-        showSuffix ? "advance-inputs__control--has-suffix" : undefined
+        showPrefix
+            ? "advance-inputs__control--has-prefix"
+            : undefined,
+        hasVisibleSuffix
+            ? "advance-inputs__control--has-suffix"
+            : undefined
     ]
         .filter(Boolean)
         .join(" ");
+
+    const passwordToggleLabel =
+        showPasswordAriaLabel ||
+        hidePasswordAriaLabel ||
+        "Show password";
 
     return (
         <div className="advance-inputs">
@@ -91,7 +138,11 @@ export function preview({
                     text={prefixText}
                     appearance={prefixAppearance}
                     interactive={prefixInteractive}
-                    ariaLabel={prefixAriaLabel || prefixTooltip || "Prefix action"}
+                    ariaLabel={
+                        prefixAriaLabel ||
+                        prefixTooltip ||
+                        "Prefix action"
+                    }
                     tooltip={prefixTooltip}
                     disabled={false}
                     isExecuting={false}
@@ -107,32 +158,85 @@ export function preview({
                     inputMode={inputMode}
                     spellCheck={spellCheck}
                     autoFocus={false}
-                    maxLength={enableMaxLength ? maxLength : undefined}
+                    maxLength={resolvedMaxLength}
                     disabled
                     required={required}
-                    ariaDescribedBy={shouldShowHelperText ? helperTextId : undefined}
+                    ariaDescribedBy={
+                        shouldShowHelperText
+                            ? helperTextId
+                            : undefined
+                    }
                     onChange={() => undefined}
                 />
 
-                <Suffix
-                    show={showSuffix}
-                    contentType={suffixContentType}
-                    icon={resolvedSuffixIcon}
-                    text={suffixText}
-                    appearance={suffixAppearance}
-                    interactive={suffixInteractive}
-                    ariaLabel={suffixAriaLabel || suffixTooltip || "Suffix action"}
-                    tooltip={suffixTooltip}
-                    disabled={false}
-                    isExecuting={false}
-                    onClick={() => undefined}
-                />
+                {showClearButton && (
+                    <IconButton
+                        position="suffix"
+                        appearance={suffixAppearance}
+                        contentType="icon"
+                        ariaLabel={clearAriaLabel || "Clear input"}
+                        tooltip={clearAriaLabel || "Clear input"}
+                        disabled={false}
+                        isExecuting={false}
+                        onClick={() => undefined}
+                    >
+                        <BuiltInIcon
+                            name="clear"
+                            className="advance-inputs__built-in-icon"
+                        />
+                    </IconButton>
+                )}
+
+                {showPasswordToggle && (
+                    <IconButton
+                        position="suffix"
+                        appearance={suffixAppearance}
+                        contentType="icon"
+                        ariaLabel={passwordToggleLabel}
+                        tooltip={passwordToggleLabel}
+                        disabled={false}
+                        isExecuting={false}
+                        onClick={() => undefined}
+                    >
+                        <BuiltInIcon
+                            name="eye"
+                            className="advance-inputs__built-in-icon"
+                        />
+                    </IconButton>
+                )}
+
+                {showCustomSuffix && (
+                    <Suffix
+                        show={showSuffix}
+                        contentType={suffixContentType}
+                        icon={resolvedSuffixIcon}
+                        text={suffixText}
+                        appearance={suffixAppearance}
+                        interactive={suffixInteractive}
+                        ariaLabel={
+                            suffixAriaLabel ||
+                            suffixTooltip ||
+                            "Suffix action"
+                        }
+                        tooltip={suffixTooltip}
+                        disabled={false}
+                        isExecuting={false}
+                        onClick={() => undefined}
+                    />
+                )}
             </div>
 
             {shouldShowHelperText ? (
-                <HelperText show text={helperText} id={helperTextId} />
+                <HelperText
+                    show
+                    text={helperText}
+                    id={helperTextId}
+                />
             ) : reserveMessageSpace ? (
-                <div className="advance-inputs__message-spacer" aria-hidden="true" />
+                <div
+                    className="advance-inputs__message-spacer"
+                    aria-hidden="true"
+                />
             ) : null}
         </div>
     );
