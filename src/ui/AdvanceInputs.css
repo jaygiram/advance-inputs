@@ -1,6 +1,203 @@
-/*
-Place your custom CSS here
-*/
-.widget-hello-world {
+.advance-inputs {
+    --advance-inputs-affix-color: #555;
+    --advance-inputs-affix-background: #f5f6f8;
+    --advance-inputs-affix-soft-background: #f8f9fb;
+    --advance-inputs-affix-border: #cdd3da;
 
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    font-family: inherit;
+}
+
+.advance-inputs__label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+}
+
+.advance-inputs__required-indicator {
+    margin-left: 2px;
+    color: #d14343;
+}
+
+.advance-inputs__control {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    border: 1px solid var(--advance-inputs-affix-border);
+    border-radius: 6px;
+    background-color: #fff;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.advance-inputs__control:focus-within {
+    border-color: #5798f7;
+    box-shadow: 0 0 0 2px rgba(87, 152, 247, 0.2);
+}
+
+.advance-inputs__input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    padding: 10px 12px;
+    font: inherit;
+    color: inherit;
+    outline: none;
+    box-shadow: none;
+}
+
+.advance-inputs__input:focus {
+    outline: none;
+    border: 0;
+    box-shadow: none;
+}
+
+.advance-inputs__input::placeholder {
+    color: #8992a3;
+}
+
+.advance-inputs__input[readonly] {
+    cursor: default;
+    color: #6b7280;
+}
+
+.advance-inputs__affix {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 40px;
+    padding: 0 10px;
+    color: var(--advance-inputs-affix-color);
+    background-color: var(--advance-inputs-affix-background);
+    user-select: none;
+}
+
+.advance-inputs__prefix {
+    border-right: 1px solid var(--advance-inputs-affix-border);
+}
+
+.advance-inputs__suffix {
+    border-left: 1px solid var(--advance-inputs-affix-border);
+}
+
+.advance-inputs__affix--plain {
+    background-color: transparent;
+}
+
+.advance-inputs__affix--soft {
+    background-color: var(--advance-inputs-affix-soft-background);
+}
+
+.advance-inputs__affix--outlined {
+    background-color: transparent;
+    border: 1px solid var(--advance-inputs-affix-border);
+}
+
+.advance-inputs__affix--filled {
+    background-color: var(--advance-inputs-affix-background);
+}
+
+.advance-inputs__affix--attached {
+    background-color: transparent;
+    border: 0;
+}
+
+.advance-inputs__prefix.advance-inputs__affix--outlined,
+.advance-inputs__prefix.advance-inputs__affix--attached {
+    border-right: 1px solid var(--advance-inputs-affix-border);
+}
+
+.advance-inputs__suffix.advance-inputs__affix--outlined,
+.advance-inputs__suffix.advance-inputs__affix--attached {
+    border-left: 1px solid var(--advance-inputs-affix-border);
+}
+
+.advance-inputs__helper-text,
+.advance-inputs__validation,
+.advance-inputs__message-spacer {
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.advance-inputs__helper-text {
+    color: #6b7280;
+}
+
+.advance-inputs__validation {
+    color: #d14343;
+}
+
+.advance-inputs__message-spacer {
+    min-height: 16px;
+}
+
+.advance-inputs__affix-image {
+    display: block;
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.advance-inputs__affix-button {
+    appearance: none;
+    border: 0;
+    font: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 40px;
+    padding: 0 10px;
+    color: var(--advance-inputs-affix-color);
+    background-color: var(--advance-inputs-affix-background);
+    user-select: none;
+}
+
+.advance-inputs__affix-button:hover {
+    background-color: var(--advance-inputs-affix-soft-background);
+}
+
+.advance-inputs__affix-button:active {
+    transform: scale(0.97);
+}
+
+.advance-inputs__affix-button:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px rgba(87, 152, 247, 0.3);
+}
+
+.advance-inputs__affix-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    transform: none;
+}
+
+.advance-inputs__affix-loader {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    animation: advance-inputs-spin 0.8s linear infinite;
+}
+
+@keyframes advance-inputs-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }

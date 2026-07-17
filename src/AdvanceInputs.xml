@@ -112,5 +112,181 @@
                 <caption>Reserve message space</caption>
             </property>
         </propertyGroup>
+
+        <propertyGroup caption="Prefix">
+            <property
+                key="showPrefix"
+                type="boolean"
+                defaultValue="false"
+            >
+                <caption>Show prefix</caption>
+            </property>
+
+            <property
+                key="prefixContentType"
+                type="enumeration"
+                defaultValue="icon"
+            >
+                <caption>Prefix content type</caption>
+                <enumerationValues>
+                    <enumerationValue key="icon">Icon</enumerationValue>
+                    <enumerationValue key="text">Text</enumerationValue>
+                </enumerationValues>
+            </property>
+
+            <property
+                key="prefixIcon"
+                type="icon"
+                required="false"
+            >
+                <caption>Prefix icon</caption>
+            </property>
+
+            <property
+                key="prefixText"
+                type="string"
+                required="false"
+                defaultValue=""
+            >
+                <caption>Prefix text</caption>
+            </property>
+
+            <property
+                key="prefixAppearance"
+                type="enumeration"
+                defaultValue="plain"
+            >
+                <caption>Prefix appearance</caption>
+                <enumerationValues>
+                    <enumerationValue key="plain">Plain</enumerationValue>
+                    <enumerationValue key="soft">Soft</enumerationValue>
+                    <enumerationValue key="outlined">Outlined</enumerationValue>
+                    <enumerationValue key="filled">Filled</enumerationValue>
+                    <enumerationValue key="attached">Attached</enumerationValue>
+                </enumerationValues>
+            </property>
+
+            <property
+                key="prefixInteractive"
+                type="boolean"
+                defaultValue="false"
+            >
+                <caption>Interactive</caption>
+            </property>
+
+            <property
+                key="prefixAction"
+                type="action"
+                required="false"
+            >
+                <caption>On click</caption>
+            </property>
+
+            <property
+                key="prefixTooltip"
+                type="string"
+                required="false"
+                defaultValue=""
+            >
+                <caption>Tooltip</caption>
+            </property>
+
+            <property
+                key="prefixAriaLabel"
+                type="string"
+                required="false"
+                defaultValue=""
+            >
+                <caption>Accessibility label</caption>
+            </property>
+        </propertyGroup>
+
+        <propertyGroup caption="Suffix">
+            <property
+                key="showSuffix"
+                type="boolean"
+                defaultValue="false"
+            >
+                <caption>Show suffix</caption>
+            </property>
+
+            <property
+                key="suffixContentType"
+                type="enumeration"
+                defaultValue="icon"
+            >
+                <caption>Suffix content type</caption>
+                <enumerationValues>
+                    <enumerationValue key="icon">Icon</enumerationValue>
+                    <enumerationValue key="text">Text</enumerationValue>
+                </enumerationValues>
+            </property>
+
+            <property
+                key="suffixIcon"
+                type="icon"
+                required="false"
+            >
+                <caption>Suffix icon</caption>
+            </property>
+
+            <property
+                key="suffixText"
+                type="string"
+                required="false"
+                defaultValue=""
+            >
+                <caption>Suffix text</caption>
+            </property>
+
+            <property
+                key="suffixAppearance"
+                type="enumeration"
+                defaultValue="plain"
+            >
+                <caption>Suffix appearance</caption>
+                <enumerationValues>
+                    <enumerationValue key="plain">Plain</enumerationValue>
+                    <enumerationValue key="soft">Soft</enumerationValue>
+                    <enumerationValue key="outlined">Outlined</enumerationValue>
+                    <enumerationValue key="filled">Filled</enumerationValue>
+                    <enumerationValue key="attached">Attached</enumerationValue>
+                </enumerationValues>
+            </property>
+
+            <property
+                key="suffixInteractive"
+                type="boolean"
+                defaultValue="false"
+            >
+                <caption>Interactive</caption>
+            </property>
+
+            <property
+                key="suffixAction"
+                type="action"
+                required="false"
+            >
+                <caption>On click</caption>
+            </property>
+
+            <property
+                key="suffixTooltip"
+                type="string"
+                required="false"
+                defaultValue=""
+            >
+                <caption>Tooltip</caption>
+            </property>
+
+            <property
+                key="suffixAriaLabel"
+                type="string"
+                required="false"
+                defaultValue=""
+            >
+                <caption>Accessibility label</caption>
+            </property>
+        </propertyGroup>
     </properties>
 </widget>

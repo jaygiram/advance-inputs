@@ -3,8 +3,16 @@
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Framework Team
  */
-import { EditableValue } from "mendix";
+import { ActionValue, DynamicValue, EditableValue, WebIcon } from "mendix";
 import { CSSProperties } from "react";
+
+export type PrefixContentTypeEnum = "icon" | "text";
+
+export type PrefixAppearanceEnum = "plain" | "soft" | "outlined" | "filled" | "attached";
+
+export type SuffixContentTypeEnum = "icon" | "text";
+
+export type SuffixAppearanceEnum = "plain" | "soft" | "outlined" | "filled" | "attached";
 
 export interface AdvanceInputsContainerProps {
     name: string;
@@ -20,6 +28,24 @@ export interface AdvanceInputsContainerProps {
     showHelperText: boolean;
     helperText: string;
     reserveMessageSpace: boolean;
+    showPrefix: boolean;
+    prefixContentType: PrefixContentTypeEnum;
+    prefixIcon?: DynamicValue<WebIcon>;
+    prefixText: string;
+    prefixAppearance: PrefixAppearanceEnum;
+    prefixInteractive: boolean;
+    prefixAction?: ActionValue;
+    prefixTooltip: string;
+    prefixAriaLabel: string;
+    showSuffix: boolean;
+    suffixContentType: SuffixContentTypeEnum;
+    suffixIcon?: DynamicValue<WebIcon>;
+    suffixText: string;
+    suffixAppearance: SuffixAppearanceEnum;
+    suffixInteractive: boolean;
+    suffixAction?: ActionValue;
+    suffixTooltip: string;
+    suffixAriaLabel: string;
 }
 
 export interface AdvanceInputsPreviewProps {
@@ -42,4 +68,30 @@ export interface AdvanceInputsPreviewProps {
     showHelperText: boolean;
     helperText: string;
     reserveMessageSpace: boolean;
+    showPrefix: boolean;
+    prefixContentType: PrefixContentTypeEnum;
+    prefixIcon:
+        | { type: "glyph"; iconClass: string }
+        | { type: "image"; imageUrl: string; iconUrl: string }
+        | { type: "icon"; iconClass: string }
+        | undefined;
+    prefixText: string;
+    prefixAppearance: PrefixAppearanceEnum;
+    prefixInteractive: boolean;
+    prefixAction: {} | null;
+    prefixTooltip: string;
+    prefixAriaLabel: string;
+    showSuffix: boolean;
+    suffixContentType: SuffixContentTypeEnum;
+    suffixIcon:
+        | { type: "glyph"; iconClass: string }
+        | { type: "image"; imageUrl: string; iconUrl: string }
+        | { type: "icon"; iconClass: string }
+        | undefined;
+    suffixText: string;
+    suffixAppearance: SuffixAppearanceEnum;
+    suffixInteractive: boolean;
+    suffixAction: {} | null;
+    suffixTooltip: string;
+    suffixAriaLabel: string;
 }
