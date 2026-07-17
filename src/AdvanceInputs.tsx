@@ -143,11 +143,12 @@ export function AdvanceInputs({
         .filter(Boolean)
         .join(" ");
 
-    const describedById = hasValidationMessage
-        ? validationId
-        : shouldShowHelperText
-          ? helperTextId
-          : undefined;
+    const describedByIds = [
+        hasValidationMessage ? validationId : undefined,
+        !hasValidationMessage && shouldShowHelperText ? helperTextId : undefined
+    ].filter(Boolean);
+
+    const describedById = describedByIds.length > 0 ? describedByIds.join(" ") : undefined;
 
     const passwordToggleLabel = isPasswordVisible
         ? hidePasswordAriaLabel || "Hide password"

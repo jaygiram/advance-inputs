@@ -120,6 +120,8 @@ export function preview({
         hidePasswordAriaLabel ||
         "Show password";
 
+    const describedById = shouldShowHelperText ? helperTextId : undefined;
+
     return (
         <div className="advance-inputs">
             <Label
@@ -161,11 +163,7 @@ export function preview({
                     maxLength={resolvedMaxLength}
                     disabled
                     required={required}
-                    ariaDescribedBy={
-                        shouldShowHelperText
-                            ? helperTextId
-                            : undefined
-                    }
+                    ariaDescribedBy={describedById}
                     onChange={() => undefined}
                 />
 

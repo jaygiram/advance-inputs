@@ -71,6 +71,7 @@ export function Prefix({
                 `advance-inputs__affix--${appearance}`
             ].join(" ")}
             aria-hidden="true"
+            role="presentation"
         >
             {content}
         </span>

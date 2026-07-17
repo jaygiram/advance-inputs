@@ -49,17 +49,26 @@ export function IconButton({
         isExecuting ? "advance-inputs__affix-button--loading" : null
     ].filter(Boolean).join(" ");
 
+    const resolvedAriaLabel = ariaLabel?.trim() || (position === "prefix" ? "Prefix action" : "Suffix action");
+
+    const handleClick = (): void => {
+        if (disabled || isExecuting) {
+            return;
+        }
+
+        onClick();
+    };
+
     return (
         <button
             type="button"
             className={buttonClassName}
-            aria-label={ariaLabel}
+            aria-label={resolvedAriaLabel}
             title={tooltip || undefined}
             disabled={disabled || isExecuting}
             aria-disabled={disabled || isExecuting || undefined}
             aria-busy={isExecuting || undefined}
-            onClick={onClick}
-            onMouseDown={event => event.preventDefault()}
+            onClick={handleClick}
         >
             {children ?? (contentType === "icon" ? renderWebIcon(icon) : text)}
             {isExecuting ? <span className="advance-inputs__affix-loader" aria-hidden="true" /> : null}

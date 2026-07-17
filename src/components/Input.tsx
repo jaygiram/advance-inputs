@@ -64,10 +64,10 @@ export function Input({
             readOnly={readOnly}
             disabled={disabled}
             required={required}
-            aria-required={required || undefined}
-            aria-invalid={ariaInvalid || undefined}
+            aria-required={required ? true : undefined}
+            aria-invalid={ariaInvalid ? true : undefined}
             aria-readonly={readOnly || undefined}
-            aria-describedby={ariaDescribedBy}
+            aria-describedby={ariaDescribedBy || undefined}
             className={inputClassName}
             onChange={event => onChange(event.target.value)}
             onFocus={onFocus}
