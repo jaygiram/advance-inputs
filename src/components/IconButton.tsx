@@ -45,6 +45,7 @@ export function IconButton({
         "advance-inputs__affix-button",
         position === "prefix" ? "advance-inputs__prefix" : "advance-inputs__suffix",
         `advance-inputs__affix--${appearance}`,
+        disabled || isExecuting ? "advance-inputs__affix-button--disabled" : null,
         isExecuting ? "advance-inputs__affix-button--loading" : null
     ].filter(Boolean).join(" ");
 
@@ -55,6 +56,7 @@ export function IconButton({
             aria-label={ariaLabel}
             title={tooltip || undefined}
             disabled={disabled || isExecuting}
+            aria-disabled={disabled || isExecuting || undefined}
             aria-busy={isExecuting || undefined}
             onClick={onClick}
             onMouseDown={event => event.preventDefault()}

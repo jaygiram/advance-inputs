@@ -64,6 +64,7 @@ export function AdvanceInputs({
     const value = valueAttribute.value ?? "";
     const isReadOnly = valueAttribute.readOnly;
     const validationMessage = valueAttribute.validation;
+    const hasValidationMessage = Boolean(validationMessage?.trim());
 
     const { isPasswordVisible, togglePasswordVisibility, resetPasswordVisibility } =
         usePasswordVisibility();
@@ -83,7 +84,7 @@ export function AdvanceInputs({
 
     const shouldReserveMessageSpace =
         reserveMessageSpace &&
-        !validationMessage &&
+        !hasValidationMessage &&
         !shouldShowHelperText;
 
     const resolvedMaxLength =
@@ -134,12 +135,15 @@ export function AdvanceInputs({
 
     const widgetClassName = [
         "advance-inputs",
+        isReadOnly ? "advance-inputs--readonly" : undefined,
+        hasValidationMessage ? "advance-inputs--invalid" : undefined,
+        hasValue ? "advance-inputs--has-value" : undefined,
         className
     ]
         .filter(Boolean)
         .join(" ");
 
-    const describedById = validationMessage
+    const describedById = hasValidationMessage
         ? validationId
         : shouldShowHelperText
           ? helperTextId
@@ -208,7 +212,7 @@ export function AdvanceInputs({
                     tabIndex={tabIndex}
                     readOnly={isReadOnly}
                     required={required}
-                    ariaInvalid={Boolean(validationMessage)}
+                    ariaInvalid={hasValidationMessage}
                     ariaDescribedBy={describedById}
                     onChange={handleInputChange}
                 />

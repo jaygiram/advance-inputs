@@ -66,6 +66,7 @@ export function Input({
             required={required}
             aria-required={required || undefined}
             aria-invalid={ariaInvalid || undefined}
+            aria-readonly={readOnly || undefined}
             aria-describedby={ariaDescribedBy}
             className={inputClassName}
             onChange={event => onChange(event.target.value)}
