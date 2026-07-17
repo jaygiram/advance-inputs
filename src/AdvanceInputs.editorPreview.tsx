@@ -3,6 +3,7 @@ import type { WebIcon } from "mendix";
 
 import { AdvanceInputsPreviewProps } from "../typings/AdvanceInputsProps";
 import { HelperText } from "./components/HelperText";
+import { Input } from "./components/Input";
 import { Label } from "./components/Label";
 import { Prefix } from "./components/Prefix";
 import { Suffix } from "./components/Suffix";
@@ -34,6 +35,13 @@ export function preview({
     showHelperText,
     helperText,
     reserveMessageSpace,
+    inputType,
+    autocomplete,
+    inputMode,
+    enableMaxLength,
+    maxLength,
+    spellCheck,
+    autoFocus,
     showPrefix,
     prefixContentType,
     prefixIcon,
@@ -90,15 +98,20 @@ export function preview({
                     onClick={() => undefined}
                 />
 
-                <input
+                <Input
                     id={previewInputId}
-                    className="advance-inputs__input"
-                    type="text"
+                    value=""
                     placeholder={placeholder || "Enter a value"}
+                    inputType={inputType}
+                    autocomplete={autocomplete}
+                    inputMode={inputMode}
+                    spellCheck={spellCheck}
+                    autoFocus={false}
+                    maxLength={enableMaxLength ? maxLength : undefined}
                     disabled
                     required={required}
-                    aria-required={required}
-                    aria-describedby={shouldShowHelperText ? helperTextId : undefined}
+                    ariaDescribedBy={shouldShowHelperText ? helperTextId : undefined}
+                    onChange={() => undefined}
                 />
 
                 <Suffix

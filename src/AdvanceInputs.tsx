@@ -1,6 +1,7 @@
 import { ChangeEvent, ReactElement, useId } from "react";
 
 import { HelperText } from "./components/HelperText";
+import { Input } from "./components/Input";
 import { Label } from "./components/Label";
 import { Prefix } from "./components/Prefix";
 import { Suffix } from "./components/Suffix";
@@ -22,6 +23,13 @@ export function AdvanceInputs({
     showHelperText,
     helperText,
     reserveMessageSpace,
+    inputType,
+    autocomplete,
+    inputMode,
+    enableMaxLength,
+    maxLength,
+    spellCheck,
+    autoFocus,
     showPrefix,
     prefixContentType,
     prefixIcon,
@@ -88,19 +96,25 @@ export function AdvanceInputs({
                     onClick={prefixActionHandler.execute}
                 />
 
-                <input
+                <Input
                     id={inputId}
-                    className="advance-inputs__input"
-                    type="text"
                     value={value}
                     placeholder={placeholder || ""}
+                    inputType={inputType}
+                    autocomplete={autocomplete}
+                    inputMode={inputMode}
+                    spellCheck={spellCheck}
+                    autoFocus={autoFocus}
+                    maxLength={enableMaxLength ? maxLength : undefined}
                     readOnly={isReadOnly}
-                    tabIndex={tabIndex}
-                    onChange={handleChange}
                     required={required}
-                    aria-required={required}
-                    aria-invalid={validationMessage ? true : undefined}
-                    aria-describedby={validationMessage ? validationId : shouldShowHelperText ? helperTextId : undefined}
+                    ariaInvalid={Boolean(validationMessage)}
+                    ariaDescribedBy={validationMessage ? validationId : shouldShowHelperText ? helperTextId : undefined}
+                    onChange={(newValue: string) => {
+                        if (!isReadOnly) {
+                            valueAttribute.setValue(newValue);
+                        }
+                    }}
                 />
 
                 <Suffix

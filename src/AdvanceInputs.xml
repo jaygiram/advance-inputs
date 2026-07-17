@@ -288,5 +288,115 @@
                 <caption>Accessibility label</caption>
             </property>
         </propertyGroup>
+
+        <propertyGroup caption="Input behavior">
+            <property
+                key="inputType"
+                type="enumeration"
+                defaultValue="text"
+            >
+                <caption>Input type</caption>
+                <description>
+                    Sets the native browser input type so the field can use the appropriate keyboard and validation behavior.
+                </description>
+                <enumerationValues>
+                    <enumerationValue key="text">Text</enumerationValue>
+                    <enumerationValue key="password">Password</enumerationValue>
+                    <enumerationValue key="email">Email</enumerationValue>
+                    <enumerationValue key="tel">Telephone</enumerationValue>
+                    <enumerationValue key="url">URL</enumerationValue>
+                    <enumerationValue key="search">Search</enumerationValue>
+                </enumerationValues>
+            </property>
+
+            <property
+                key="autocomplete"
+                type="enumeration"
+                defaultValue="off"
+            >
+                <caption>Autocomplete</caption>
+                <description>
+                    Sets the browser autocomplete hint so the input can participate in form autofill and saved-value suggestions.
+                </description>
+                <enumerationValues>
+                    <enumerationValue key="off">Off</enumerationValue>
+                    <enumerationValue key="on">On</enumerationValue>
+                    <enumerationValue key="name">Name</enumerationValue>
+                    <enumerationValue key="given-name">Given name</enumerationValue>
+                    <enumerationValue key="family-name">Family name</enumerationValue>
+                    <enumerationValue key="email">Email</enumerationValue>
+                    <enumerationValue key="username">Username</enumerationValue>
+                    <enumerationValue key="current-password">Current password</enumerationValue>
+                    <enumerationValue key="new-password">New password</enumerationValue>
+                    <enumerationValue key="tel">Telephone</enumerationValue>
+                    <enumerationValue key="organization">Organization</enumerationValue>
+                </enumerationValues>
+            </property>
+
+            <property
+                key="inputMode"
+                type="enumeration"
+                defaultValue="text"
+            >
+                <caption>Input mode</caption>
+                <description>
+                    Sets the browser input mode to influence the virtual keyboard shown on touch devices.
+                </description>
+                <enumerationValues>
+                    <enumerationValue key="text">Text</enumerationValue>
+                    <enumerationValue key="email">Email</enumerationValue>
+                    <enumerationValue key="tel">Telephone</enumerationValue>
+                    <enumerationValue key="url">URL</enumerationValue>
+                    <enumerationValue key="numeric">Numeric</enumerationValue>
+                    <enumerationValue key="decimal">Decimal</enumerationValue>
+                    <enumerationValue key="search">Search</enumerationValue>
+                    <enumerationValue key="none">None</enumerationValue>
+                </enumerationValues>
+            </property>
+
+            <property
+                key="enableMaxLength"
+                type="boolean"
+                defaultValue="false"
+            >
+                <caption>Limit maximum length</caption>
+                <description>
+                    Enables browser-based length validation so the input stops accepting additional characters when the maximum is reached.
+                </description>
+            </property>
+
+            <property
+                key="maxLength"
+                type="integer"
+                defaultValue="100"
+            >
+                <caption>Maximum length</caption>
+                <description>
+                    Sets the maximum number of characters the browser allows when length limiting is enabled.
+                </description>
+            </property>
+
+            <property
+                key="spellCheck"
+                type="boolean"
+                defaultValue="true"
+            >
+                <caption>Enable spellcheck</caption>
+                <description>
+                    Enables or disables browser spell checking for the input value.
+                </description>
+            </property>
+
+            <property
+                key="autoFocus"
+                type="boolean"
+                defaultValue="false"
+            >
+                <caption>Autofocus</caption>
+                <description>
+                    Gives focus to the input automatically when the widget is rendered in the browser.
+                </description>
+            </property>
+        </propertyGroup>
     </properties>
 </widget>

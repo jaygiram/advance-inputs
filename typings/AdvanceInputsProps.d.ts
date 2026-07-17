@@ -14,6 +14,23 @@ export type SuffixContentTypeEnum = "icon" | "text";
 
 export type SuffixAppearanceEnum = "plain" | "soft" | "outlined" | "filled" | "attached";
 
+export type InputTypeEnum = "text" | "password" | "email" | "tel" | "url" | "search";
+
+export type AutocompleteEnum =
+    | "off"
+    | "on"
+    | "name"
+    | "given-name"
+    | "family-name"
+    | "email"
+    | "username"
+    | "current-password"
+    | "new-password"
+    | "tel"
+    | "organization";
+
+export type InputModeEnum = "text" | "email" | "tel" | "url" | "numeric" | "decimal" | "search" | "none";
+
 export interface AdvanceInputsContainerProps {
     name: string;
     class: string;
@@ -46,6 +63,13 @@ export interface AdvanceInputsContainerProps {
     suffixAction?: ActionValue;
     suffixTooltip: string;
     suffixAriaLabel: string;
+    inputType: InputTypeEnum;
+    autocomplete: AutocompleteEnum;
+    inputMode: InputModeEnum;
+    enableMaxLength: boolean;
+    maxLength: number;
+    spellCheck: boolean;
+    autoFocus: boolean;
 }
 
 export interface AdvanceInputsPreviewProps {
@@ -94,4 +118,11 @@ export interface AdvanceInputsPreviewProps {
     suffixAction: {} | null;
     suffixTooltip: string;
     suffixAriaLabel: string;
+    inputType: InputTypeEnum;
+    autocomplete: AutocompleteEnum;
+    inputMode: InputModeEnum;
+    enableMaxLength: boolean;
+    maxLength: number | null;
+    spellCheck: boolean;
+    autoFocus: boolean;
 }
