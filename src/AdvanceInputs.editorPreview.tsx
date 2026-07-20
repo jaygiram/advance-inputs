@@ -82,7 +82,6 @@ export function preview({
     prefixContentType,
     prefixIcon,
     prefixText,
-    prefixAppearance,
     prefixInteractive,
     prefixTooltip,
     prefixAriaLabel,
@@ -116,7 +115,6 @@ export function preview({
      * This fallback prevents the preview build from failing when the
      * generated PreviewProps does not expose suffixAppearance.
      */
-    const previewSuffixAppearance = "plain" as const;
 
     const resolvedMaxLength =
         enableMaxLength &&
@@ -180,7 +178,6 @@ export function preview({
                     contentType={prefixContentType}
                     icon={resolvedPrefixIcon}
                     text={prefixText}
-                    appearance={prefixAppearance}
                     interactive={prefixInteractive}
                     ariaLabel={
                         prefixAriaLabel ||
@@ -212,7 +209,6 @@ export function preview({
                 {showClearButton ? (
                     <IconButton
                         position="suffix"
-                        appearance={previewSuffixAppearance}
                         contentType="icon"
                         ariaLabel={clearAriaLabel || "Clear input"}
                         tooltip={clearAriaLabel || "Clear input"}
@@ -230,7 +226,6 @@ export function preview({
                 {showPasswordToggle ? (
                     <IconButton
                         position="suffix"
-                        appearance={previewSuffixAppearance}
                         contentType="icon"
                         ariaLabel={passwordToggleLabel}
                         tooltip={passwordToggleLabel}
@@ -251,7 +246,6 @@ export function preview({
                         contentType={suffixContentType}
                         icon={resolvedSuffixIcon}
                         text={suffixText}
-                        appearance={previewSuffixAppearance}
                         interactive={suffixInteractive}
                         ariaLabel={
                             suffixAriaLabel ||

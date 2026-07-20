@@ -9,7 +9,6 @@ export interface SuffixProps {
     contentType: "icon" | "text";
     icon?: WebIcon;
     text: string;
-    appearance: "plain" | "soft" | "outlined" | "filled" | "attached";
 
     showAsButton?: boolean;
     buttonBackgroundColor?: string;
@@ -28,7 +27,6 @@ export function Suffix({
     contentType,
     icon,
     text,
-    appearance,
     showAsButton = false,
     buttonBackgroundColor,
     buttonIconColor,
@@ -75,7 +73,6 @@ export function Suffix({
                 text={contentType === "text" ? text : undefined}
                 contentType={contentType}
                 position="suffix"
-                appearance={appearance}
                 ariaLabel={ariaLabel}
                 tooltip={tooltip}
                 disabled={disabled}
@@ -92,7 +89,6 @@ export function Suffix({
             className={[
                 "advance-inputs__affix",
                 "advance-inputs__suffix",
-                `advance-inputs__affix--${appearance}`,
                 customClassName
             ]
                 .filter(Boolean)

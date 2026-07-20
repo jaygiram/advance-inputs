@@ -46,7 +46,6 @@ export function AdvanceInputs({
     prefixContentType,
     prefixIcon,
     prefixText,
-    prefixAppearance,
     prefixShowAsButton,
     prefixButtonBackgroundColor,
     prefixButtonIconColor,
@@ -59,7 +58,6 @@ export function AdvanceInputs({
     suffixContentType,
     suffixIcon,
     suffixText,
-    suffixAppearance,
     suffixShowAsButton,
     suffixButtonBackgroundColor,
     suffixButtonIconColor,
@@ -294,7 +292,6 @@ export function AdvanceInputs({
                     contentType={prefixContentType}
                     icon={prefixIcon?.value}
                     text={prefixText}
-                    appearance={prefixAppearance}
                     showAsButton={prefixShowAsButton}
                     buttonBackgroundColor={prefixButtonBackgroundColor}
                     buttonIconColor={prefixButtonIconColor}
@@ -332,7 +329,6 @@ export function AdvanceInputs({
                 {showClearButton ? (
                     <IconButton
                         position="suffix"
-                        appearance={suffixAppearance}
                         contentType="icon"
                         ariaLabel={clearAriaLabel || "Clear input"}
                         tooltip={clearAriaLabel || "Clear input"}
@@ -350,7 +346,6 @@ export function AdvanceInputs({
                 {showPasswordToggle ? (
                     <IconButton
                         position="suffix"
-                        appearance={suffixAppearance}
                         contentType="icon"
                         ariaLabel={passwordToggleLabel}
                         tooltip={passwordToggleLabel}
@@ -371,7 +366,6 @@ export function AdvanceInputs({
                         contentType={suffixContentType}
                         icon={suffixIcon?.value}
                         text={suffixText}
-                        appearance={suffixAppearance}
                         showAsButton={suffixShowAsButton}
                         buttonBackgroundColor={
                             suffixButtonBackgroundColor

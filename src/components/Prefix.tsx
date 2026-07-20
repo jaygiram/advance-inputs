@@ -9,7 +9,7 @@ export interface PrefixProps {
     contentType: "icon" | "text";
     icon?: WebIcon;
     text: string;
-    appearance: "plain" | "soft" | "outlined" | "filled" | "attached";
+
 
     showAsButton?: boolean;
     buttonBackgroundColor?: string;
@@ -28,7 +28,6 @@ export function Prefix({
     contentType,
     icon,
     text,
-    appearance,
     showAsButton = false,
     buttonBackgroundColor,
     buttonIconColor,
@@ -75,7 +74,6 @@ export function Prefix({
                 text={contentType === "text" ? text : undefined}
                 contentType={contentType}
                 position="prefix"
-                appearance={appearance}
                 ariaLabel={ariaLabel}
                 tooltip={tooltip}
                 disabled={disabled}
@@ -89,14 +87,16 @@ export function Prefix({
 
     return (
         <span
-            className={[
-                "advance-inputs__affix",
-                "advance-inputs__prefix",
-                `advance-inputs__affix--${appearance}`,
-                customClassName
-            ]
-                .filter(Boolean)
-                .join(" ")}
+           className={[
+    "advance-inputs__affix",
+    "advance-inputs__prefix",
+
+    showAsButton
+        ? "advance-inputs__affix--button-style"
+        : undefined
+]
+.filter(Boolean)
+.join(" ")}
             style={customStyle}
             aria-hidden="true"
             role="presentation"

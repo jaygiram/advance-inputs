@@ -8,11 +8,7 @@ import { CSSProperties } from "react";
 
 export type PrefixContentTypeEnum = "icon" | "text";
 
-export type PrefixAppearanceEnum = "plain" | "soft" | "outlined" | "filled" | "attached";
-
 export type SuffixContentTypeEnum = "icon" | "text";
-
-export type SuffixAppearanceEnum = "plain" | "soft" | "outlined" | "filled" | "attached";
 
 export type SuffixBehaviorEnum = "custom" | "clear" | "passwordToggle";
 
@@ -53,7 +49,6 @@ export interface AdvanceInputsContainerProps {
     prefixContentType: PrefixContentTypeEnum;
     prefixIcon?: DynamicValue<WebIcon>;
     prefixText: string;
-    prefixAppearance: PrefixAppearanceEnum;
     prefixShowAsButton: boolean;
     prefixButtonBackgroundColor: string;
     prefixButtonIconColor: string;
@@ -66,7 +61,6 @@ export interface AdvanceInputsContainerProps {
     suffixIcon?: DynamicValue<WebIcon>;
     suffixText: string;
     suffixShowAsButton: boolean;
-    suffixAppearance: SuffixAppearanceEnum;
     suffixButtonBackgroundColor: string;
     suffixButtonIconColor: string;
     suffixBehavior: SuffixBehaviorEnum;
@@ -120,7 +114,6 @@ export interface AdvanceInputsPreviewProps {
         | { type: "icon"; iconClass: string }
         | undefined;
     prefixText: string;
-    prefixAppearance: PrefixAppearanceEnum;
     prefixShowAsButton: boolean;
     prefixButtonBackgroundColor: string;
     prefixButtonIconColor: string;
@@ -137,7 +130,6 @@ export interface AdvanceInputsPreviewProps {
         | undefined;
     suffixText: string;
     suffixShowAsButton: boolean;
-    suffixAppearance: SuffixAppearanceEnum;
     suffixButtonBackgroundColor: string;
     suffixButtonIconColor: string;
     suffixBehavior: SuffixBehaviorEnum;

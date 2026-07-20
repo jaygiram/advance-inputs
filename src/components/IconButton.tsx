@@ -8,7 +8,6 @@ export interface IconButtonProps {
     text?: string;
     contentType: "icon" | "text";
     position: "prefix" | "suffix";
-    appearance: "plain" | "soft" | "outlined" | "filled" | "attached";
     ariaLabel: string;
     tooltip?: string;
     disabled?: boolean;
@@ -34,7 +33,6 @@ export function IconButton({
     text,
     contentType,
     position,
-    appearance,
     ariaLabel,
     tooltip,
     disabled,
@@ -61,7 +59,6 @@ export function IconButton({
         position === "prefix"
             ? "advance-inputs__prefix"
             : "advance-inputs__suffix",
-        `advance-inputs__affix--${appearance}`,
         disabled || isExecuting
             ? "advance-inputs__affix-button--disabled"
             : undefined,

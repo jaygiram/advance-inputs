@@ -162,21 +162,7 @@
                 <description/>
             </property>
 
-            <property
-                key="prefixAppearance"
-                type="enumeration"
-                defaultValue="plain"
-            >
-                <caption>Prefix appearance</caption>
-                <description/>
-                <enumerationValues>
-                    <enumerationValue key="plain">Plain</enumerationValue>
-                    <enumerationValue key="soft">Soft</enumerationValue>
-                    <enumerationValue key="outlined">Outlined</enumerationValue>
-                    <enumerationValue key="filled">Filled</enumerationValue>
-                    <enumerationValue key="attached">Attached</enumerationValue>
-                </enumerationValues>
-            </property>
+
 
 <property
     key="prefixShowAsButton"
@@ -302,24 +288,6 @@
     <description>
         Displays the custom suffix content with button-style colors. This setting applies only when Suffix behavior is Custom content.
     </description>
-</property><property
-    key="suffixAppearance"
-    type="enumeration"
-    defaultValue="plain"
->
-    <caption>Suffix appearance</caption>
-
-    <description>
-        Select the visual appearance of the suffix.
-    </description>
-
-    <enumerationValues>
-        <enumerationValue key="plain">Plain</enumerationValue>
-        <enumerationValue key="soft">Soft</enumerationValue>
-        <enumerationValue key="outlined">Outlined</enumerationValue>
-        <enumerationValue key="filled">Filled</enumerationValue>
-        <enumerationValue key="attached">Attached</enumerationValue>
-    </enumerationValues>
 </property>
 
 <property

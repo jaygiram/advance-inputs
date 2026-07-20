@@ -57,7 +57,7 @@
 
 .advance-inputs__control:focus-within {
     border-color: var(--advance-inputs-focus-color, #2563eb);
-    box-shadow: 0 0 0 3px var(--advance-inputs-focus-ring, rgba(37, 99, 235, 0.18));
+    box-shadow: 0 0 0 2px var(--advance-inputs-focus-ring, rgba(37, 100, 235, 0.11));
 }
 
 .advance-inputs__input {
@@ -99,7 +99,7 @@
     flex-shrink: 0;
     min-width: 40px;
     min-height: 100%;
-    padding: 0 10px;
+    padding: 11px 10px;
     color: var(--advance-inputs-affix-color, #555);
     background-color: var(--advance-inputs-affix-background, #f5f6f8);
     user-select: none;
@@ -111,38 +111,6 @@
 }
 
 .advance-inputs__suffix {
-    border-left: 1px solid var(--advance-inputs-affix-border, #cdd3da);
-}
-
-.advance-inputs__affix--plain {
-    background-color: transparent;
-}
-
-.advance-inputs__affix--soft {
-    background-color: var(--advance-inputs-affix-soft-background, #f8f9fb);
-}
-
-.advance-inputs__affix--outlined {
-    background-color: transparent;
-    border: 1px solid var(--advance-inputs-affix-border, #cdd3da);
-}
-
-.advance-inputs__affix--filled {
-    background-color: var(--advance-inputs-affix-background, #f5f6f8);
-}
-
-.advance-inputs__affix--attached {
-    background-color: transparent;
-    border: 0;
-}
-
-.advance-inputs__prefix.advance-inputs__affix--outlined,
-.advance-inputs__prefix.advance-inputs__affix--attached {
-    border-right: 1px solid var(--advance-inputs-affix-border, #cdd3da);
-}
-
-.advance-inputs__suffix.advance-inputs__affix--outlined,
-.advance-inputs__suffix.advance-inputs__affix--attached {
     border-left: 1px solid var(--advance-inputs-affix-border, #cdd3da);
 }
 
@@ -212,7 +180,7 @@
 .advance-inputs__affix-button:focus-visible {
     outline: 2px solid var(--advance-inputs-focus-color, #2563eb);
     outline-offset: -2px;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.16);
+    box-shadow: 0 0 0 1px rgba(37, 100, 235, 0.103);
 }
 
 .advance-inputs__affix-button--disabled {
@@ -245,7 +213,7 @@
 
 .advance-inputs--invalid .advance-inputs__control:focus-within {
     border-color: var(--advance-inputs-invalid-color, #d14343);
-    box-shadow: 0 0 0 3px var(--advance-inputs-invalid-ring, rgba(209, 67, 67, 0.16));
+    box-shadow: 0 0 0 2px var(--advance-inputs-invalid-ring, rgba(209, 67, 67, 0.16));
 }
 
 .advance-inputs--invalid .advance-inputs__validation {
@@ -288,12 +256,11 @@
     font-size: 10px;
     line-height: 18px;
 
-    color: var(--advance-input-helper-color);
-
+    color: var(--advance-inputs-muted-color, #6b7280);
     user-select: none;
 }
 
 .advance-inputs__character-counter--exceeded {
-    color: var(--advance-input-danger-color);
+   color: var(--advance-inputs-invalid-color, #d14343);
     font-weight: 600;
 }
