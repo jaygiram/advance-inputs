@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { CSSProperties, ReactElement } from "react";
 import type { WebIcon } from "mendix";
 
 import { IconButton } from "./IconButton";
@@ -10,6 +10,11 @@ export interface PrefixProps {
     icon?: WebIcon;
     text: string;
     appearance: "plain" | "soft" | "outlined" | "filled" | "attached";
+
+    showAsButton?: boolean;
+    buttonBackgroundColor?: string;
+    buttonIconColor?: string;
+
     interactive: boolean;
     ariaLabel: string;
     tooltip?: string;
@@ -24,6 +29,9 @@ export function Prefix({
     icon,
     text,
     appearance,
+    showAsButton = false,
+    buttonBackgroundColor,
+    buttonIconColor,
     interactive,
     ariaLabel,
     tooltip,
@@ -46,6 +54,20 @@ export function Prefix({
         return null;
     }
 
+    const resolvedBackgroundColor = buttonBackgroundColor?.trim();
+    const resolvedIconColor = buttonIconColor?.trim();
+
+    const customStyle: CSSProperties | undefined = showAsButton
+        ? {
+              backgroundColor: resolvedBackgroundColor || undefined,
+              color: resolvedIconColor || undefined
+          }
+        : undefined;
+
+    const customClassName = showAsButton
+        ? "advance-inputs__affix--button-style"
+        : "advance-inputs__affix--simple-icon";
+
     if (interactive) {
         return (
             <IconButton
@@ -59,6 +81,8 @@ export function Prefix({
                 disabled={disabled}
                 isExecuting={isExecuting}
                 onClick={onClick || (() => undefined)}
+                className={customClassName}
+                style={customStyle}
             />
         );
     }
@@ -68,8 +92,12 @@ export function Prefix({
             className={[
                 "advance-inputs__affix",
                 "advance-inputs__prefix",
-                `advance-inputs__affix--${appearance}`
-            ].join(" ")}
+                `advance-inputs__affix--${appearance}`,
+                customClassName
+            ]
+                .filter(Boolean)
+                .join(" ")}
+            style={customStyle}
             aria-hidden="true"
             role="presentation"
         >

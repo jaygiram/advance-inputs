@@ -13,42 +13,55 @@ import { usePasswordVisibility } from "./hooks/usePasswordVisibility";
 
 import "./ui/AdvanceInputs.css";
 
-
-
 export function AdvanceInputs({
     valueAttribute,
     placeholder,
     class: className,
     style,
     tabIndex,
+
     showLabel,
     labelText,
     required,
     requiredIndicator,
+
     showHelperText,
     helperText,
     reserveMessageSpace,
+
     inputType,
     autocomplete,
     inputMode,
+    validationType,
+    numericValidationMessage,
+    decimalValidationMessage,
+    maxLengthValidationMessage,
     enableMaxLength,
     maxLength,
     spellCheck,
     autoFocus,
+
     showPrefix,
     prefixContentType,
     prefixIcon,
     prefixText,
     prefixAppearance,
+    prefixShowAsButton,
+    prefixButtonBackgroundColor,
+    prefixButtonIconColor,
     prefixInteractive,
     prefixAction,
     prefixTooltip,
     prefixAriaLabel,
+
     showSuffix,
     suffixContentType,
     suffixIcon,
     suffixText,
     suffixAppearance,
+    suffixShowAsButton,
+    suffixButtonBackgroundColor,
+    suffixButtonIconColor,
     suffixBehavior,
     clearAriaLabel,
     showPasswordAriaLabel,
@@ -65,11 +78,70 @@ export function AdvanceInputs({
 
     const value = valueAttribute.value ?? "";
     const isReadOnly = valueAttribute.readOnly;
-    const validationMessage = valueAttribute.validation;
-    const hasValidationMessage = Boolean(validationMessage?.trim());
+    const mendixValidationMessage = valueAttribute.validation;
 
-    const { isPasswordVisible, togglePasswordVisibility, resetPasswordVisibility } =
-        usePasswordVisibility();
+    const resolvedMaxLength =
+        enableMaxLength &&
+            typeof maxLength === "number" &&
+            maxLength > 0
+            ? maxLength
+            : undefined;
+
+    const getWidgetValidationMessage = (
+        inputValue: string
+    ): string | undefined => {
+        if (
+            resolvedMaxLength !== undefined &&
+            inputValue.length > resolvedMaxLength
+        ) {
+            return (
+                maxLengthValidationMessage?.trim() ||
+                `Maximum ${resolvedMaxLength} characters are allowed.`
+            );
+        }
+
+        if (
+            validationType === "numeric" &&
+            inputValue.length > 0 &&
+            !/^\d+$/.test(inputValue)
+        ) {
+            return (
+                numericValidationMessage?.trim() ||
+                "Please enter numbers only."
+            );
+        }
+
+        if (
+            validationType === "decimal" &&
+            inputValue.length > 0 &&
+            !/^\d+(\.\d+)?$/.test(inputValue)
+        ) {
+            return (
+                decimalValidationMessage?.trim() ||
+                "Please enter a valid decimal number."
+            );
+        }
+
+        return undefined;
+    };
+    const widgetValidationMessage = getWidgetValidationMessage(value);
+
+    /*
+     * Mendix validation always has the highest priority.
+     * Widget validation is displayed only when Mendix has no validation message.
+     */
+    const validationMessage =
+        mendixValidationMessage?.trim() ||
+        widgetValidationMessage;
+
+    const hasValidationMessage = Boolean(validationMessage?.trim());
+    const hasValue = value.length > 0;
+
+    const {
+        isPasswordVisible,
+        togglePasswordVisibility,
+        resetPasswordVisibility
+    } = usePasswordVisibility();
 
     const prefixActionHandler = useActionHandler({
         action: prefixAction,
@@ -89,22 +161,14 @@ export function AdvanceInputs({
         !hasValidationMessage &&
         !shouldShowHelperText;
 
-    const resolvedMaxLength =
-        enableMaxLength &&
-        typeof maxLength === "number" &&
-        maxLength > 0
-            ? maxLength
-            : undefined;
 
     const effectiveInputType =
         inputType === "password" &&
-        suffixBehavior === "passwordToggle"
+            suffixBehavior === "passwordToggle"
             ? isPasswordVisible
                 ? "text"
                 : "password"
             : inputType;
-
-    const hasValue = value.length > 0;
 
     const showClearButton =
         suffixBehavior === "clear" &&
@@ -147,10 +211,15 @@ export function AdvanceInputs({
 
     const describedByIds = [
         hasValidationMessage ? validationId : undefined,
-        !hasValidationMessage && shouldShowHelperText ? helperTextId : undefined
+        !hasValidationMessage && shouldShowHelperText
+            ? helperTextId
+            : undefined
     ].filter(Boolean);
 
-    const describedById = describedByIds.length > 0 ? describedByIds.join(" ") : undefined;
+    const describedById =
+        describedByIds.length > 0
+            ? describedByIds.join(" ")
+            : undefined;
 
     const passwordToggleLabel = isPasswordVisible
         ? hidePasswordAriaLabel || "Hide password"
@@ -174,7 +243,10 @@ export function AdvanceInputs({
     };
 
     return (
-        <div className={widgetClassName} style={style}>
+        <div
+            className={widgetClassName}
+            style={style}
+        >
             <Label
                 show={showLabel}
                 text={labelText}
@@ -190,6 +262,9 @@ export function AdvanceInputs({
                     icon={prefixIcon?.value}
                     text={prefixText}
                     appearance={prefixAppearance}
+                    showAsButton={prefixShowAsButton}
+                    buttonBackgroundColor={prefixButtonBackgroundColor}
+                    buttonIconColor={prefixButtonIconColor}
                     interactive={prefixInteractive}
                     ariaLabel={
                         prefixAriaLabel ||
@@ -211,7 +286,7 @@ export function AdvanceInputs({
                     inputMode={inputMode}
                     spellCheck={spellCheck}
                     autoFocus={autoFocus}
-                    maxLength={resolvedMaxLength}
+                    maxLength={undefined}
                     tabIndex={tabIndex}
                     readOnly={isReadOnly}
                     required={required}
@@ -263,6 +338,11 @@ export function AdvanceInputs({
                         icon={suffixIcon?.value}
                         text={suffixText}
                         appearance={suffixAppearance}
+                        showAsButton={suffixShowAsButton}
+                        buttonBackgroundColor={
+                            suffixButtonBackgroundColor
+                        }
+                        buttonIconColor={suffixButtonIconColor}
                         interactive={suffixInteractive}
                         ariaLabel={
                             suffixAriaLabel ||
@@ -277,7 +357,7 @@ export function AdvanceInputs({
                 ) : null}
             </div>
 
-            {validationMessage ? (
+            {hasValidationMessage ? (
                 <div
                     id={validationId}
                     className="advance-inputs__validation"
@@ -287,7 +367,7 @@ export function AdvanceInputs({
                 </div>
             ) : null}
 
-            {!validationMessage && shouldShowHelperText ? (
+            {!hasValidationMessage && shouldShowHelperText ? (
                 <HelperText
                     show
                     text={helperText}

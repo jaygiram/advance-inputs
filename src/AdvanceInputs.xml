@@ -178,6 +178,40 @@
                 </enumerationValues>
             </property>
 
+<property
+    key="prefixShowAsButton"
+    type="boolean"
+    defaultValue="false"
+>
+    <caption>Show as button</caption>
+    <description>
+        Displays the prefix content with button-style colors. This visual option is independent from the Interactive setting.
+    </description>
+</property>
+
+<property
+    key="prefixButtonBackgroundColor"
+    type="string"
+    required="false"
+    defaultValue=""
+>
+    <caption>Button background color</caption>
+    <description>
+        Optional CSS color used as the prefix button background, such as #2563EB or rgb(37, 99, 235). Leave empty to use the selected prefix appearance.
+    </description>
+</property>
+
+<property
+    key="prefixButtonIconColor"
+    type="string"
+    required="false"
+    defaultValue=""
+>
+    <caption>Button icon color</caption>
+    <description>
+        Optional CSS color used for the prefix icon or text. Leave empty to use the default affix color.
+    </description>
+</property>
             <property
                 key="prefixInteractive"
                 type="boolean"
@@ -259,21 +293,58 @@
                 <description/>
             </property>
 
-            <property
-                key="suffixAppearance"
-                type="enumeration"
-                defaultValue="plain"
-            >
-                <caption>Suffix appearance</caption>
-                <description/>
-                <enumerationValues>
-                    <enumerationValue key="plain">Plain</enumerationValue>
-                    <enumerationValue key="soft">Soft</enumerationValue>
-                    <enumerationValue key="outlined">Outlined</enumerationValue>
-                    <enumerationValue key="filled">Filled</enumerationValue>
-                    <enumerationValue key="attached">Attached</enumerationValue>
-                </enumerationValues>
-            </property>
+           <property
+    key="suffixShowAsButton"
+    type="boolean"
+    defaultValue="false"
+>
+    <caption>Show as button</caption>
+    <description>
+        Displays the custom suffix content with button-style colors. This setting applies only when Suffix behavior is Custom content.
+    </description>
+</property><property
+    key="suffixAppearance"
+    type="enumeration"
+    defaultValue="plain"
+>
+    <caption>Suffix appearance</caption>
+
+    <description>
+        Select the visual appearance of the suffix.
+    </description>
+
+    <enumerationValues>
+        <enumerationValue key="plain">Plain</enumerationValue>
+        <enumerationValue key="soft">Soft</enumerationValue>
+        <enumerationValue key="outlined">Outlined</enumerationValue>
+        <enumerationValue key="filled">Filled</enumerationValue>
+        <enumerationValue key="attached">Attached</enumerationValue>
+    </enumerationValues>
+</property>
+
+<property
+    key="suffixButtonBackgroundColor"
+    type="string"
+    required="false"
+    defaultValue=""
+>
+    <caption>Button background color</caption>
+    <description>
+        Optional CSS color used as the custom suffix button background, such as #2563EB or rgb(37, 99, 235). Leave empty to use the selected suffix appearance.
+    </description>
+</property>
+
+<property
+    key="suffixButtonIconColor"
+    type="string"
+    required="false"
+    defaultValue=""
+>
+    <caption>Button icon color</caption>
+    <description>
+        Optional CSS color used for the custom suffix icon or text. Leave empty to use the default affix color.
+    </description>
+</property>
 
             <property
                 key="suffixBehavior"
@@ -442,6 +513,58 @@
                     <enumerationValue key="none">None</enumerationValue>
                 </enumerationValues>
             </property>
+            <property
+    key="validationType"
+    type="enumeration"
+    defaultValue="none"
+>
+    <caption>Input validation</caption>
+    <description>
+        Validates the entered text before storing it in the selected Mendix String attribute.
+    </description>
+
+    <enumerationValues>
+        <enumerationValue key="none">No additional validation</enumerationValue>
+        <enumerationValue key="numeric">Numbers only</enumerationValue>
+        <enumerationValue key="decimal">Decimal number</enumerationValue>
+    </enumerationValues>
+</property>
+
+<property
+    key="numericValidationMessage"
+    type="string"
+    required="false"
+    defaultValue="Please enter numbers only."
+>
+    <caption>Numbers-only validation message</caption>
+    <description>
+        Message shown when Input validation is set to Numbers only and the entered value contains unsupported characters.
+    </description>
+</property>
+
+<property
+    key="decimalValidationMessage"
+    type="string"
+    required="false"
+    defaultValue="Please enter a valid decimal number."
+>
+    <caption>Decimal validation message</caption>
+    <description>
+        Message shown when Input validation is set to Decimal number and the entered value is not a valid decimal value.
+    </description>
+</property>
+
+<property
+    key="maxLengthValidationMessage"
+    type="string"
+    required="false"
+    defaultValue="The maximum character limit has been exceeded."
+>
+    <caption>Maximum-length validation message</caption>
+    <description>
+        Message shown when the entered value exceeds the configured maximum length.
+    </description>
+</property>
 
             <property
                 key="enableMaxLength"
@@ -465,10 +588,6 @@
                 </description>
             </property>
 
-   
-           
-
-     
 
             <property
                 key="spellCheck"

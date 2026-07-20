@@ -17,7 +17,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
     width: 100%;
     font-family: inherit;
     color: var(--advance-inputs-text-color, #1f2937);
@@ -27,7 +27,9 @@
     display: block;
     font-size: 12px;
     font-weight: 600;
-    color: var(--advance-inputs-text-color, #1f2937);
+    color: var(--advance-inputs-text-color, #404040);
+    margin-left: 2px;
+    margin-bottom: 2px !important;
 }
 
 .advance-inputs__required-indicator {
@@ -40,7 +42,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    min-height: 42px;
+    min-height: 38px;
     border: 1px solid var(--advance-inputs-border-color, #cdd3da);
     border-radius: var(--advance-inputs-radius, 10px);
     background-color: var(--advance-inputs-background, #ffffff);
@@ -64,7 +66,7 @@
     width: 100%;
     border: 0;
     background: transparent;
-    padding: 10px 12px;
+    padding: 8px 12px;
     font: inherit;
     color: inherit;
     line-height: 1.4;
@@ -147,8 +149,9 @@
 .advance-inputs__helper-text,
 .advance-inputs__validation,
 .advance-inputs__message-spacer {
-    font-size: 12px;
+    font-size: 10px;
     line-height: 1.4;
+    MARGIN-LEFT: 2px;
 }
 
 .advance-inputs__helper-text {
@@ -190,7 +193,7 @@
     justify-content: center;
     flex-shrink: 0;
     min-width: 44px;
-    min-height: 44px;
+    min-height: 38px;
     padding: 0 10px;
     color: var(--advance-inputs-affix-color, #555);
     background-color: transparent;
@@ -218,7 +221,7 @@
 }
 
 .advance-inputs__affix-button:disabled {
-    cursor: not-allowed;
+    cursor: default;
     opacity: 0.65;
     transform: none;
 }

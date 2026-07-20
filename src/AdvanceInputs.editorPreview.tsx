@@ -69,6 +69,7 @@ export function preview({
     showHelperText,
     helperText,
     reserveMessageSpace,
+
     inputType,
     autocomplete,
     inputMode,
@@ -76,6 +77,7 @@ export function preview({
     maxLength,
     spellCheck,
     autoFocus: _autoFocus,
+
     showPrefix,
     prefixContentType,
     prefixIcon,
@@ -84,11 +86,11 @@ export function preview({
     prefixInteractive,
     prefixTooltip,
     prefixAriaLabel,
+
     showSuffix,
     suffixContentType,
     suffixIcon,
     suffixText,
-    suffixAppearance,
     suffixBehavior,
     clearAriaLabel,
     showPasswordAriaLabel,
@@ -107,6 +109,15 @@ export function preview({
     const resolvedPrefixIcon = resolvePreviewIcon(prefixIcon);
     const resolvedSuffixIcon = resolvePreviewIcon(suffixIcon);
 
+    /*
+     * Temporary Studio Pro preview fallback.
+     *
+     * The runtime widget still receives suffixAppearance normally.
+     * This fallback prevents the preview build from failing when the
+     * generated PreviewProps does not expose suffixAppearance.
+     */
+    const previewSuffixAppearance = "plain" as const;
+
     const resolvedMaxLength =
         enableMaxLength &&
         typeof maxLength === "number" &&
@@ -115,7 +126,8 @@ export function preview({
             : undefined;
 
     const showClearButton =
-        suffixBehavior === "clear" && !hideClearWhenEmpty;
+        suffixBehavior === "clear" &&
+        !hideClearWhenEmpty;
 
     const showPasswordToggle =
         suffixBehavior === "passwordToggle" &&
@@ -200,7 +212,7 @@ export function preview({
                 {showClearButton ? (
                     <IconButton
                         position="suffix"
-                        appearance={suffixAppearance}
+                        appearance={previewSuffixAppearance}
                         contentType="icon"
                         ariaLabel={clearAriaLabel || "Clear input"}
                         tooltip={clearAriaLabel || "Clear input"}
@@ -218,7 +230,7 @@ export function preview({
                 {showPasswordToggle ? (
                     <IconButton
                         position="suffix"
-                        appearance={suffixAppearance}
+                        appearance={previewSuffixAppearance}
                         contentType="icon"
                         ariaLabel={passwordToggleLabel}
                         tooltip={passwordToggleLabel}
@@ -239,7 +251,7 @@ export function preview({
                         contentType={suffixContentType}
                         icon={resolvedSuffixIcon}
                         text={suffixText}
-                        appearance={suffixAppearance}
+                        appearance={previewSuffixAppearance}
                         interactive={suffixInteractive}
                         ariaLabel={
                             suffixAriaLabel ||

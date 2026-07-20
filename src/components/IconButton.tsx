@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { CSSProperties, ReactElement, ReactNode } from "react";
 import type { WebIcon } from "mendix";
 
 import { renderWebIcon } from "../utils/renderWebIcon";
@@ -15,6 +15,18 @@ export interface IconButtonProps {
     isExecuting?: boolean;
     onClick: () => void;
     children?: ReactNode;
+
+    /**
+     * Optional additional class used for visual variants such as
+     * the configurable prefix or suffix button appearance.
+     */
+    className?: string;
+
+    /**
+     * Optional inline styles supplied by the parent component.
+     * This is used for Mendix-configured background and icon colors.
+     */
+    style?: CSSProperties;
 }
 
 export function IconButton({
@@ -28,9 +40,12 @@ export function IconButton({
     disabled,
     isExecuting,
     onClick,
-    children
+    children,
+    className,
+    style
 }: IconButtonProps): ReactElement | null {
     const hasChildren = Boolean(children);
+
     const shouldRender =
         hasChildren ||
         (contentType === "icon" && Boolean(icon)) ||
@@ -43,13 +58,24 @@ export function IconButton({
     const buttonClassName = [
         "advance-inputs__affix",
         "advance-inputs__affix-button",
-        position === "prefix" ? "advance-inputs__prefix" : "advance-inputs__suffix",
+        position === "prefix"
+            ? "advance-inputs__prefix"
+            : "advance-inputs__suffix",
         `advance-inputs__affix--${appearance}`,
-        disabled || isExecuting ? "advance-inputs__affix-button--disabled" : null,
-        isExecuting ? "advance-inputs__affix-button--loading" : null
-    ].filter(Boolean).join(" ");
+        disabled || isExecuting
+            ? "advance-inputs__affix-button--disabled"
+            : undefined,
+        isExecuting
+            ? "advance-inputs__affix-button--loading"
+            : undefined,
+        className
+    ]
+        .filter(Boolean)
+        .join(" ");
 
-    const resolvedAriaLabel = ariaLabel?.trim() || (position === "prefix" ? "Prefix action" : "Suffix action");
+    const resolvedAriaLabel =
+        ariaLabel?.trim() ||
+        (position === "prefix" ? "Prefix action" : "Suffix action");
 
     const handleClick = (): void => {
         if (disabled || isExecuting) {
@@ -63,6 +89,7 @@ export function IconButton({
         <button
             type="button"
             className={buttonClassName}
+            style={style}
             aria-label={resolvedAriaLabel}
             title={tooltip || undefined}
             disabled={disabled || isExecuting}
@@ -70,8 +97,17 @@ export function IconButton({
             aria-busy={isExecuting || undefined}
             onClick={handleClick}
         >
-            {children ?? (contentType === "icon" ? renderWebIcon(icon) : text)}
-            {isExecuting ? <span className="advance-inputs__affix-loader" aria-hidden="true" /> : null}
+            {children ??
+                (contentType === "icon"
+                    ? renderWebIcon(icon)
+                    : text)}
+
+            {isExecuting ? (
+                <span
+                    className="advance-inputs__affix-loader"
+                    aria-hidden="true"
+                />
+            ) : null}
         </button>
     );
 }

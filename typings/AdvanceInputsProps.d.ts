@@ -33,6 +33,8 @@ export type AutocompleteEnum =
 
 export type InputModeEnum = "text" | "email" | "tel" | "url" | "numeric" | "decimal" | "search" | "none";
 
+export type ValidationTypeEnum = "none" | "numeric" | "decimal";
+
 export interface AdvanceInputsContainerProps {
     name: string;
     class: string;
@@ -52,6 +54,9 @@ export interface AdvanceInputsContainerProps {
     prefixIcon?: DynamicValue<WebIcon>;
     prefixText: string;
     prefixAppearance: PrefixAppearanceEnum;
+    prefixShowAsButton: boolean;
+    prefixButtonBackgroundColor: string;
+    prefixButtonIconColor: string;
     prefixInteractive: boolean;
     prefixAction?: ActionValue;
     prefixTooltip: string;
@@ -60,7 +65,10 @@ export interface AdvanceInputsContainerProps {
     suffixContentType: SuffixContentTypeEnum;
     suffixIcon?: DynamicValue<WebIcon>;
     suffixText: string;
+    suffixShowAsButton: boolean;
     suffixAppearance: SuffixAppearanceEnum;
+    suffixButtonBackgroundColor: string;
+    suffixButtonIconColor: string;
     suffixBehavior: SuffixBehaviorEnum;
     clearAriaLabel: string;
     showPasswordAriaLabel: string;
@@ -73,6 +81,10 @@ export interface AdvanceInputsContainerProps {
     inputType: InputTypeEnum;
     autocomplete: AutocompleteEnum;
     inputMode: InputModeEnum;
+    validationType: ValidationTypeEnum;
+    numericValidationMessage: string;
+    decimalValidationMessage: string;
+    maxLengthValidationMessage: string;
     enableMaxLength: boolean;
     maxLength: number;
     spellCheck: boolean;
@@ -108,6 +120,9 @@ export interface AdvanceInputsPreviewProps {
         | undefined;
     prefixText: string;
     prefixAppearance: PrefixAppearanceEnum;
+    prefixShowAsButton: boolean;
+    prefixButtonBackgroundColor: string;
+    prefixButtonIconColor: string;
     prefixInteractive: boolean;
     prefixAction: {} | null;
     prefixTooltip: string;
@@ -120,7 +135,10 @@ export interface AdvanceInputsPreviewProps {
         | { type: "icon"; iconClass: string }
         | undefined;
     suffixText: string;
+    suffixShowAsButton: boolean;
     suffixAppearance: SuffixAppearanceEnum;
+    suffixButtonBackgroundColor: string;
+    suffixButtonIconColor: string;
     suffixBehavior: SuffixBehaviorEnum;
     clearAriaLabel: string;
     showPasswordAriaLabel: string;
@@ -133,6 +151,10 @@ export interface AdvanceInputsPreviewProps {
     inputType: InputTypeEnum;
     autocomplete: AutocompleteEnum;
     inputMode: InputModeEnum;
+    validationType: ValidationTypeEnum;
+    numericValidationMessage: string;
+    decimalValidationMessage: string;
+    maxLengthValidationMessage: string;
     enableMaxLength: boolean;
     maxLength: number | null;
     spellCheck: boolean;
