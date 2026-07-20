@@ -555,6 +555,39 @@
 </property>
 
 <property
+    key="enableMaxLength"
+    type="boolean"
+    defaultValue="false"
+>
+    <caption>Limit maximum length</caption>
+    <description>
+        Enables maximum-length validation for the input.
+    </description>
+</property>
+
+<property
+    key="maxLength"
+    type="integer"
+    defaultValue="200"
+>
+    <caption>Maximum length</caption>
+    <description>
+        Sets the maximum number of characters allowed when length limiting is enabled.
+    </description>
+</property>
+
+<property
+    key="showCharacterCounter"
+    type="boolean"
+    defaultValue="false"
+>
+    <caption>Show character counter</caption>
+    <description>
+        Displays the current number of entered characters together with the configured maximum length.
+    </description>
+</property>
+
+<property
     key="maxLengthValidationMessage"
     type="string"
     required="false"
@@ -566,50 +599,27 @@
     </description>
 </property>
 
-            <property
-                key="enableMaxLength"
-                type="boolean"
-                defaultValue="false"
-            >
-                <caption>Limit maximum length</caption>
-                <description>
-                    Enables browser-based length validation so the input stops accepting additional characters when the maximum is reached.
-                </description>
-            </property>
+<property
+    key="spellCheck"
+    type="boolean"
+    defaultValue="true"
+>
+    <caption>Enable spellcheck</caption>
+    <description>
+        Enables or disables browser spell checking for the input value.
+    </description>
+</property>
 
-            <property
-                key="maxLength"
-                type="integer"
-                defaultValue="100"
-            >
-                <caption>Maximum length</caption>
-                <description>
-                    Sets the maximum number of characters the browser allows when length limiting is enabled.
-                </description>
-            </property>
-
-
-            <property
-                key="spellCheck"
-                type="boolean"
-                defaultValue="true"
-            >
-                <caption>Enable spellcheck</caption>
-                <description>
-                    Enables or disables browser spell checking for the input value.
-                </description>
-            </property>
-
-            <property
-                key="autoFocus"
-                type="boolean"
-                defaultValue="false"
-            >
-                <caption>Autofocus</caption>
-                <description>
-                    Gives focus to the input automatically when the widget is rendered in the browser.
-                </description>
-            </property>
+<property
+    key="autoFocus"
+    type="boolean"
+    defaultValue="false"
+>
+    <caption>Autofocus</caption>
+    <description>
+        Gives focus to the input automatically when the widget is rendered in the browser.
+    </description>
+</property>
         </propertyGroup>
     </properties>
 </widget>

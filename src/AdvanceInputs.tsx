@@ -1,4 +1,4 @@
-import { ReactElement, useId } from "react";
+import { ReactElement, useId, useState } from "react";
 
 import { AdvanceInputsContainerProps } from "../typings/AdvanceInputsProps";
 import { BuiltInIcon } from "./components/BuiltInIcon";
@@ -38,6 +38,7 @@ export function AdvanceInputs({
     maxLengthValidationMessage,
     enableMaxLength,
     maxLength,
+    showCharacterCounter,
     spellCheck,
     autoFocus,
 
@@ -76,6 +77,9 @@ export function AdvanceInputs({
     const validationId = `${inputId}-validation`;
     const helperTextId = `${inputId}-helper`;
 
+    const [hasValidationStarted, setHasValidationStarted] =
+        useState(false);
+
     const value = valueAttribute.value ?? "";
     const isReadOnly = valueAttribute.readOnly;
     const mendixValidationMessage = valueAttribute.validation;
@@ -86,6 +90,22 @@ export function AdvanceInputs({
             maxLength > 0
             ? maxLength
             : undefined;
+
+    const shouldShowCharacterCounter =
+        showCharacterCounter &&
+        resolvedMaxLength !== undefined;
+
+    const characterCount = value.length;
+
+    const characterCounterClassName = [
+        "advance-inputs__character-counter",
+        resolvedMaxLength !== undefined &&
+            characterCount > resolvedMaxLength
+            ? "advance-inputs__character-counter--exceeded"
+            : undefined
+    ]
+        .filter(Boolean)
+        .join(" ");
 
     const getWidgetValidationMessage = (
         inputValue: string
@@ -124,8 +144,13 @@ export function AdvanceInputs({
 
         return undefined;
     };
-    const widgetValidationMessage = getWidgetValidationMessage(value);
+    const currentWidgetValidationMessage =
+        getWidgetValidationMessage(value);
 
+    const widgetValidationMessage =
+        hasValidationStarted
+            ? currentWidgetValidationMessage
+            : undefined;
     /*
      * Mendix validation always has the highest priority.
      * Widget validation is displayed only when Mendix has no validation message.
@@ -233,15 +258,23 @@ export function AdvanceInputs({
         valueAttribute.setValue(newValue);
     };
 
+    const handleInputBlur = (): void => {
+        if (isReadOnly) {
+            return;
+        }
+
+        setHasValidationStarted(true);
+    };
+
     const handleClear = (): void => {
         if (isReadOnly || !hasValue) {
             return;
         }
 
         valueAttribute.setValue("");
+        setHasValidationStarted(false);
         resetPasswordVisibility();
     };
-
     return (
         <div
             className={widgetClassName}
@@ -293,6 +326,7 @@ export function AdvanceInputs({
                     ariaInvalid={hasValidationMessage}
                     ariaDescribedBy={describedById}
                     onChange={handleInputChange}
+                    onBlur={handleInputBlur}
                 />
 
                 {showClearButton ? (
@@ -356,31 +390,42 @@ export function AdvanceInputs({
                     />
                 ) : null}
             </div>
+            <div className="advance-inputs__footer">
 
-            {hasValidationMessage ? (
-                <div
-                    id={validationId}
-                    className="advance-inputs__validation"
-                    role="alert"
-                >
-                    {validationMessage}
+                <div className="advance-inputs__footer-left">
+                    {hasValidationMessage ? (
+                        <div
+                            id={validationId}
+                            className="advance-inputs__validation"
+                            role="alert"
+                        >
+                            {validationMessage}
+                        </div>
+                    ) : !hasValidationMessage && shouldShowHelperText ? (
+                        <HelperText
+                            show
+                            text={helperText}
+                            id={helperTextId}
+                        />
+                    ) : shouldReserveMessageSpace ? (
+                        <div
+                            className="advance-inputs__message-spacer"
+                            aria-hidden="true"
+                        />
+                    ) : null}
                 </div>
-            ) : null}
 
-            {!hasValidationMessage && shouldShowHelperText ? (
-                <HelperText
-                    show
-                    text={helperText}
-                    id={helperTextId}
-                />
-            ) : null}
+                {shouldShowCharacterCounter ? (
+                    <div
+                        className={characterCounterClassName}
+                        aria-live="polite"
+                    >
+                        {characterCount} / {resolvedMaxLength}
+                    </div>
+                ) : null}
 
-            {shouldReserveMessageSpace ? (
-                <div
-                    className="advance-inputs__message-spacer"
-                    aria-hidden="true"
-                />
-            ) : null}
+            </div>
         </div>
     );
 }
+

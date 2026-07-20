@@ -17,7 +17,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 0px;
     width: 100%;
     font-family: inherit;
     color: var(--advance-inputs-text-color, #1f2937);
@@ -269,4 +269,31 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+.advance-inputs__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.advance-inputs__footer-left {
+    flex: 1;
+    min-width: 0;
+}
+
+.advance-inputs__character-counter {
+    flex-shrink: 0;
+    font-size: 10px;
+    line-height: 18px;
+
+    color: var(--advance-input-helper-color);
+
+    user-select: none;
+}
+
+.advance-inputs__character-counter--exceeded {
+    color: var(--advance-input-danger-color);
+    font-weight: 600;
 }

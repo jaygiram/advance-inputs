@@ -84,9 +84,10 @@ export interface AdvanceInputsContainerProps {
     validationType: ValidationTypeEnum;
     numericValidationMessage: string;
     decimalValidationMessage: string;
-    maxLengthValidationMessage: string;
     enableMaxLength: boolean;
     maxLength: number;
+    showCharacterCounter: boolean;
+    maxLengthValidationMessage: string;
     spellCheck: boolean;
     autoFocus: boolean;
 }
@@ -154,9 +155,10 @@ export interface AdvanceInputsPreviewProps {
     validationType: ValidationTypeEnum;
     numericValidationMessage: string;
     decimalValidationMessage: string;
-    maxLengthValidationMessage: string;
     enableMaxLength: boolean;
     maxLength: number | null;
+    showCharacterCounter: boolean;
+    maxLengthValidationMessage: string;
     spellCheck: boolean;
     autoFocus: boolean;
 }
