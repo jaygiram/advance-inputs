@@ -74,7 +74,7 @@ inputTooltip
 
     const [hasValidationStarted, setHasValidationStarted] =
         useState(false);
-
+const [hasCopiedText, setHasCopiedText] = useState(false);
     const value = valueAttribute.value ?? "";
     const isReadOnly = valueAttribute.readOnly;
     const mendixValidationMessage = valueAttribute.validation;
@@ -182,32 +182,39 @@ inputTooltip
         !shouldShowHelperText;
 
 const effectiveInputType =
-    inputType === "password" &&
-        suffixInteraction === "passwordToggle"
+    suffixInteraction === "passwordToggle"
         ? isPasswordVisible
             ? "text"
             : "password"
         : inputType;
 
 
-const showClearButton = false;
+const showClearButton =
+    suffixInteraction === "clear" &&
+    hasValue;
 
 const showPasswordToggle =
-    suffixInteraction === "passwordToggle" &&
-    inputType === "password";
+    suffixInteraction === "passwordToggle";
+
+    const showCopyButton =
+    suffixInteraction === "copyText";
 
 const showCustomSuffix =
-    (suffixInteraction === "none" ||
-        suffixInteraction === "action") &&
-    showSuffix;
+    showSuffix &&
+    (
+        suffixInteraction === "none" ||
+        suffixInteraction === "action"
+    );
 
 const isCustomSuffixInteractive =
     suffixInteraction === "action";
 
-    const hasVisibleSuffix =
-        showClearButton ||
-        showPasswordToggle ||
-        showCustomSuffix;
+
+        const hasVisibleSuffix =
+    showClearButton ||
+    showPasswordToggle ||
+    showCopyButton ||
+    showCustomSuffix;
 
     const controlClassName = [
         "advance-inputs__control",
@@ -231,6 +238,41 @@ const isCustomSuffixInteractive =
         .filter(Boolean)
         .join(" ");
 
+const handleCopyText = async (): Promise<void> => {
+    if (!hasValue) {
+        return;
+    }
+
+    try {
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(value);
+        } else {
+            const temporaryTextArea = document.createElement("textarea");
+
+            temporaryTextArea.value = value;
+            temporaryTextArea.style.position = "fixed";
+            temporaryTextArea.style.opacity = "0";
+            temporaryTextArea.style.pointerEvents = "none";
+
+            document.body.appendChild(temporaryTextArea);
+            temporaryTextArea.focus();
+            temporaryTextArea.select();
+
+            document.execCommand("copy");
+            document.body.removeChild(temporaryTextArea);
+        }
+
+        setHasCopiedText(true);
+
+        window.setTimeout(() => {
+            setHasCopiedText(false);
+        }, 1500);
+    } catch (error) {
+        console.error("Advance Inputs: Unable to copy text.", error);
+        setHasCopiedText(false);
+    }
+};
+
     const describedByIds = [
         hasValidationMessage ? validationId : undefined,
         !hasValidationMessage && shouldShowHelperText
@@ -243,7 +285,10 @@ const isCustomSuffixInteractive =
             ? describedByIds.join(" ")
             : undefined;
 
-const passwordToggleLabel = "Show password";
+const passwordToggleLabel =
+    isPasswordVisible
+        ? "Hide password"
+        : "Show password";
 
     const handleInputChange = (newValue: string): void => {
         if (isReadOnly) {
@@ -357,6 +402,53 @@ tooltip="Clear input"
                         />
                     </IconButton>
                 ) : null}
+
+{showCopyButton ? (
+    <IconButton
+        position="suffix"
+        contentType="icon"
+        ariaLabel={hasCopiedText ? "Text copied" : "Copy text"}
+        tooltip={hasCopiedText ? "Copied" : "Copy text"}
+        disabled={!hasValue}
+        isExecuting={false}
+        onClick={() => {
+            void handleCopyText();
+        }}
+    >
+        {hasCopiedText ? (
+            <svg
+                className="advance-inputs__built-in-icon"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+            >
+                <path d="M20 6 9 17l-5-5" />
+            </svg>
+        ) : (
+            <svg
+                className="advance-inputs__built-in-icon"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+            >
+                <rect x="9" y="9" width="11" height="11" rx="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+        )}
+    </IconButton>
+) : null}
 
               {showCustomSuffix ? (
     <Suffix

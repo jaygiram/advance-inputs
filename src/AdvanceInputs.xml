@@ -326,21 +326,15 @@
     </description>
 </property>
 
-           <property
-    key="suffixInteraction"
-    type="enumeration"
-    defaultValue="none"
->
+       <property key="suffixInteraction" type="enumeration" defaultValue="none">
     <caption>Interaction</caption>
-    <description>
-        Controls how the suffix behaves. None displays static suffix content, Action executes the configured Mendix action, Clear input removes the current value, and Password toggle shows or hides a password value.
-    </description>
-
+    <description>Select the built-in or custom suffix interaction.</description>
     <enumerationValues>
         <enumerationValue key="none">None</enumerationValue>
         <enumerationValue key="action">Action</enumerationValue>
         <enumerationValue key="clear">Clear input</enumerationValue>
         <enumerationValue key="passwordToggle">Password toggle</enumerationValue>
+        <enumerationValue key="copyText">Copy text</enumerationValue>
     </enumerationValues>
 </property>
           

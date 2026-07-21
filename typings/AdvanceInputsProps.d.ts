@@ -10,7 +10,7 @@ export type PrefixContentTypeEnum = "icon" | "text";
 
 export type SuffixContentTypeEnum = "icon" | "text";
 
-export type SuffixInteractionEnum = "none" | "action" | "clear" | "passwordToggle";
+export type SuffixInteractionEnum = "none" | "action" | "clear" | "passwordToggle" | "copyText";
 
 export type InputTypeEnum = "text" | "password" | "email" | "tel" | "url" | "search";
 

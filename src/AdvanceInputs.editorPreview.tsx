@@ -1,6 +1,5 @@
 import { ReactElement } from "react";
 import type { WebIcon } from "mendix";
-
 import { AdvanceInputsPreviewProps } from "../typings/AdvanceInputsProps";
 import { BuiltInIcon } from "./components/BuiltInIcon";
 import { HelperText } from "./components/HelperText";
@@ -24,37 +23,6 @@ function resolvePreviewIcon(icon: unknown): WebIcon | undefined {
     return icon as WebIcon;
 }
 
-function resolveAutocomplete(
-    value: AdvanceInputsPreviewProps["autocomplete"]
-):
-    | "off"
-    | "on"
-    | "name"
-    | "given-name"
-    | "family-name"
-    | "email"
-    | "username"
-    | "current-password"
-    | "new-password"
-    | "tel"
-    | "organization" {
-    switch (value) {
-        case "givenName":
-            return "given-name";
-
-        case "familyName":
-            return "family-name";
-
-        case "currentPassword":
-            return "current-password";
-
-        case "newPassword":
-            return "new-password";
-
-        default:
-            return value;
-    }
-}
 
 export function preview({
     placeholder,
@@ -66,11 +34,8 @@ export function preview({
     helperText,
     reserveMessageSpace,
 
-    inputType,
     autocomplete,
     inputMode,
-    enableMaxLength,
-    maxLength,
     spellCheck,
     autoFocus: _autoFocus,
 
@@ -105,22 +70,14 @@ export function preview({
     const resolvedPrefixIcon = resolvePreviewIcon(prefixIcon);
     const resolvedSuffixIcon = resolvePreviewIcon(suffixIcon);
 
-    const resolvedMaxLength =
-        enableMaxLength &&
-        typeof maxLength === "number" &&
-        maxLength > 0
-            ? maxLength
-            : undefined;
-
     /*
      * Preview value is always empty.
      * Therefore the built-in clear button stays hidden automatically.
      */
-    const showClearButton = false;
 
-    const showPasswordToggle =
-        suffixInteraction === "passwordToggle" &&
-        inputType === "password";
+    const showClearButton = false;
+const showPasswordToggle =
+    suffixInteraction === "passwordToggle";
 
     const showCustomSuffix =
         (suffixInteraction === "none" ||
@@ -149,10 +106,6 @@ export function preview({
 
     const passwordToggleLabel = "Show password";
 
-    const describedById =
-        shouldShowHelperText
-            ? helperTextId
-            : undefined;
 
     return (
         <div className="advance-inputs">
@@ -184,23 +137,25 @@ export function preview({
                     isExecuting={false}
                     onClick={() => undefined}
                 />
-
-                <Input
-                    id={previewInputId}
-                    value=""
-                    placeholder={placeholder || "Enter a value"}
-                    inputType={inputType}
-                    autocomplete={resolveAutocomplete(autocomplete)}
-                    inputMode={inputMode}
-                    spellCheck={spellCheck}
-                    autoFocus={false}
-                    maxLength={resolvedMaxLength}
-                    disabled
-                    required={required}
-                    ariaDescribedBy={describedById}
-                    onChange={() => undefined}
-                />
-
+<Input
+    id="advance-inputs-preview"
+    value=""
+    placeholder={placeholder || ""}
+    inputType={
+        suffixInteraction === "passwordToggle"
+            ? "password"
+            : "text"
+    }
+    autocomplete={autocomplete}
+    inputMode={inputMode}
+    spellCheck={spellCheck}
+    autoFocus={false}
+    maxLength={undefined}
+    readOnly={false}
+    required={required}
+    ariaInvalid={false}
+    onChange={() => undefined}
+/>
                 {showClearButton ? (
                     <IconButton
                         position="suffix"
