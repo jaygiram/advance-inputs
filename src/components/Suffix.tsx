@@ -9,11 +9,9 @@ export interface SuffixProps {
     contentType: "icon" | "text";
     icon?: WebIcon;
     text: string;
-
     showAsButton?: boolean;
     buttonBackgroundColor?: string;
     buttonIconColor?: string;
-
     interactive: boolean;
     ariaLabel: string;
     tooltip?: string;

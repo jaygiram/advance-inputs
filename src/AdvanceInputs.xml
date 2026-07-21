@@ -60,6 +60,7 @@
                 <description/>
             </property>
 
+
             <property
                 key="labelText"
                 type="string"
@@ -70,6 +71,17 @@
                 <description/>
             </property>
 
+<property
+    key="inputTooltip"
+    type="string"
+    required="false"
+    defaultValue=""
+>
+    <caption>Input tooltip</caption>
+    <description>
+  This tooltip belongs to the input and not to the label.
+    </description>
+</property>
             <property
                 key="required"
                 type="boolean"
@@ -183,8 +195,8 @@
 >
     <caption>Button background color</caption>
     <description>
-        Optional CSS color used as the prefix button background, such as #2563EB or rgb(37, 99, 235). Leave empty to use the selected prefix appearance.
-    </description>
+    Optional CSS color used as the prefix button background, such as #2563EB or rgb(37, 99, 235). Leave empty to use the default theme color.
+</description>
 </property>
 
 <property
@@ -298,8 +310,8 @@
 >
     <caption>Button background color</caption>
     <description>
-        Optional CSS color used as the custom suffix button background, such as #2563EB or rgb(37, 99, 235). Leave empty to use the selected suffix appearance.
-    </description>
+    Optional CSS color used as the suffix button background, such as #2563EB or rgb(37, 99, 235). Leave empty to use the default theme color.
+</description>
 </property>
 
 <property
@@ -314,86 +326,35 @@
     </description>
 </property>
 
-            <property
-                key="suffixBehavior"
-                type="enumeration"
-                defaultValue="custom"
-            >
-                <caption>Suffix behavior</caption>
-                <description>
-                    Chooses whether the suffix uses custom content and actions, clears the input, or toggles password visibility. Password toggle is only meaningful when the input type is password.
-                </description>
-                <enumerationValues>
-                    <enumerationValue key="custom">Custom content</enumerationValue>
-                    <enumerationValue key="clear">Clear input</enumerationValue>
-                    <enumerationValue key="passwordToggle">Show or hide password</enumerationValue>
-                </enumerationValues>
-            </property>
+           <property
+    key="suffixInteraction"
+    type="enumeration"
+    defaultValue="none"
+>
+    <caption>Interaction</caption>
+    <description>
+        Controls how the suffix behaves. None displays static suffix content, Action executes the configured Mendix action, Clear input removes the current value, and Password toggle shows or hides a password value.
+    </description>
 
-            <property
-                key="clearAriaLabel"
-                type="string"
-                required="false"
-                defaultValue="Clear input"
-            >
-                <caption>Clear button accessibility label</caption>
-                <description>
-                    Accessible label used for the built-in clear button when clear input behavior is selected.
-                </description>
-            </property>
-
-            <property
-                key="showPasswordAriaLabel"
-                type="string"
-                required="false"
-                defaultValue="Show password"
-            >
-                <caption>Show password accessibility label</caption>
-                <description>
-                    Accessible label used when the built-in password toggle shows the password value.
-                </description>
-            </property>
-
-            <property
-                key="hidePasswordAriaLabel"
-                type="string"
-                required="false"
-                defaultValue="Hide password"
-            >
-                <caption>Hide password accessibility label</caption>
-                <description>
-                    Accessible label used when the built-in password toggle hides the password value.
-                </description>
-            </property>
-
-            <property
-                key="hideClearWhenEmpty"
-                type="boolean"
-                defaultValue="true"
-            >
-                <caption>Hide clear button when empty</caption>
-                <description>
-                    Hides the built-in clear button when the input value is empty. This only applies to clear input behavior.
-                </description>
-            </property>
-
-            <property
-                key="suffixInteractive"
-                type="boolean"
-                defaultValue="false"
-            >
-                <caption>Interactive</caption>
-                <description/>
-            </property>
-
-            <property
-                key="suffixAction"
-                type="action"
-                required="false"
-            >
-                <caption>On click</caption>
-                <description/>
-            </property>
+    <enumerationValues>
+        <enumerationValue key="none">None</enumerationValue>
+        <enumerationValue key="action">Action</enumerationValue>
+        <enumerationValue key="clear">Clear input</enumerationValue>
+        <enumerationValue key="passwordToggle">Password toggle</enumerationValue>
+    </enumerationValues>
+</property>
+          
+       
+          <property
+    key="suffixAction"
+    type="action"
+    required="false"
+>
+    <caption>On click</caption>
+    <description>
+        Mendix action executed when Interaction is set to Action.
+    </description>
+</property>
 
             <property
                 key="suffixTooltip"

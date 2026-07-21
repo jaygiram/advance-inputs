@@ -4,6 +4,7 @@ export interface InputProps {
     id: string;
     value: string;
     placeholder?: string;
+    title?: string;
     inputType: "text" | "password" | "email" | "tel" | "url" | "search";
     autocomplete: string;
     inputMode: "text" | "email" | "tel" | "url" | "numeric" | "decimal" | "search" | "none";
@@ -27,6 +28,7 @@ export function Input({
     id,
     value,
     placeholder,
+       title,
     inputType,
     autocomplete,
     inputMode,
@@ -43,7 +45,8 @@ export function Input({
     onChange,
     onFocus,
     onBlur,
-    onKeyDown
+    onKeyDown,
+ 
 }: InputProps): ReactElement {
     const inputClassName = ["advance-inputs__input", className]
         .filter(Boolean)
@@ -55,6 +58,7 @@ export function Input({
             type={inputType}
             value={value}
             placeholder={placeholder}
+            title={title}
             autoComplete={autocomplete}
             inputMode={inputMode}
             spellCheck={spellCheck}

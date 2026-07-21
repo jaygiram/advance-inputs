@@ -10,7 +10,7 @@ export type PrefixContentTypeEnum = "icon" | "text";
 
 export type SuffixContentTypeEnum = "icon" | "text";
 
-export type SuffixBehaviorEnum = "custom" | "clear" | "passwordToggle";
+export type SuffixInteractionEnum = "none" | "action" | "clear" | "passwordToggle";
 
 export type InputTypeEnum = "text" | "password" | "email" | "tel" | "url" | "search";
 
@@ -40,6 +40,7 @@ export interface AdvanceInputsContainerProps {
     placeholder: string;
     showLabel: boolean;
     labelText: string;
+    inputTooltip: string;
     required: boolean;
     requiredIndicator: string;
     showHelperText: boolean;
@@ -63,12 +64,7 @@ export interface AdvanceInputsContainerProps {
     suffixShowAsButton: boolean;
     suffixButtonBackgroundColor: string;
     suffixButtonIconColor: string;
-    suffixBehavior: SuffixBehaviorEnum;
-    clearAriaLabel: string;
-    showPasswordAriaLabel: string;
-    hidePasswordAriaLabel: string;
-    hideClearWhenEmpty: boolean;
-    suffixInteractive: boolean;
+    suffixInteraction: SuffixInteractionEnum;
     suffixAction?: ActionValue;
     suffixTooltip: string;
     suffixAriaLabel: string;
@@ -101,6 +97,7 @@ export interface AdvanceInputsPreviewProps {
     placeholder: string;
     showLabel: boolean;
     labelText: string;
+    inputTooltip: string;
     required: boolean;
     requiredIndicator: string;
     showHelperText: boolean;
@@ -132,12 +129,7 @@ export interface AdvanceInputsPreviewProps {
     suffixShowAsButton: boolean;
     suffixButtonBackgroundColor: string;
     suffixButtonIconColor: string;
-    suffixBehavior: SuffixBehaviorEnum;
-    clearAriaLabel: string;
-    showPasswordAriaLabel: string;
-    hidePasswordAriaLabel: string;
-    hideClearWhenEmpty: boolean;
-    suffixInteractive: boolean;
+    suffixInteraction: SuffixInteractionEnum;
     suffixAction: {} | null;
     suffixTooltip: string;
     suffixAriaLabel: string;

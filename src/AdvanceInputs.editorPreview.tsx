@@ -12,10 +12,6 @@ import { Suffix } from "./components/Suffix";
 
 import "./ui/AdvanceInputs.css";
 
-/**
- * Studio Pro preview icon properties can be generated as `unknown`
- * or as an object containing a `value` property.
- */
 function resolvePreviewIcon(icon: unknown): WebIcon | undefined {
     if (!icon) {
         return undefined;
@@ -82,6 +78,9 @@ export function preview({
     prefixContentType,
     prefixIcon,
     prefixText,
+    prefixShowAsButton,
+    prefixButtonBackgroundColor,
+    prefixButtonIconColor,
     prefixInteractive,
     prefixTooltip,
     prefixAriaLabel,
@@ -90,12 +89,10 @@ export function preview({
     suffixContentType,
     suffixIcon,
     suffixText,
-    suffixBehavior,
-    clearAriaLabel,
-    showPasswordAriaLabel,
-    hidePasswordAriaLabel,
-    hideClearWhenEmpty,
-    suffixInteractive,
+    suffixShowAsButton,
+    suffixButtonBackgroundColor,
+    suffixButtonIconColor,
+    suffixInteraction,
     suffixTooltip,
     suffixAriaLabel
 }: AdvanceInputsPreviewProps): ReactElement {
@@ -108,14 +105,6 @@ export function preview({
     const resolvedPrefixIcon = resolvePreviewIcon(prefixIcon);
     const resolvedSuffixIcon = resolvePreviewIcon(suffixIcon);
 
-    /*
-     * Temporary Studio Pro preview fallback.
-     *
-     * The runtime widget still receives suffixAppearance normally.
-     * This fallback prevents the preview build from failing when the
-     * generated PreviewProps does not expose suffixAppearance.
-     */
-
     const resolvedMaxLength =
         enableMaxLength &&
         typeof maxLength === "number" &&
@@ -123,17 +112,23 @@ export function preview({
             ? maxLength
             : undefined;
 
-    const showClearButton =
-        suffixBehavior === "clear" &&
-        !hideClearWhenEmpty;
+    /*
+     * Preview value is always empty.
+     * Therefore the built-in clear button stays hidden automatically.
+     */
+    const showClearButton = false;
 
     const showPasswordToggle =
-        suffixBehavior === "passwordToggle" &&
+        suffixInteraction === "passwordToggle" &&
         inputType === "password";
 
     const showCustomSuffix =
-        suffixBehavior === "custom" &&
+        (suffixInteraction === "none" ||
+            suffixInteraction === "action") &&
         showSuffix;
+
+    const isCustomSuffixInteractive =
+        suffixInteraction === "action";
 
     const hasVisibleSuffix =
         showClearButton ||
@@ -152,10 +147,7 @@ export function preview({
         .filter(Boolean)
         .join(" ");
 
-    const passwordToggleLabel =
-        showPasswordAriaLabel ||
-        hidePasswordAriaLabel ||
-        "Show password";
+    const passwordToggleLabel = "Show password";
 
     const describedById =
         shouldShowHelperText
@@ -178,6 +170,9 @@ export function preview({
                     contentType={prefixContentType}
                     icon={resolvedPrefixIcon}
                     text={prefixText}
+                    showAsButton={prefixShowAsButton}
+                    buttonBackgroundColor={prefixButtonBackgroundColor}
+                    buttonIconColor={prefixButtonIconColor}
                     interactive={prefixInteractive}
                     ariaLabel={
                         prefixAriaLabel ||
@@ -210,8 +205,8 @@ export function preview({
                     <IconButton
                         position="suffix"
                         contentType="icon"
-                        ariaLabel={clearAriaLabel || "Clear input"}
-                        tooltip={clearAriaLabel || "Clear input"}
+                        ariaLabel="Clear input"
+                        tooltip="Clear input"
                         disabled={false}
                         isExecuting={false}
                         onClick={() => undefined}
@@ -246,7 +241,10 @@ export function preview({
                         contentType={suffixContentType}
                         icon={resolvedSuffixIcon}
                         text={suffixText}
-                        interactive={suffixInteractive}
+                        showAsButton={suffixShowAsButton}
+                        buttonBackgroundColor={suffixButtonBackgroundColor}
+                        buttonIconColor={suffixButtonIconColor}
+                        interactive={isCustomSuffixInteractive}
                         ariaLabel={
                             suffixAriaLabel ||
                             suffixTooltip ||

@@ -54,22 +54,19 @@ export function AdvanceInputs({
     prefixTooltip,
     prefixAriaLabel,
 
-    showSuffix,
-    suffixContentType,
-    suffixIcon,
-    suffixText,
-    suffixShowAsButton,
-    suffixButtonBackgroundColor,
-    suffixButtonIconColor,
-    suffixBehavior,
-    clearAriaLabel,
-    showPasswordAriaLabel,
-    hidePasswordAriaLabel,
-    hideClearWhenEmpty,
-    suffixInteractive,
-    suffixAction,
-    suffixTooltip,
-    suffixAriaLabel
+    
+showSuffix,
+suffixContentType,
+suffixIcon,
+suffixText,
+suffixShowAsButton,
+suffixButtonBackgroundColor,
+suffixButtonIconColor,
+suffixInteraction,
+suffixAction,
+suffixTooltip,
+suffixAriaLabel,
+inputTooltip
 }: AdvanceInputsContainerProps): ReactElement {
     const inputId = useId();
     const validationId = `${inputId}-validation`;
@@ -184,26 +181,28 @@ export function AdvanceInputs({
         !hasValidationMessage &&
         !shouldShowHelperText;
 
+const effectiveInputType =
+    inputType === "password" &&
+        suffixInteraction === "passwordToggle"
+        ? isPasswordVisible
+            ? "text"
+            : "password"
+        : inputType;
 
-    const effectiveInputType =
-        inputType === "password" &&
-            suffixBehavior === "passwordToggle"
-            ? isPasswordVisible
-                ? "text"
-                : "password"
-            : inputType;
 
-    const showClearButton =
-        suffixBehavior === "clear" &&
-        (!hideClearWhenEmpty || hasValue);
+const showClearButton = false;
 
-    const showPasswordToggle =
-        suffixBehavior === "passwordToggle" &&
-        inputType === "password";
+const showPasswordToggle =
+    suffixInteraction === "passwordToggle" &&
+    inputType === "password";
 
-    const showCustomSuffix =
-        suffixBehavior === "custom" &&
-        showSuffix;
+const showCustomSuffix =
+    (suffixInteraction === "none" ||
+        suffixInteraction === "action") &&
+    showSuffix;
+
+const isCustomSuffixInteractive =
+    suffixInteraction === "action";
 
     const hasVisibleSuffix =
         showClearButton ||
@@ -244,9 +243,7 @@ export function AdvanceInputs({
             ? describedByIds.join(" ")
             : undefined;
 
-    const passwordToggleLabel = isPasswordVisible
-        ? hidePasswordAriaLabel || "Hide password"
-        : showPasswordAriaLabel || "Show password";
+const passwordToggleLabel = "Show password";
 
     const handleInputChange = (newValue: string): void => {
         if (isReadOnly) {
@@ -311,6 +308,7 @@ export function AdvanceInputs({
                     id={inputId}
                     value={value}
                     placeholder={placeholder || ""}
+                    title={inputTooltip}
                     inputType={effectiveInputType}
                     autocomplete={autocomplete}
                     inputMode={inputMode}
@@ -330,8 +328,8 @@ export function AdvanceInputs({
                     <IconButton
                         position="suffix"
                         contentType="icon"
-                        ariaLabel={clearAriaLabel || "Clear input"}
-                        tooltip={clearAriaLabel || "Clear input"}
+                  ariaLabel="Clear input"
+tooltip="Clear input"
                         disabled={isReadOnly || !hasValue}
                         isExecuting={false}
                         onClick={handleClear}
@@ -360,29 +358,27 @@ export function AdvanceInputs({
                     </IconButton>
                 ) : null}
 
-                {showCustomSuffix ? (
-                    <Suffix
-                        show={showSuffix}
-                        contentType={suffixContentType}
-                        icon={suffixIcon?.value}
-                        text={suffixText}
-                        showAsButton={suffixShowAsButton}
-                        buttonBackgroundColor={
-                            suffixButtonBackgroundColor
-                        }
-                        buttonIconColor={suffixButtonIconColor}
-                        interactive={suffixInteractive}
-                        ariaLabel={
-                            suffixAriaLabel ||
-                            suffixTooltip ||
-                            "Suffix action"
-                        }
-                        tooltip={suffixTooltip}
-                        disabled={!suffixActionHandler.canExecute}
-                        isExecuting={suffixActionHandler.isExecuting}
-                        onClick={suffixActionHandler.execute}
-                    />
-                ) : null}
+              {showCustomSuffix ? (
+    <Suffix
+        show={showSuffix}
+        contentType={suffixContentType}
+        icon={suffixIcon?.value}
+        text={suffixText}
+        showAsButton={suffixShowAsButton}
+        buttonBackgroundColor={suffixButtonBackgroundColor}
+        buttonIconColor={suffixButtonIconColor}
+        interactive={isCustomSuffixInteractive}
+        ariaLabel={
+            suffixAriaLabel ||
+            suffixTooltip ||
+            "Suffix action"
+        }
+        tooltip={suffixTooltip}
+        disabled={!suffixActionHandler.canExecute}
+        isExecuting={suffixActionHandler.isExecuting}
+        onClick={suffixActionHandler.execute}
+    />
+) : null}
             </div>
             <div className="advance-inputs__footer">
 
