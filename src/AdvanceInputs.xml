@@ -1,14 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget
-    id="threemsoftware.advanceinputs.AdvanceInputs"
-    pluginWidget="true"
-    needsEntityContext="true"
-    offlineCapable="true"
-    supportedPlatform="Web"
+<widget id="threemsoftware.advanceinputs.AdvanceInputs" pluginWidget="true" needsEntityContext="true" offlineCapable="true" supportedPlatform="Web"
     xmlns="http://www.mendix.com/widget/1.0/"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd"
->
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
     <name>Advance Inputs</name>
 
     <description>
@@ -20,133 +13,76 @@
 
     <properties>
         <propertyGroup caption="Data">
-            <property
-                key="valueAttribute"
-                type="attribute"
-                required="true"
-            >
-                <caption>Value attribute</caption>
+         <property key="valueAttribute" type="attribute" required="true">
+    <caption>Value attribute</caption>
+    <description>
+        Select the String attribute used to store the input value.
+    </description>
+    <attributeTypes>
+        <attributeType name="String"/>
+    </attributeTypes>
+    
+    <property key="placeholder" type="string" required="false" defaultValue="">
+    <caption>Placeholder</caption>
+    <description/>
+</property>
 
-                <description>
-                    Select the String attribute used to store the input value.
-                </description>
-
-                <attributeTypes>
-                    <attributeType name="String"/>
-                </attributeTypes>
-            </property>
-
-            <property
-                key="placeholder"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
-                <caption>Placeholder</caption>
-
-                <description>
-                    Text displayed when the input has no value.
-                </description>
-            </property>
+</property>
         </propertyGroup>
 
         <propertyGroup caption="Label">
-            <property
-                key="showLabel"
-                type="boolean"
-                defaultValue="true"
-            >
+            <property key="showLabel" type="boolean" defaultValue="true">
                 <caption>Show label</caption>
                 <description/>
             </property>
 
 
-            <property
-                key="labelText"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
+            <property key="labelText" type="string" required="false" defaultValue="">
                 <caption>Label text</caption>
                 <description/>
             </property>
 
-<property
-    key="inputTooltip"
-    type="string"
-    required="false"
-    defaultValue=""
->
-    <caption>Input tooltip</caption>
-    <description>
+            <property key="inputTooltip" type="string" required="false" defaultValue="">
+                <caption>Input tooltip</caption>
+                <description>
   This tooltip belongs to the input and not to the label.
-    </description>
-</property>
-            <property
-                key="required"
-                type="boolean"
-                defaultValue="false"
-            >
+                </description>
+            </property>
+            <property key="required" type="boolean" defaultValue="false">
                 <caption>Required</caption>
                 <description/>
             </property>
 
-            <property
-                key="requiredIndicator"
-                type="string"
-                required="false"
-                defaultValue="*"
-            >
+            <property key="requiredIndicator" type="string" required="false" defaultValue="*">
                 <caption>Required indicator</caption>
                 <description/>
             </property>
         </propertyGroup>
 
         <propertyGroup caption="Supporting Text">
-            <property
-                key="showHelperText"
-                type="boolean"
-                defaultValue="false"
-            >
+            <property key="showHelperText" type="boolean" defaultValue="false">
                 <caption>Show helper text</caption>
                 <description/>
             </property>
 
-            <property
-                key="helperText"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
+            <property key="helperText" type="string" required="false" defaultValue="">
                 <caption>Helper text</caption>
                 <description/>
             </property>
 
-            <property
-                key="reserveMessageSpace"
-                type="boolean"
-                defaultValue="false"
-            >
+            <property key="reserveMessageSpace" type="boolean" defaultValue="false">
                 <caption>Reserve message space</caption>
                 <description/>
             </property>
         </propertyGroup>
 
         <propertyGroup caption="Prefix">
-            <property
-                key="showPrefix"
-                type="boolean"
-                defaultValue="false"
-            >
+            <property key="showPrefix" type="boolean" defaultValue="false">
                 <caption>Show prefix</caption>
                 <description/>
             </property>
 
-            <property
-                key="prefixContentType"
-                type="enumeration"
-                defaultValue="icon"
-            >
+            <property key="prefixContentType" type="enumeration" defaultValue="icon">
                 <caption>Prefix content type</caption>
                 <description/>
                 <enumerationValues>
@@ -155,115 +91,61 @@
                 </enumerationValues>
             </property>
 
-            <property
-                key="prefixIcon"
-                type="icon"
-                required="false"
-            >
+            <property key="prefixIcon" type="icon" required="false">
                 <caption>Prefix icon</caption>
                 <description/>
             </property>
 
-            <property
-                key="prefixText"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
+            <property key="prefixText" type="string" required="false" defaultValue="">
                 <caption>Prefix text</caption>
                 <description/>
             </property>
 
 
 
-<property
-    key="prefixShowAsButton"
-    type="boolean"
-    defaultValue="false"
->
+      <property key="prefixShowAsButton" type="boolean" defaultValue="false">
     <caption>Show as button</caption>
-    <description>
-        Displays the prefix content with button-style colors. This visual option is independent from the Interactive setting.
-    </description>
+    <description/>
 </property>
 
-<property
-    key="prefixButtonBackgroundColor"
-    type="string"
-    required="false"
-    defaultValue=""
->
-    <caption>Button background color</caption>
-    <description>
-    Optional CSS color used as the prefix button background, such as #2563EB or rgb(37, 99, 235). Leave empty to use the default theme color.
-</description>
-</property>
+            <property key="prefixButtonBackgroundColor" type="string" required="false" defaultValue="">
+                <caption>Button background color</caption>
+V    <description/>
+            </property>
 
-<property
-    key="prefixButtonIconColor"
-    type="string"
-    required="false"
-    defaultValue=""
->
+   <property key="prefixButtonIconColor" type="string" required="false" defaultValue="">
     <caption>Button icon color</caption>
-    <description>
-        Optional CSS color used for the prefix icon or text. Leave empty to use the default affix color.
-    </description>
+    <description/>
 </property>
-            <property
-                key="prefixInteractive"
-                type="boolean"
-                defaultValue="false"
-            >
+            <property key="prefixInteractive" type="boolean" defaultValue="false">
                 <caption>Interactive</caption>
                 <description/>
             </property>
 
-            <property
-                key="prefixAction"
-                type="action"
-                required="false"
-            >
+            <property key="prefixAction" type="action" required="false">
                 <caption>On click</caption>
                 <description/>
             </property>
 
-            <property
-                key="prefixTooltip"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
+            <property key="prefixTooltip" type="string" required="false" defaultValue="">
                 <caption>Tooltip</caption>
                 <description/>
             </property>
 
-            <property
-                key="prefixAriaLabel"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
+            <property key="prefixAriaLabel" type="string" required="false" defaultValue="">
                 <caption>Accessibility label</caption>
                 <description/>
             </property>
         </propertyGroup>
 
         <propertyGroup caption="Suffix">
-            <property
-                key="showSuffix"
-                type="boolean"
-                defaultValue="false"
-            >
+
+            <property key="showSuffix" type="boolean" defaultValue="false">
                 <caption>Show suffix</caption>
                 <description/>
             </property>
 
-            <property
-                key="suffixContentType"
-                type="enumeration"
-                defaultValue="icon"
-            >
+            <property key="suffixContentType" type="enumeration" defaultValue="icon">
                 <caption>Suffix content type</caption>
                 <description/>
                 <enumerationValues>
@@ -272,111 +154,63 @@
                 </enumerationValues>
             </property>
 
-            <property
-                key="suffixIcon"
-                type="icon"
-                required="false"
-            >
+            <property key="suffixIcon" type="icon" required="false">
                 <caption>Suffix icon</caption>
                 <description/>
             </property>
 
-            <property
-                key="suffixText"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
+            <property key="suffixText" type="string" required="false" defaultValue="">
                 <caption>Suffix text</caption>
                 <description/>
             </property>
-
-           <property
-    key="suffixShowAsButton"
-    type="boolean"
-    defaultValue="false"
->
-    <caption>Show as button</caption>
-    <description>
-        Displays the custom suffix content with button-style colors. This setting applies only when Suffix behavior is Custom content.
-    </description>
-</property>
-
-<property
-    key="suffixButtonBackgroundColor"
-    type="string"
-    required="false"
-    defaultValue=""
->
+<property key="suffixButtonBackgroundColor" type="string" required="false" defaultValue="">
     <caption>Button background color</caption>
-    <description>
-    Optional CSS color used as the suffix button background, such as #2563EB or rgb(37, 99, 235). Leave empty to use the default theme color.
-</description>
+    <description/>
 </property>
 
-<property
-    key="suffixButtonIconColor"
-    type="string"
-    required="false"
-    defaultValue=""
->
+           <property key="suffixButtonIconColor" type="string" required="false" defaultValue="">
     <caption>Button icon color</caption>
-    <description>
-        Optional CSS color used for the custom suffix icon or text. Leave empty to use the default affix color.
-    </description>
+    <description/>
 </property>
 
-       <property key="suffixInteraction" type="enumeration" defaultValue="none">
-    <caption>Interaction</caption>
-    <description>Select the built-in or custom suffix interaction.</description>
-    <enumerationValues>
-        <enumerationValue key="none">None</enumerationValue>
-        <enumerationValue key="action">Action</enumerationValue>
-        <enumerationValue key="clear">Clear input</enumerationValue>
-        <enumerationValue key="passwordToggle">Password toggle</enumerationValue>
-        <enumerationValue key="copyText">Copy text</enumerationValue>
-    </enumerationValues>
-</property>
-          
-       
-          <property
-    key="suffixAction"
-    type="action"
-    required="false"
->
-    <caption>On click</caption>
-    <description>
+            <property key="suffixButtonIconColor" type="string" required="false" defaultValue="">
+                <caption>Button icon color</caption>
+    <description/>
+            </property>
+
+            <property key="suffixInteraction" type="enumeration" defaultValue="none">
+                <caption>Interaction</caption>
+                <description>Select the built-in or custom suffix interaction.</description>
+                <enumerationValues>
+                    <enumerationValue key="none">None</enumerationValue>
+                    <enumerationValue key="action">Action</enumerationValue>
+                    <enumerationValue key="clear">Clear input</enumerationValue>
+                    <enumerationValue key="passwordToggle">Password toggle</enumerationValue>
+                    <enumerationValue key="copyText">Copy text</enumerationValue>
+                </enumerationValues>
+            </property>
+
+
+            <property key="suffixAction" type="action" required="false">
+                <caption>On click</caption>
+                <description>
         Mendix action executed when Interaction is set to Action.
-    </description>
-</property>
+                </description>
+            </property>
 
-            <property
-                key="suffixTooltip"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
+            <property key="suffixTooltip" type="string" required="false" defaultValue="">
                 <caption>Tooltip</caption>
                 <description/>
             </property>
 
-            <property
-                key="suffixAriaLabel"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
+            <property key="suffixAriaLabel" type="string" required="false" defaultValue="">
                 <caption>Accessibility label</caption>
                 <description/>
             </property>
         </propertyGroup>
 
         <propertyGroup caption="Input behavior">
-            <property
-                key="inputType"
-                type="enumeration"
-                defaultValue="text"
-            >
+            <property key="inputType" type="enumeration" defaultValue="text">
                 <caption>Input type</caption>
                 <description>
                     Sets the native browser input type so the field can use the appropriate keyboard and validation behavior.
@@ -391,36 +225,28 @@
                 </enumerationValues>
             </property>
 
-          <property
-    key="autocomplete"
-    type="enumeration"
-    defaultValue="off"
->
-    <caption>Autocomplete</caption>
-    <description>
+            <property key="autocomplete" type="enumeration" defaultValue="off">
+                <caption>Autocomplete</caption>
+                <description>
         Sets the browser autocomplete hint so the input can participate in form autofill and saved-value suggestions.
-    </description>
+                </description>
 
-    <enumerationValues>
-        <enumerationValue key="off">Off</enumerationValue>
-        <enumerationValue key="on">On</enumerationValue>
-        <enumerationValue key="name">Name</enumerationValue>
-        <enumerationValue key="givenName">Given name</enumerationValue>
-        <enumerationValue key="familyName">Family name</enumerationValue>
-        <enumerationValue key="email">Email</enumerationValue>
-        <enumerationValue key="username">Username</enumerationValue>
-        <enumerationValue key="currentPassword">Current password</enumerationValue>
-        <enumerationValue key="newPassword">New password</enumerationValue>
-        <enumerationValue key="tel">Telephone</enumerationValue>
-        <enumerationValue key="organization">Organization</enumerationValue>
-    </enumerationValues>
-</property>
+                <enumerationValues>
+                    <enumerationValue key="off">Off</enumerationValue>
+                    <enumerationValue key="on">On</enumerationValue>
+                    <enumerationValue key="name">Name</enumerationValue>
+                    <enumerationValue key="givenName">Given name</enumerationValue>
+                    <enumerationValue key="familyName">Family name</enumerationValue>
+                    <enumerationValue key="email">Email</enumerationValue>
+                    <enumerationValue key="username">Username</enumerationValue>
+                    <enumerationValue key="currentPassword">Current password</enumerationValue>
+                    <enumerationValue key="newPassword">New password</enumerationValue>
+                    <enumerationValue key="tel">Telephone</enumerationValue>
+                    <enumerationValue key="organization">Organization</enumerationValue>
+                </enumerationValues>
+            </property>
 
-            <property
-                key="inputMode"
-                type="enumeration"
-                defaultValue="text"
-            >
+            <property key="inputMode" type="enumeration" defaultValue="text">
                 <caption>Input mode</caption>
                 <description>
                     Sets the browser input mode to influence the virtual keyboard shown on touch devices.
@@ -436,12 +262,89 @@
                     <enumerationValue key="none">None</enumerationValue>
                 </enumerationValues>
             </property>
-            <property
+            <property key="enableInputMask" type="boolean" defaultValue="false">
+                <caption>Enable input mask</caption>
+                <description>
+        Formats and restricts the entered value using a predefined or custom input mask.
+                </description>
+            </property>
+
+            <property key="inputMaskType" type="enumeration" defaultValue="phone">
+                <caption>Mask type</caption>
+                <description>
+        Select a predefined input mask or define a custom mask.
+                </description>
+
+                <enumerationValues>
+                    <enumerationValue key="date">Date</enumerationValue>
+                    <enumerationValue key="phone">Phone number</enumerationValue>
+                    <enumerationValue key="pan">PAN</enumerationValue>
+                    <enumerationValue key="gst">GST number</enumerationValue>
+                    <enumerationValue key="ssn">SSN</enumerationValue>
+                    <enumerationValue key="custom">Custom mask</enumerationValue>
+                </enumerationValues>
+            </property>
+
+            <property key="dateMaskFormat" type="enumeration" defaultValue="ddMMyyyy">
+                <caption>Date format</caption>
+                <description>
+        Select the display format used by the Date mask.
+                </description>
+
+                <enumerationValues>
+                    <enumerationValue key="ddMMyyyy">DD/MM/YYYY</enumerationValue>
+                    <enumerationValue key="MMddyyyy">MM/DD/YYYY</enumerationValue>
+                    <enumerationValue key="yyyyMMdd">YYYY-MM-DD</enumerationValue>
+                </enumerationValues>
+            </property>
+
+            <property key="phoneMaskFormat" type="enumeration" defaultValue="india">
+                <caption>Phone format</caption>
+                <description>
+        Select the predefined phone-number format.
+                </description>
+
+                <enumerationValues>
+                    <enumerationValue key="india">India (+91)</enumerationValue>
+                    <enumerationValue key="us">United States</enumerationValue>
+                    <enumerationValue key="international">International</enumerationValue>
+                </enumerationValues>
+            </property>
+
+            <property key="customInputMask" type="string" required="false" defaultValue="">
+                <caption>Custom mask</caption>
+                <description>
+        Define a custom pattern. Use 0 for a required digit, a for a required letter and * for a required alphanumeric character. Example: AAA-0000 is not supported; use aaa-0000.
+                </description>
+            </property>
+
+            <property key="inputMaskPlaceholderCharacter" type="string" required="false" defaultValue="_">
+                <caption>Placeholder character</caption>
+                <description>
+        Character displayed for incomplete positions in the mask.
+                </description>
+            </property>
+
+            <property key="showInputMaskPlaceholder" type="boolean" defaultValue="false">
+                <caption>Show mask placeholder</caption>
+                <description>
+        Displays the remaining mask positions while the input is focused.
+                </description>
+            </property>
+
+            <property key="storeUnmaskedValue" type="boolean" defaultValue="false">
+                <caption>Store unmasked value</caption>
+                <description>
+        Stores only the underlying characters in the Mendix attribute instead of the formatted display value.
+                </description>
+            </property>
+    <property
     key="validationType"
     type="enumeration"
     defaultValue="none"
 >
     <caption>Input validation</caption>
+
     <description>
         Validates the entered text before storing it in the selected Mendix String attribute.
     </description>
@@ -450,30 +353,33 @@
         <enumerationValue key="none">No additional validation</enumerationValue>
         <enumerationValue key="numeric">Numbers only</enumerationValue>
         <enumerationValue key="decimal">Decimal number</enumerationValue>
+        <enumerationValue key="custom">Custom pattern</enumerationValue>
     </enumerationValues>
 </property>
 
 <property
-    key="numericValidationMessage"
+    key="customPattern"
     type="string"
     required="false"
-    defaultValue="Please enter numbers only."
+    defaultValue=""
 >
-    <caption>Numbers-only validation message</caption>
+    <caption>Custom pattern</caption>
+
     <description>
-        Message shown when Input validation is set to Numbers only and the entered value contains unsupported characters.
+        Regular expression used when Input validation is set to Custom pattern. Enter the expression without surrounding slash characters.
     </description>
 </property>
 
 <property
-    key="decimalValidationMessage"
+    key="validationMessage"
     type="string"
     required="false"
-    defaultValue="Please enter a valid decimal number."
+    defaultValue=""
 >
-    <caption>Decimal validation message</caption>
+    <caption>Validation message</caption>
+
     <description>
-        Message shown when Input validation is set to Decimal number and the entered value is not a valid decimal value.
+        Message shown when custom pattern validation fails.
     </description>
 </property>
 
@@ -483,6 +389,7 @@
     defaultValue="false"
 >
     <caption>Limit maximum length</caption>
+
     <description>
         Enables maximum-length validation for the input.
     </description>
@@ -494,6 +401,7 @@
     defaultValue="200"
 >
     <caption>Maximum length</caption>
+
     <description>
         Sets the maximum number of characters allowed when length limiting is enabled.
     </description>
@@ -505,44 +413,25 @@
     defaultValue="false"
 >
     <caption>Show character counter</caption>
+
     <description>
         Displays the current number of entered characters together with the configured maximum length.
     </description>
 </property>
 
-<property
-    key="maxLengthValidationMessage"
-    type="string"
-    required="false"
-    defaultValue="The maximum character limit has been exceeded."
->
-    <caption>Maximum-length validation message</caption>
-    <description>
-        Message shown when the entered value exceeds the configured maximum length.
-    </description>
-</property>
-
-<property
-    key="spellCheck"
-    type="boolean"
-    defaultValue="true"
->
-    <caption>Enable spellcheck</caption>
-    <description>
+            <property key="spellCheck" type="boolean" defaultValue="true">
+                <caption>Enable spellcheck</caption>
+                <description>
         Enables or disables browser spell checking for the input value.
-    </description>
-</property>
+                </description>
+            </property>
 
-<property
-    key="autoFocus"
-    type="boolean"
-    defaultValue="false"
->
-    <caption>Autofocus</caption>
-    <description>
+            <property key="autoFocus" type="boolean" defaultValue="false">
+                <caption>Autofocus</caption>
+                <description>
         Gives focus to the input automatically when the widget is rendered in the browser.
-    </description>
-</property>
+                </description>
+            </property>
         </propertyGroup>
     </properties>
 </widget>

@@ -29,7 +29,13 @@ export type AutocompleteEnum =
 
 export type InputModeEnum = "text" | "email" | "tel" | "url" | "numeric" | "decimal" | "search" | "none";
 
-export type ValidationTypeEnum = "none" | "numeric" | "decimal";
+export type InputMaskTypeEnum = "date" | "phone" | "pan" | "gst" | "ssn" | "custom";
+
+export type DateMaskFormatEnum = "ddMMyyyy" | "MMddyyyy" | "yyyyMMdd";
+
+export type PhoneMaskFormatEnum = "india" | "us" | "international";
+
+export type ValidationTypeEnum = "none" | "numeric" | "decimal" | "custom";
 
 export interface AdvanceInputsContainerProps {
     name: string;
@@ -37,7 +43,6 @@ export interface AdvanceInputsContainerProps {
     style?: CSSProperties;
     tabIndex?: number;
     valueAttribute: EditableValue<string>;
-    placeholder: string;
     showLabel: boolean;
     labelText: string;
     inputTooltip: string;
@@ -61,8 +66,8 @@ export interface AdvanceInputsContainerProps {
     suffixContentType: SuffixContentTypeEnum;
     suffixIcon?: DynamicValue<WebIcon>;
     suffixText: string;
-    suffixShowAsButton: boolean;
     suffixButtonBackgroundColor: string;
+    suffixButtonIconColor: string;
     suffixButtonIconColor: string;
     suffixInteraction: SuffixInteractionEnum;
     suffixAction?: ActionValue;
@@ -71,13 +76,20 @@ export interface AdvanceInputsContainerProps {
     inputType: InputTypeEnum;
     autocomplete: AutocompleteEnum;
     inputMode: InputModeEnum;
+    enableInputMask: boolean;
+    inputMaskType: InputMaskTypeEnum;
+    dateMaskFormat: DateMaskFormatEnum;
+    phoneMaskFormat: PhoneMaskFormatEnum;
+    customInputMask: string;
+    inputMaskPlaceholderCharacter: string;
+    showInputMaskPlaceholder: boolean;
+    storeUnmaskedValue: boolean;
     validationType: ValidationTypeEnum;
-    numericValidationMessage: string;
-    decimalValidationMessage: string;
+    customPattern: string;
+    validationMessage: string;
     enableMaxLength: boolean;
     maxLength: number;
     showCharacterCounter: boolean;
-    maxLengthValidationMessage: string;
     spellCheck: boolean;
     autoFocus: boolean;
 }
@@ -94,7 +106,6 @@ export interface AdvanceInputsPreviewProps {
     renderMode: "design" | "xray" | "structure";
     translate: (text: string) => string;
     valueAttribute: string;
-    placeholder: string;
     showLabel: boolean;
     labelText: string;
     inputTooltip: string;
@@ -126,8 +137,8 @@ export interface AdvanceInputsPreviewProps {
         | { type: "icon"; iconClass: string }
         | undefined;
     suffixText: string;
-    suffixShowAsButton: boolean;
     suffixButtonBackgroundColor: string;
+    suffixButtonIconColor: string;
     suffixButtonIconColor: string;
     suffixInteraction: SuffixInteractionEnum;
     suffixAction: {} | null;
@@ -136,13 +147,20 @@ export interface AdvanceInputsPreviewProps {
     inputType: InputTypeEnum;
     autocomplete: AutocompleteEnum;
     inputMode: InputModeEnum;
+    enableInputMask: boolean;
+    inputMaskType: InputMaskTypeEnum;
+    dateMaskFormat: DateMaskFormatEnum;
+    phoneMaskFormat: PhoneMaskFormatEnum;
+    customInputMask: string;
+    inputMaskPlaceholderCharacter: string;
+    showInputMaskPlaceholder: boolean;
+    storeUnmaskedValue: boolean;
     validationType: ValidationTypeEnum;
-    numericValidationMessage: string;
-    decimalValidationMessage: string;
+    customPattern: string;
+    validationMessage: string;
     enableMaxLength: boolean;
     maxLength: number | null;
     showCharacterCounter: boolean;
-    maxLengthValidationMessage: string;
     spellCheck: boolean;
     autoFocus: boolean;
 }

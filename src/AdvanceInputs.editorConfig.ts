@@ -93,14 +93,58 @@ type DatasourceProps = BaseProps & {
 
 export type PreviewProps = ImageProps | ContainerProps | RowLayoutProps | TextProps | DropZoneProps | SelectableProps | DatasourceProps;
 
-export function getProperties(_values: AdvanceInputsPreviewProps, defaultProperties: Properties/*, target: Platform*/): Properties {
-    // Do the values manipulation here to control the visibility of properties in Studio and Studio Pro conditionally.
-    /* Example
-    if (values.myProperty === "custom") {
-        delete defaultProperties.properties.myOtherProperty;
+function filterPropertyGroups(
+    propertyGroups: Properties,
+    hiddenPropertyKeys: ReadonlySet<string>
+): Properties {
+    return propertyGroups
+        .map(propertyGroup => {
+            const visibleProperties = propertyGroup.properties?.filter(
+                property => !hiddenPropertyKeys.has(property.key)
+            );
+
+            const visibleNestedGroups = propertyGroup.propertyGroups
+                ? filterPropertyGroups(
+                      propertyGroup.propertyGroups,
+                      hiddenPropertyKeys
+                  )
+                : undefined;
+
+            return {
+                ...propertyGroup,
+                properties: visibleProperties,
+                propertyGroups: visibleNestedGroups
+            };
+        })
+        .filter(propertyGroup => {
+            const hasProperties =
+                Boolean(propertyGroup.properties?.length);
+
+            const hasNestedGroups =
+                Boolean(propertyGroup.propertyGroups?.length);
+
+            return hasProperties || hasNestedGroups;
+        });
+}export function getProperties(
+    values: AdvanceInputsPreviewProps,
+    defaultProperties: Properties
+): Properties {
+    const hiddenPropertyKeys = new Set<string>();
+
+    if (values.validationType !== "custom") {
+        hiddenPropertyKeys.add("customPattern");
+        hiddenPropertyKeys.add("validationMessage");
     }
-    */
-    return defaultProperties;
+
+    if (!values.enableMaxLength) {
+        hiddenPropertyKeys.add("maxLength");
+        hiddenPropertyKeys.add("showCharacterCounter");
+    }
+
+    return filterPropertyGroups(
+        defaultProperties,
+        hiddenPropertyKeys
+    );
 }
 
 // export function check(_values: AdvanceInputsPreviewProps): Problem[] {

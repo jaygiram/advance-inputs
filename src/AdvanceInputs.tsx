@@ -1,4 +1,4 @@
-import { ReactElement, useId, useState } from "react";
+import { ReactElement, useEffect, useId, useState } from "react";
 
 import { AdvanceInputsContainerProps } from "../typings/AdvanceInputsProps";
 import { BuiltInIcon } from "./components/BuiltInIcon";
@@ -10,7 +10,6 @@ import { Prefix } from "./components/Prefix";
 import { Suffix } from "./components/Suffix";
 import { useActionHandler } from "./hooks/useActionHandler";
 import { usePasswordVisibility } from "./hooks/usePasswordVisibility";
-
 import "./ui/AdvanceInputs.css";
 
 export function AdvanceInputs({
@@ -19,29 +18,24 @@ export function AdvanceInputs({
     class: className,
     style,
     tabIndex,
-
     showLabel,
     labelText,
     required,
     requiredIndicator,
-
     showHelperText,
     helperText,
     reserveMessageSpace,
-
     inputType,
     autocomplete,
     inputMode,
-    validationType,
-    numericValidationMessage,
-    decimalValidationMessage,
-    maxLengthValidationMessage,
-    enableMaxLength,
-    maxLength,
+   validationType,
+customPattern,
+validationMessage,
+enableMaxLength,
+maxLength,
     showCharacterCounter,
     spellCheck,
     autoFocus,
-
     showPrefix,
     prefixContentType,
     prefixIcon,
@@ -54,7 +48,7 @@ export function AdvanceInputs({
     prefixTooltip,
     prefixAriaLabel,
 
-    
+   
 showSuffix,
 suffixContentType,
 suffixIcon,
@@ -72,12 +66,17 @@ inputTooltip
     const validationId = `${inputId}-validation`;
     const helperTextId = `${inputId}-helper`;
 
-    const [hasValidationStarted, setHasValidationStarted] =
-        useState(false);
-const [hasCopiedText, setHasCopiedText] = useState(false);
-    const value = valueAttribute.value ?? "";
+    const [hasCopiedText, setHasCopiedText] = useState(false);
+    const mendixValue = valueAttribute.value ?? "";
+
+    const [value, setValue] = useState(mendixValue);
+
     const isReadOnly = valueAttribute.readOnly;
     const mendixValidationMessage = valueAttribute.validation;
+
+    useEffect(() => {
+    setValue(mendixValue);
+}, [mendixValue]);
 
     const resolvedMaxLength =
         enableMaxLength &&
@@ -101,60 +100,80 @@ const [hasCopiedText, setHasCopiedText] = useState(false);
     ]
         .filter(Boolean)
         .join(" ");
+const getWidgetValidationMessage = (
+    inputValue: string
+): string | undefined => {
+    if (required && inputValue.trim().length === 0) {
+        return "This field is required.";
+    }
 
-    const getWidgetValidationMessage = (
-        inputValue: string
-    ): string | undefined => {
-        if (
-            resolvedMaxLength !== undefined &&
-            inputValue.length > resolvedMaxLength
-        ) {
-            return (
-                maxLengthValidationMessage?.trim() ||
-                `Maximum ${resolvedMaxLength} characters are allowed.`
-            );
+    if (
+        resolvedMaxLength !== undefined &&
+        inputValue.length > resolvedMaxLength
+    ) {
+        return "The maximum character limit has been exceeded.";
+    }
+
+    if (
+        validationType === "numeric" &&
+        inputValue.length > 0 &&
+        !/^\d+$/.test(inputValue)
+    ) {
+        return "Please enter numbers only.";
+    }
+
+    if (
+        validationType === "decimal" &&
+        inputValue.length > 0 &&
+        !/^\d+(\.\d+)?$/.test(inputValue)
+    ) {
+        return "Please enter a valid decimal number.";
+    }
+
+    if (
+        validationType === "custom" &&
+        inputValue.length > 0
+    ) {
+        const normalizedPattern = customPattern?.trim();
+
+        if (!normalizedPattern) {
+            return undefined;
         }
 
-        if (
-            validationType === "numeric" &&
-            inputValue.length > 0 &&
-            !/^\d+$/.test(inputValue)
-        ) {
-            return (
-                numericValidationMessage?.trim() ||
-                "Please enter numbers only."
-            );
-        }
+        try {
+            const customValidationExpression =
+                new RegExp(normalizedPattern);
 
-        if (
-            validationType === "decimal" &&
-            inputValue.length > 0 &&
-            !/^\d+(\.\d+)?$/.test(inputValue)
-        ) {
-            return (
-                decimalValidationMessage?.trim() ||
-                "Please enter a valid decimal number."
+            if (!customValidationExpression.test(inputValue)) {
+                return (
+                    validationMessage?.trim() ||
+                    "The entered value does not match the required format."
+                );
+            }
+        } catch (error) {
+            console.error(
+                "Advance Inputs: Invalid custom validation pattern.",
+                error
             );
-        }
 
-        return undefined;
-    };
-    const currentWidgetValidationMessage =
-        getWidgetValidationMessage(value);
+            return "The configured custom validation pattern is invalid.";
+        }
+    }
+
+    return undefined;
+};
 
     const widgetValidationMessage =
-        hasValidationStarted
-            ? currentWidgetValidationMessage
-            : undefined;
+        getWidgetValidationMessage(value);
+
     /*
      * Mendix validation always has the highest priority.
-     * Widget validation is displayed only when Mendix has no validation message.
      */
-    const validationMessage =
+    const validationMessageToDisplay =
         mendixValidationMessage?.trim() ||
         widgetValidationMessage;
 
-    const hasValidationMessage = Boolean(validationMessage?.trim());
+    const hasValidationMessage = Boolean(validationMessageToDisplay?.trim());
     const hasValue = value.length > 0;
 
     const {
@@ -291,30 +310,26 @@ const passwordToggleLabel =
         : "Show password";
 
     const handleInputChange = (newValue: string): void => {
-        if (isReadOnly) {
-            return;
-        }
+    if (isReadOnly) {
+        return;
+    }
 
-        valueAttribute.setValue(newValue);
-    };
+    setValue(newValue);
+    valueAttribute.setValue(newValue);
 
-    const handleInputBlur = (): void => {
-        if (isReadOnly) {
-            return;
-        }
-
-        setHasValidationStarted(true);
-    };
+};
 
     const handleClear = (): void => {
-        if (isReadOnly || !hasValue) {
-            return;
-        }
+    if (isReadOnly || !hasValue) {
+        return;
+    }
 
-        valueAttribute.setValue("");
-        setHasValidationStarted(false);
-        resetPasswordVisibility();
-    };
+    setValue("");
+    valueAttribute.setValue("");
+
+    resetPasswordVisibility();
+};
+
     return (
         <div
             className={widgetClassName}
@@ -366,7 +381,6 @@ const passwordToggleLabel =
                     ariaInvalid={hasValidationMessage}
                     ariaDescribedBy={describedById}
                     onChange={handleInputChange}
-                    onBlur={handleInputBlur}
                 />
 
                 {showClearButton ? (
@@ -481,7 +495,7 @@ tooltip="Clear input"
                             className="advance-inputs__validation"
                             role="alert"
                         >
-                            {validationMessage}
+                            {validationMessageToDisplay}
                         </div>
                     ) : !hasValidationMessage && shouldShowHelperText ? (
                         <HelperText
@@ -510,4 +524,3 @@ tooltip="Clear input"
         </div>
     );
 }
-

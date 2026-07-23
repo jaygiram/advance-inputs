@@ -14,7 +14,6 @@
     --advance-inputs-radius: 10px;
     --advance-inputs-focus-ring: rgba(37, 99, 235, 0.18);
     --advance-inputs-invalid-ring: rgba(209, 67, 67, 0.16);
-
     display: flex;
     flex-direction: column;
     gap: 0px;
@@ -99,7 +98,7 @@
     flex-shrink: 0;
     min-width: 40px;
     min-height: 100%;
-    padding: 11px 10px;
+    padding: 12px 8px;
     color: var(--advance-inputs-affix-color, #555);
     background-color: var(--advance-inputs-affix-background, #f5f6f8);
     user-select: none;
@@ -233,7 +232,6 @@
     from {
         transform: rotate(0deg);
     }
-
     to {
         transform: rotate(360deg);
     }
@@ -255,12 +253,11 @@
     flex-shrink: 0;
     font-size: 10px;
     line-height: 18px;
-
     color: var(--advance-inputs-muted-color, #6b7280);
     user-select: none;
 }
 
 .advance-inputs__character-counter--exceeded {
-   color: var(--advance-inputs-invalid-color, #d14343);
+    color: var(--advance-inputs-invalid-color, #d14343);
     font-weight: 600;
 }
