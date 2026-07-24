@@ -6,12 +6,6 @@
 import { ActionValue, DynamicValue, EditableValue, WebIcon } from "mendix";
 import { CSSProperties } from "react";
 
-export type PrefixContentTypeEnum = "icon" | "text";
-
-export type SuffixContentTypeEnum = "icon" | "text";
-
-export type SuffixInteractionEnum = "none" | "action" | "clear" | "passwordToggle" | "copyText";
-
 export type InputTypeEnum = "text" | "password" | "email" | "tel" | "url" | "search";
 
 export type AutocompleteEnum =
@@ -29,7 +23,21 @@ export type AutocompleteEnum =
 
 export type InputModeEnum = "text" | "email" | "tel" | "url" | "numeric" | "decimal" | "search" | "none";
 
-export type ValidationTypeEnum = "none" | "numeric" | "decimal";
+export type EditableEnum = "default" | "never" | "conditional";
+
+export type ReadOnlyStyleEnum = "basedOnDataView" | "control" | "text";
+
+export type VisibleEnum = "default" | "conditional";
+
+export type ValidationTypeEnum = "none" | "numeric" | "decimal" | "alphabet" | "custom";
+
+export type PrefixContentTypeEnum = "icon" | "text";
+
+export type SuffixInteractionEnum = "none" | "action" | "clear" | "passwordToggle" | "copyText";
+
+export type SuffixContentTypeEnum = "icon" | "text";
+
+export type ApplyChangesBehaviorEnum = "onLeave" | "whileTyping";
 
 export interface AdvanceInputsContainerProps {
     name: string;
@@ -38,14 +46,37 @@ export interface AdvanceInputsContainerProps {
     tabIndex?: number;
     valueAttribute: EditableValue<string>;
     placeholder: string;
+    inputType: InputTypeEnum;
+    dynamicInputTooltip?: DynamicValue<string>;
+    autocomplete: AutocompleteEnum;
+    inputMode: InputModeEnum;
+    autoFocus: boolean;
+    spellCheck: boolean;
     showLabel: boolean;
     labelText: string;
-    inputTooltip: string;
-    required: boolean;
     requiredIndicator: string;
+    editable: EditableEnum;
+    editableCondition?: DynamicValue<boolean>;
+    readOnlyStyle: ReadOnlyStyleEnum;
+    visible: VisibleEnum;
+    visibleCondition?: DynamicValue<boolean>;
+    required: boolean;
+    requiredValidationMessage: string;
+    validationType: ValidationTypeEnum;
+    numericValidationMessage: string;
+    decimalValidationMessage: string;
+    alphabetValidationMessage: string;
+    customValidationExpression?: DynamicValue<boolean>;
+    customValidationMessage: string;
+    enableMaxLength: boolean;
+    maxLength: number;
+    maxLengthValidationMessage: string;
     showHelperText: boolean;
     helperText: string;
     reserveMessageSpace: boolean;
+    inputTooltip: string;
+    showAsPassword: boolean;
+    showCharacterCounter: boolean;
     showPrefix: boolean;
     prefixContentType: PrefixContentTypeEnum;
     prefixIcon?: DynamicValue<WebIcon>;
@@ -57,6 +88,8 @@ export interface AdvanceInputsContainerProps {
     prefixAction?: ActionValue;
     prefixTooltip: string;
     prefixAriaLabel: string;
+    suffixInteraction: SuffixInteractionEnum;
+    suffixAction?: ActionValue;
     showSuffix: boolean;
     suffixContentType: SuffixContentTypeEnum;
     suffixIcon?: DynamicValue<WebIcon>;
@@ -64,22 +97,13 @@ export interface AdvanceInputsContainerProps {
     suffixShowAsButton: boolean;
     suffixButtonBackgroundColor: string;
     suffixButtonIconColor: string;
-    suffixInteraction: SuffixInteractionEnum;
-    suffixAction?: ActionValue;
     suffixTooltip: string;
     suffixAriaLabel: string;
-    inputType: InputTypeEnum;
-    autocomplete: AutocompleteEnum;
-    inputMode: InputModeEnum;
-    validationType: ValidationTypeEnum;
-    numericValidationMessage: string;
-    decimalValidationMessage: string;
-    enableMaxLength: boolean;
-    maxLength: number;
-    showCharacterCounter: boolean;
-    maxLengthValidationMessage: string;
-    spellCheck: boolean;
-    autoFocus: boolean;
+    onChangeAction?: ActionValue;
+    onEnterAction?: ActionValue;
+    onLeaveAction?: ActionValue;
+    onEnterKeyPressAction?: ActionValue;
+    applyChangesBehavior: ApplyChangesBehaviorEnum;
 }
 
 export interface AdvanceInputsPreviewProps {
@@ -95,14 +119,37 @@ export interface AdvanceInputsPreviewProps {
     translate: (text: string) => string;
     valueAttribute: string;
     placeholder: string;
+    inputType: InputTypeEnum;
+    dynamicInputTooltip: string;
+    autocomplete: AutocompleteEnum;
+    inputMode: InputModeEnum;
+    autoFocus: boolean;
+    spellCheck: boolean;
     showLabel: boolean;
     labelText: string;
-    inputTooltip: string;
-    required: boolean;
     requiredIndicator: string;
+    editable: EditableEnum;
+    editableCondition: string;
+    readOnlyStyle: ReadOnlyStyleEnum;
+    visible: VisibleEnum;
+    visibleCondition: string;
+    required: boolean;
+    requiredValidationMessage: string;
+    validationType: ValidationTypeEnum;
+    numericValidationMessage: string;
+    decimalValidationMessage: string;
+    alphabetValidationMessage: string;
+    customValidationExpression: string;
+    customValidationMessage: string;
+    enableMaxLength: boolean;
+    maxLength: number | null;
+    maxLengthValidationMessage: string;
     showHelperText: boolean;
     helperText: string;
     reserveMessageSpace: boolean;
+    inputTooltip: string;
+    showAsPassword: boolean;
+    showCharacterCounter: boolean;
     showPrefix: boolean;
     prefixContentType: PrefixContentTypeEnum;
     prefixIcon:
@@ -118,6 +165,8 @@ export interface AdvanceInputsPreviewProps {
     prefixAction: {} | null;
     prefixTooltip: string;
     prefixAriaLabel: string;
+    suffixInteraction: SuffixInteractionEnum;
+    suffixAction: {} | null;
     showSuffix: boolean;
     suffixContentType: SuffixContentTypeEnum;
     suffixIcon:
@@ -129,20 +178,11 @@ export interface AdvanceInputsPreviewProps {
     suffixShowAsButton: boolean;
     suffixButtonBackgroundColor: string;
     suffixButtonIconColor: string;
-    suffixInteraction: SuffixInteractionEnum;
-    suffixAction: {} | null;
     suffixTooltip: string;
     suffixAriaLabel: string;
-    inputType: InputTypeEnum;
-    autocomplete: AutocompleteEnum;
-    inputMode: InputModeEnum;
-    validationType: ValidationTypeEnum;
-    numericValidationMessage: string;
-    decimalValidationMessage: string;
-    enableMaxLength: boolean;
-    maxLength: number | null;
-    showCharacterCounter: boolean;
-    maxLengthValidationMessage: string;
-    spellCheck: boolean;
-    autoFocus: boolean;
+    onChangeAction: {} | null;
+    onEnterAction: {} | null;
+    onLeaveAction: {} | null;
+    onEnterKeyPressAction: {} | null;
+    applyChangesBehavior: ApplyChangesBehaviorEnum;
 }

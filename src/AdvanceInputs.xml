@@ -1,548 +1,111 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<widget
-    id="threemsoftware.advanceinputs.AdvanceInputs"
-    pluginWidget="true"
-    needsEntityContext="true"
-    offlineCapable="true"
-    supportedPlatform="Web"
-    xmlns="http://www.mendix.com/widget/1.0/"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd"
->
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="threemsoftware.advanceinputs.AdvanceInputs" pluginWidget="true" needsEntityContext="true" offlineCapable="true" supportedPlatform="Web" xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
     <name>Advance Inputs</name>
-
-    <description>
-        An advanced Mendix input widget with configurable prefix and suffix actions,
-        validation, accessibility, and modern UI states.
-    </description>
-
+    <description>An advanced Mendix input widget with configurable prefix and suffix actions, validation, accessibility, and modern UI states.</description>
     <icon/>
-
     <properties>
         <propertyGroup caption="Data">
-            <property
-                key="valueAttribute"
-                type="attribute"
-                required="true"
-            >
-                <caption>Value attribute</caption>
-
-                <description>
-                    Select the String attribute used to store the input value.
-                </description>
-
-                <attributeTypes>
-                    <attributeType name="String"/>
-                </attributeTypes>
-            </property>
-
-            <property
-                key="placeholder"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
-                <caption>Placeholder</caption>
-
-                <description>
-                    Text displayed when the input has no value.
-                </description>
-            </property>
+            <propertyGroup caption="Data source">
+                <property key="valueAttribute" type="attribute" required="true"><caption>Attribute</caption><description>Select the String attribute used to store the input value.</description><attributeTypes><attributeType name="String"/></attributeTypes></property>
+            </propertyGroup>
+            <propertyGroup caption="General">
+                <property key="placeholder" type="string" required="false" defaultValue=""><caption>Placeholder</caption><description>Text displayed when the input has no value.</description></property>
+                <property key="inputType" type="enumeration" defaultValue="text">
+                    <caption>Input type</caption><description>Sets the native browser input type.</description>
+                    <enumerationValues><enumerationValue key="text">Text</enumerationValue><enumerationValue key="password">Password</enumerationValue><enumerationValue key="email">Email</enumerationValue><enumerationValue key="tel">Telephone</enumerationValue><enumerationValue key="url">URL</enumerationValue><enumerationValue key="search">Search</enumerationValue></enumerationValues>
+                </property>
+                <property key="dynamicInputTooltip" type="expression" required="false"><caption>Tooltip</caption><description>Dynamic tooltip text shown for the input.</description><returnType type="String"/></property>
+                <property key="autocomplete" type="enumeration" defaultValue="off">
+                    <caption>Autocomplete</caption><description>Sets the browser autocomplete hint.</description>
+                    <enumerationValues><enumerationValue key="off">Off</enumerationValue><enumerationValue key="on">On</enumerationValue><enumerationValue key="name">Name</enumerationValue><enumerationValue key="givenName">Given name</enumerationValue><enumerationValue key="familyName">Family name</enumerationValue><enumerationValue key="email">Email</enumerationValue><enumerationValue key="username">Username</enumerationValue><enumerationValue key="currentPassword">Current password</enumerationValue><enumerationValue key="newPassword">New password</enumerationValue><enumerationValue key="tel">Telephone</enumerationValue><enumerationValue key="organization">Organization</enumerationValue></enumerationValues>
+                </property>
+                <property key="inputMode" type="enumeration" defaultValue="text">
+                    <caption>Input mode</caption><description>Influences the virtual keyboard shown on touch devices.</description>
+                    <enumerationValues><enumerationValue key="text">Text</enumerationValue><enumerationValue key="email">Email</enumerationValue><enumerationValue key="tel">Telephone</enumerationValue><enumerationValue key="url">URL</enumerationValue><enumerationValue key="numeric">Numeric</enumerationValue><enumerationValue key="decimal">Decimal</enumerationValue><enumerationValue key="search">Search</enumerationValue><enumerationValue key="none">None</enumerationValue></enumerationValues>
+                </property>
+                <property key="autoFocus" type="boolean" defaultValue="false"><caption>Autofocus</caption><description>Gives focus to the input automatically when it is rendered.</description></property>
+                <property key="spellCheck" type="boolean" defaultValue="true"><caption>Enable spellcheck</caption><description>Enables or disables browser spell checking for the input value.</description></property>
+            </propertyGroup>
+            <propertyGroup caption="Label">
+                <property key="showLabel" type="boolean" defaultValue="true"><caption>Show label</caption><description/></property>
+                <property key="labelText" type="string" required="false" defaultValue=""><caption>Label text</caption><description/></property>
+                <property key="requiredIndicator" type="string" required="false" defaultValue="*"><caption>Required indicator</caption><description/></property>
+            </propertyGroup>
+            <propertyGroup caption="Editability">
+                <property key="editable" type="enumeration" defaultValue="default">
+                    <caption>Editable</caption><description>Controls whether the input can be edited in addition to Mendix access rules.</description>
+                    <enumerationValues><enumerationValue key="default">Default</enumerationValue><enumerationValue key="never">Never</enumerationValue><enumerationValue key="conditional">Conditionally</enumerationValue></enumerationValues>
+                </property>
+                <property key="editableCondition" type="expression" required="false"><caption>Editable condition</caption><description>Boolean expression that determines whether the input is editable.</description><returnType type="Boolean"/></property>
+                <property key="readOnlyStyle" type="enumeration" defaultValue="basedOnDataView">
+                    <caption>Read-only style</caption><description>Choose how a read-only value is displayed.</description>
+                    <enumerationValues><enumerationValue key="basedOnDataView">Based on data view</enumerationValue><enumerationValue key="control">Control</enumerationValue><enumerationValue key="text">Text</enumerationValue></enumerationValues>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Visibility">
+                <property key="visible" type="enumeration" defaultValue="default"><caption>Visible</caption><description>Controls whether the widget is rendered.</description><enumerationValues><enumerationValue key="default">Default</enumerationValue><enumerationValue key="conditional">Conditionally</enumerationValue></enumerationValues></property>
+                <property key="visibleCondition" type="expression" required="false"><caption>Visible condition</caption><description>Boolean expression that determines whether the widget is visible.</description><returnType type="Boolean"/></property>
+            </propertyGroup>
+            <propertyGroup caption="Validation">
+                <property key="required" type="boolean" defaultValue="false"><caption>Required</caption><description>Controls required validation, the required indicator, and aria-required.</description></property>
+                <property key="requiredValidationMessage" type="string" required="false" defaultValue="This field is required."><caption>Required validation message</caption><description>Message shown after interaction when Required is enabled and the field is empty.</description></property>
+                <property key="validationType" type="enumeration" defaultValue="none">
+                    <caption>Validation type</caption><description>Select one additional validation rule. Required and maximum length remain independent.</description>
+                    <enumerationValues><enumerationValue key="none">None</enumerationValue><enumerationValue key="numeric">Numeric</enumerationValue><enumerationValue key="decimal">Decimal</enumerationValue><enumerationValue key="alphabet">Alphabet</enumerationValue><enumerationValue key="custom">Custom</enumerationValue></enumerationValues>
+                </property>
+                <property key="numericValidationMessage" type="string" required="false" defaultValue="Please enter numbers only."><caption>Numeric validation message</caption><description>Message shown when Numeric validation fails.</description></property>
+                <property key="decimalValidationMessage" type="string" required="false" defaultValue="Please enter a valid decimal number."><caption>Decimal validation message</caption><description>Message shown when Decimal validation fails.</description></property>
+                <property key="alphabetValidationMessage" type="string" required="false" defaultValue="Please enter letters only."><caption>Alphabet validation message</caption><description>Message shown when Alphabet validation fails.</description></property>
+                <property key="customValidationExpression" type="expression" required="false"><caption>Custom validation expression</caption><description>Boolean expression evaluated when Validation type is Custom. True is valid.</description><returnType type="Boolean"/></property>
+                <property key="customValidationMessage" type="string" required="false" defaultValue="Please enter a valid value."><caption>Custom validation message</caption><description>Message shown when the custom validation expression evaluates to false.</description></property>
+                <property key="enableMaxLength" type="boolean" defaultValue="false"><caption>Limit maximum length</caption><description>Enables a maximum-length validation rule independent of Validation type.</description></property>
+                <property key="maxLength" type="integer" defaultValue="100"><caption>Maximum length value</caption><description>Maximum number of characters allowed when length limiting is enabled. Use a value of at least 1.</description></property>
+                <property key="maxLengthValidationMessage" type="string" required="false" defaultValue="Maximum length exceeded."><caption>Maximum-length validation message</caption><description>Message shown when the configured maximum length is exceeded.</description></property>
+            </propertyGroup>
+            <propertyGroup caption="Helper text">
+                <property key="showHelperText" type="boolean" defaultValue="false"><caption>Show helper text</caption><description/></property>
+                <property key="helperText" type="string" required="false" defaultValue=""><caption>Helper text</caption><description/></property>
+                <property key="reserveMessageSpace" type="boolean" defaultValue="false"><caption>Reserve message space</caption><description>Prevents layout shifts when helper or validation text appears.</description></property>
+            </propertyGroup>
+            <propertyGroup caption="Accessibility">
+                <property key="inputTooltip" type="string" required="false" defaultValue=""><caption>Tooltip fallback</caption><description>Legacy static tooltip used when the dynamic Tooltip is empty or unavailable.</description></property>
+            </propertyGroup>
+            <propertyGroup caption="Advanced behaviour">
+                <!-- Input mask is intentionally not exposed until masking and caret handling are fully supported. -->
+                <property key="showAsPassword" type="boolean" defaultValue="false"><caption>Show as password</caption><description>Renders a password field and overrides Input type. The password-toggle suffix can still reveal the value.</description></property>
+                <property key="showCharacterCounter" type="boolean" defaultValue="false"><caption>Show character counter</caption><description>Displays the entered character count together with the configured maximum length.</description></property>
+            </propertyGroup>
         </propertyGroup>
-
-        <propertyGroup caption="Label">
-            <property
-                key="showLabel"
-                type="boolean"
-                defaultValue="true"
-            >
-                <caption>Show label</caption>
-                <description/>
-            </property>
-
-
-            <property
-                key="labelText"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
-                <caption>Label text</caption>
-                <description/>
-            </property>
-
-<property
-    key="inputTooltip"
-    type="string"
-    required="false"
-    defaultValue=""
->
-    <caption>Input tooltip</caption>
-    <description>
-  This tooltip belongs to the input and not to the label.
-    </description>
-</property>
-            <property
-                key="required"
-                type="boolean"
-                defaultValue="false"
-            >
-                <caption>Required</caption>
-                <description/>
-            </property>
-
-            <property
-                key="requiredIndicator"
-                type="string"
-                required="false"
-                defaultValue="*"
-            >
-                <caption>Required indicator</caption>
-                <description/>
-            </property>
-        </propertyGroup>
-
-        <propertyGroup caption="Supporting Text">
-            <property
-                key="showHelperText"
-                type="boolean"
-                defaultValue="false"
-            >
-                <caption>Show helper text</caption>
-                <description/>
-            </property>
-
-            <property
-                key="helperText"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
-                <caption>Helper text</caption>
-                <description/>
-            </property>
-
-            <property
-                key="reserveMessageSpace"
-                type="boolean"
-                defaultValue="false"
-            >
-                <caption>Reserve message space</caption>
-                <description/>
-            </property>
-        </propertyGroup>
-
         <propertyGroup caption="Prefix">
-            <property
-                key="showPrefix"
-                type="boolean"
-                defaultValue="false"
-            >
-                <caption>Show prefix</caption>
-                <description/>
-            </property>
-
-            <property
-                key="prefixContentType"
-                type="enumeration"
-                defaultValue="icon"
-            >
-                <caption>Prefix content type</caption>
-                <description/>
-                <enumerationValues>
-                    <enumerationValue key="icon">Icon</enumerationValue>
-                    <enumerationValue key="text">Text</enumerationValue>
-                </enumerationValues>
-            </property>
-
-            <property
-                key="prefixIcon"
-                type="icon"
-                required="false"
-            >
-                <caption>Prefix icon</caption>
-                <description/>
-            </property>
-
-            <property
-                key="prefixText"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
-                <caption>Prefix text</caption>
-                <description/>
-            </property>
-
-
-
-<property
-    key="prefixShowAsButton"
-    type="boolean"
-    defaultValue="false"
->
-    <caption>Show as button</caption>
-    <description>
-        Displays the prefix content with button-style colors. This visual option is independent from the Interactive setting.
-    </description>
-</property>
-
-<property
-    key="prefixButtonBackgroundColor"
-    type="string"
-    required="false"
-    defaultValue=""
->
-    <caption>Button background color</caption>
-    <description>
-    Optional CSS color used as the prefix button background, such as #2563EB or rgb(37, 99, 235). Leave empty to use the default theme color.
-</description>
-</property>
-
-<property
-    key="prefixButtonIconColor"
-    type="string"
-    required="false"
-    defaultValue=""
->
-    <caption>Button icon color</caption>
-    <description>
-        Optional CSS color used for the prefix icon or text. Leave empty to use the default affix color.
-    </description>
-</property>
-            <property
-                key="prefixInteractive"
-                type="boolean"
-                defaultValue="false"
-            >
-                <caption>Interactive</caption>
-                <description/>
-            </property>
-
-            <property
-                key="prefixAction"
-                type="action"
-                required="false"
-            >
-                <caption>On click</caption>
-                <description/>
-            </property>
-
-            <property
-                key="prefixTooltip"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
-                <caption>Tooltip</caption>
-                <description/>
-            </property>
-
-            <property
-                key="prefixAriaLabel"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
-                <caption>Accessibility label</caption>
-                <description/>
-            </property>
+            <propertyGroup caption="Content">
+                <property key="showPrefix" type="boolean" defaultValue="false"><caption>Show prefix</caption><description/></property>
+                <property key="prefixContentType" type="enumeration" defaultValue="icon"><caption>Content type</caption><description/><enumerationValues><enumerationValue key="icon">Icon</enumerationValue><enumerationValue key="text">Text</enumerationValue></enumerationValues></property>
+                <property key="prefixIcon" type="icon" required="false"><caption>Icon</caption><description/></property>
+                <property key="prefixText" type="string" required="false" defaultValue=""><caption>Text</caption><description/></property>
+            </propertyGroup>
+            <propertyGroup caption="Appearance">
+                <property key="prefixShowAsButton" type="boolean" defaultValue="false"><caption>Show as button</caption><description>Displays prefix content with button styling.</description></property>
+                <property key="prefixButtonBackgroundColor" type="string" required="false" defaultValue=""><caption>Button background color</caption><description>Optional CSS color for the button background.</description></property>
+                <property key="prefixButtonIconColor" type="string" required="false" defaultValue=""><caption>Button icon color</caption><description>Optional CSS color for the icon or text.</description></property>
+            </propertyGroup>
+            <propertyGroup caption="Action"><property key="prefixInteractive" type="boolean" defaultValue="false"><caption>Interactive</caption><description/></property><property key="prefixAction" type="action" required="false"><caption>On click</caption><description/></property></propertyGroup>
+            <propertyGroup caption="Accessibility"><property key="prefixTooltip" type="string" required="false" defaultValue=""><caption>Tooltip</caption><description/></property><property key="prefixAriaLabel" type="string" required="false" defaultValue=""><caption>ARIA label</caption><description/></property></propertyGroup>
         </propertyGroup>
-
         <propertyGroup caption="Suffix">
-            <property
-                key="showSuffix"
-                type="boolean"
-                defaultValue="false"
-            >
-                <caption>Show suffix</caption>
-                <description/>
-            </property>
-
-            <property
-                key="suffixContentType"
-                type="enumeration"
-                defaultValue="icon"
-            >
-                <caption>Suffix content type</caption>
-                <description/>
-                <enumerationValues>
-                    <enumerationValue key="icon">Icon</enumerationValue>
-                    <enumerationValue key="text">Text</enumerationValue>
-                </enumerationValues>
-            </property>
-
-            <property
-                key="suffixIcon"
-                type="icon"
-                required="false"
-            >
-                <caption>Suffix icon</caption>
-                <description/>
-            </property>
-
-            <property
-                key="suffixText"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
-                <caption>Suffix text</caption>
-                <description/>
-            </property>
-
-           <property
-    key="suffixShowAsButton"
-    type="boolean"
-    defaultValue="false"
->
-    <caption>Show as button</caption>
-    <description>
-        Displays the custom suffix content with button-style colors. This setting applies only when Suffix behavior is Custom content.
-    </description>
-</property>
-
-<property
-    key="suffixButtonBackgroundColor"
-    type="string"
-    required="false"
-    defaultValue=""
->
-    <caption>Button background color</caption>
-    <description>
-    Optional CSS color used as the suffix button background, such as #2563EB or rgb(37, 99, 235). Leave empty to use the default theme color.
-</description>
-</property>
-
-<property
-    key="suffixButtonIconColor"
-    type="string"
-    required="false"
-    defaultValue=""
->
-    <caption>Button icon color</caption>
-    <description>
-        Optional CSS color used for the custom suffix icon or text. Leave empty to use the default affix color.
-    </description>
-</property>
-
-       <property key="suffixInteraction" type="enumeration" defaultValue="none">
-    <caption>Interaction</caption>
-    <description>Select the built-in or custom suffix interaction.</description>
-    <enumerationValues>
-        <enumerationValue key="none">None</enumerationValue>
-        <enumerationValue key="action">Action</enumerationValue>
-        <enumerationValue key="clear">Clear input</enumerationValue>
-        <enumerationValue key="passwordToggle">Password toggle</enumerationValue>
-        <enumerationValue key="copyText">Copy text</enumerationValue>
-    </enumerationValues>
-</property>
-          
-       
-          <property
-    key="suffixAction"
-    type="action"
-    required="false"
->
-    <caption>On click</caption>
-    <description>
-        Mendix action executed when Interaction is set to Action.
-    </description>
-</property>
-
-            <property
-                key="suffixTooltip"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
-                <caption>Tooltip</caption>
-                <description/>
-            </property>
-
-            <property
-                key="suffixAriaLabel"
-                type="string"
-                required="false"
-                defaultValue=""
-            >
-                <caption>Accessibility label</caption>
-                <description/>
-            </property>
+            <propertyGroup caption="Interaction">
+                <property key="suffixInteraction" type="enumeration" defaultValue="none"><caption>Interaction</caption><description>Select the built-in or custom suffix interaction.</description><enumerationValues><enumerationValue key="none">None</enumerationValue><enumerationValue key="action">Action</enumerationValue><enumerationValue key="clear">Clear input</enumerationValue><enumerationValue key="passwordToggle">Password toggle</enumerationValue><enumerationValue key="copyText">Copy text</enumerationValue></enumerationValues></property>
+                <property key="suffixAction" type="action" required="false"><caption>On click</caption><description>Mendix action executed when Interaction is set to Action.</description></property>
+            </propertyGroup>
+            <propertyGroup caption="Content"><property key="showSuffix" type="boolean" defaultValue="false"><caption>Show suffix</caption><description/></property><property key="suffixContentType" type="enumeration" defaultValue="icon"><caption>Content type</caption><description/><enumerationValues><enumerationValue key="icon">Icon</enumerationValue><enumerationValue key="text">Text</enumerationValue></enumerationValues></property><property key="suffixIcon" type="icon" required="false"><caption>Icon</caption><description/></property><property key="suffixText" type="string" required="false" defaultValue=""><caption>Text</caption><description/></property></propertyGroup>
+            <propertyGroup caption="Appearance"><property key="suffixShowAsButton" type="boolean" defaultValue="false"><caption>Show as button</caption><description>Displays custom suffix content with button styling.</description></property><property key="suffixButtonBackgroundColor" type="string" required="false" defaultValue=""><caption>Button background color</caption><description>Optional CSS color for the button background.</description></property><property key="suffixButtonIconColor" type="string" required="false" defaultValue=""><caption>Button icon color</caption><description>Optional CSS color for the icon or text.</description></property></propertyGroup>
+            <propertyGroup caption="Accessibility"><property key="suffixTooltip" type="string" required="false" defaultValue=""><caption>Tooltip</caption><description/></property><property key="suffixAriaLabel" type="string" required="false" defaultValue=""><caption>ARIA label</caption><description/></property></propertyGroup>
         </propertyGroup>
-
-        <propertyGroup caption="Input behavior">
-            <property
-                key="inputType"
-                type="enumeration"
-                defaultValue="text"
-            >
-                <caption>Input type</caption>
-                <description>
-                    Sets the native browser input type so the field can use the appropriate keyboard and validation behavior.
-                </description>
-                <enumerationValues>
-                    <enumerationValue key="text">Text</enumerationValue>
-                    <enumerationValue key="password">Password</enumerationValue>
-                    <enumerationValue key="email">Email</enumerationValue>
-                    <enumerationValue key="tel">Telephone</enumerationValue>
-                    <enumerationValue key="url">URL</enumerationValue>
-                    <enumerationValue key="search">Search</enumerationValue>
-                </enumerationValues>
-            </property>
-
-          <property
-    key="autocomplete"
-    type="enumeration"
-    defaultValue="off"
->
-    <caption>Autocomplete</caption>
-    <description>
-        Sets the browser autocomplete hint so the input can participate in form autofill and saved-value suggestions.
-    </description>
-
-    <enumerationValues>
-        <enumerationValue key="off">Off</enumerationValue>
-        <enumerationValue key="on">On</enumerationValue>
-        <enumerationValue key="name">Name</enumerationValue>
-        <enumerationValue key="givenName">Given name</enumerationValue>
-        <enumerationValue key="familyName">Family name</enumerationValue>
-        <enumerationValue key="email">Email</enumerationValue>
-        <enumerationValue key="username">Username</enumerationValue>
-        <enumerationValue key="currentPassword">Current password</enumerationValue>
-        <enumerationValue key="newPassword">New password</enumerationValue>
-        <enumerationValue key="tel">Telephone</enumerationValue>
-        <enumerationValue key="organization">Organization</enumerationValue>
-    </enumerationValues>
-</property>
-
-            <property
-                key="inputMode"
-                type="enumeration"
-                defaultValue="text"
-            >
-                <caption>Input mode</caption>
-                <description>
-                    Sets the browser input mode to influence the virtual keyboard shown on touch devices.
-                </description>
-                <enumerationValues>
-                    <enumerationValue key="text">Text</enumerationValue>
-                    <enumerationValue key="email">Email</enumerationValue>
-                    <enumerationValue key="tel">Telephone</enumerationValue>
-                    <enumerationValue key="url">URL</enumerationValue>
-                    <enumerationValue key="numeric">Numeric</enumerationValue>
-                    <enumerationValue key="decimal">Decimal</enumerationValue>
-                    <enumerationValue key="search">Search</enumerationValue>
-                    <enumerationValue key="none">None</enumerationValue>
-                </enumerationValues>
-            </property>
-            <property
-    key="validationType"
-    type="enumeration"
-    defaultValue="none"
->
-    <caption>Input validation</caption>
-    <description>
-        Validates the entered text before storing it in the selected Mendix String attribute.
-    </description>
-
-    <enumerationValues>
-        <enumerationValue key="none">No additional validation</enumerationValue>
-        <enumerationValue key="numeric">Numbers only</enumerationValue>
-        <enumerationValue key="decimal">Decimal number</enumerationValue>
-    </enumerationValues>
-</property>
-
-<property
-    key="numericValidationMessage"
-    type="string"
-    required="false"
-    defaultValue="Please enter numbers only."
->
-    <caption>Numbers-only validation message</caption>
-    <description>
-        Message shown when Input validation is set to Numbers only and the entered value contains unsupported characters.
-    </description>
-</property>
-
-<property
-    key="decimalValidationMessage"
-    type="string"
-    required="false"
-    defaultValue="Please enter a valid decimal number."
->
-    <caption>Decimal validation message</caption>
-    <description>
-        Message shown when Input validation is set to Decimal number and the entered value is not a valid decimal value.
-    </description>
-</property>
-
-<property
-    key="enableMaxLength"
-    type="boolean"
-    defaultValue="false"
->
-    <caption>Limit maximum length</caption>
-    <description>
-        Enables maximum-length validation for the input.
-    </description>
-</property>
-
-<property
-    key="maxLength"
-    type="integer"
-    defaultValue="200"
->
-    <caption>Maximum length</caption>
-    <description>
-        Sets the maximum number of characters allowed when length limiting is enabled.
-    </description>
-</property>
-
-<property
-    key="showCharacterCounter"
-    type="boolean"
-    defaultValue="false"
->
-    <caption>Show character counter</caption>
-    <description>
-        Displays the current number of entered characters together with the configured maximum length.
-    </description>
-</property>
-
-<property
-    key="maxLengthValidationMessage"
-    type="string"
-    required="false"
-    defaultValue="The maximum character limit has been exceeded."
->
-    <caption>Maximum-length validation message</caption>
-    <description>
-        Message shown when the entered value exceeds the configured maximum length.
-    </description>
-</property>
-
-<property
-    key="spellCheck"
-    type="boolean"
-    defaultValue="true"
->
-    <caption>Enable spellcheck</caption>
-    <description>
-        Enables or disables browser spell checking for the input value.
-    </description>
-</property>
-
-<property
-    key="autoFocus"
-    type="boolean"
-    defaultValue="false"
->
-    <caption>Autofocus</caption>
-    <description>
-        Gives focus to the input automatically when the widget is rendered in the browser.
-    </description>
-</property>
+        <propertyGroup caption="Events">
+            <property key="onChangeAction" type="action" required="false"><caption>On change</caption><description>Action executed after the value changes.</description></property>
+            <property key="onEnterAction" type="action" required="false"><caption>On enter</caption><description>Action executed when the input receives focus.</description></property>
+            <property key="onLeaveAction" type="action" required="false"><caption>On leave</caption><description>Action executed when the input loses focus.</description></property>
+            <property key="onEnterKeyPressAction" type="action" required="false"><caption>On Enter key press</caption><description>Action executed when the Enter key is pressed.</description></property>
+            <property key="applyChangesBehavior" type="enumeration" defaultValue="onLeave"><caption>Apply changes</caption><description>Determines when the On change action runs.</description><enumerationValues><enumerationValue key="onLeave">When user leaves input field</enumerationValue><enumerationValue key="whileTyping">While user is entering data</enumerationValue></enumerationValues></property>
         </propertyGroup>
     </properties>
 </widget>

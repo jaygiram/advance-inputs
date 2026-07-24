@@ -93,30 +93,84 @@ type DatasourceProps = BaseProps & {
 
 export type PreviewProps = ImageProps | ContainerProps | RowLayoutProps | TextProps | DropZoneProps | SelectableProps | DatasourceProps;
 
-export function getProperties(_values: AdvanceInputsPreviewProps, defaultProperties: Properties/*, target: Platform*/): Properties {
-    // Do the values manipulation here to control the visibility of properties in Studio and Studio Pro conditionally.
-    /* Example
-    if (values.myProperty === "custom") {
-        delete defaultProperties.properties.myOtherProperty;
+export function getProperties(
+    values: AdvanceInputsPreviewProps,
+    defaultProperties: Properties /*, target: Platform*/
+): Properties {
+    const hiddenKeys = new Set<string>();
+
+    if (!values.showLabel) {
+        hiddenKeys.add("labelText");
     }
-    */
-    return defaultProperties;
+
+    if (!values.showLabel || !values.required) {
+        hiddenKeys.add("requiredIndicator");
+    }
+
+    if (!values.required) {
+        hiddenKeys.add("requiredValidationMessage");
+    }
+
+    if (values.editable !== "conditional") {
+        hiddenKeys.add("editableCondition");
+    }
+
+    if (values.visible !== "conditional") {
+        hiddenKeys.add("visibleCondition");
+    }
+
+    if (!values.showHelperText) {
+        hiddenKeys.add("helperText");
+    }
+
+    if (values.validationType !== "numeric") {
+        hiddenKeys.add("numericValidationMessage");
+    }
+
+    if (values.validationType !== "decimal") {
+        hiddenKeys.add("decimalValidationMessage");
+    }
+
+    if (values.validationType !== "alphabet") {
+        hiddenKeys.add("alphabetValidationMessage");
+    }
+
+    if (values.validationType !== "custom") {
+        hiddenKeys.add("customValidationExpression");
+        hiddenKeys.add("customValidationMessage");
+    }
+
+    if (!values.enableMaxLength) {
+        hiddenKeys.add("maxLength");
+        hiddenKeys.add("maxLengthValidationMessage");
+    }
+
+    const filterGroup = (group: PropertyGroup): PropertyGroup => ({
+        ...group,
+        properties: group.properties?.filter(
+            property => !hiddenKeys.has(property.key)
+        ),
+        propertyGroups: group.propertyGroups?.map(filterGroup)
+    });
+
+    return defaultProperties.map(filterGroup);
 }
 
-// export function check(_values: AdvanceInputsPreviewProps): Problem[] {
-//     const errors: Problem[] = [];
-//     // Add errors to the above array to throw errors in Studio and Studio Pro.
-//     /* Example
-//     if (values.myProperty !== "custom") {
-//         errors.push({
-//             property: `myProperty`,
-//             message: `The value of 'myProperty' is different of 'custom'.`,
-//             url: "https://github.com/myrepo/mywidget"
-//         });
-//     }
-//     */
-//     return errors;
-// }
+export function check(values: AdvanceInputsPreviewProps): Problem[] {
+    if (
+        values.enableMaxLength &&
+        (values.maxLength === null || values.maxLength < 1)
+    ) {
+        return [
+            {
+                property: "maxLength",
+                message: "Maximum length value must be at least 1."
+            }
+        ];
+    }
+
+    return [];
+}
 
 // export function getPreview(values: AdvanceInputsPreviewProps, isDarkMode: boolean, version: number[]): PreviewProps {
 //     // Customize your pluggable widget appearance for Studio Pro.
