@@ -1,4 +1,5 @@
-import { ReactElement, useEffect, useId, useState } from "react";
+import { KeyboardEvent, ReactElement, useId, useRef, useState } from "react";
+import { ValueStatus } from "mendix";
 
 import { AdvanceInputsContainerProps } from "../typings/AdvanceInputsProps";
 import { BuiltInIcon } from "./components/BuiltInIcon";
@@ -10,6 +11,7 @@ import { Prefix } from "./components/Prefix";
 import { Suffix } from "./components/Suffix";
 import { useActionHandler } from "./hooks/useActionHandler";
 import { usePasswordVisibility } from "./hooks/usePasswordVisibility";
+
 import "./ui/AdvanceInputs.css";
 
 export function AdvanceInputs({
@@ -18,24 +20,46 @@ export function AdvanceInputs({
     class: className,
     style,
     tabIndex,
+
     showLabel,
     labelText,
     required,
     requiredIndicator,
+    requiredValidationMessage,
+
     showHelperText,
     helperText,
     reserveMessageSpace,
+
     inputType,
+    showAsPassword,
+    dynamicInputTooltip,
     autocomplete,
     inputMode,
-   validationType,
-customPattern,
-validationMessage,
-enableMaxLength,
-maxLength,
+    validationType,
+    numericValidationMessage,
+    decimalValidationMessage,
+    alphabetValidationMessage,
+    customValidationExpression,
+    customValidationMessage,
+    maxLengthValidationMessage,
+    enableMaxLength,
+    maxLength,
     showCharacterCounter,
     spellCheck,
     autoFocus,
+
+    onChangeAction,
+    onEnterAction,
+    onLeaveAction,
+    onEnterKeyPressAction,
+    applyChangesBehavior,
+    editable,
+    editableCondition,
+    readOnlyStyle,
+    visible,
+    visibleCondition,
+
     showPrefix,
     prefixContentType,
     prefixIcon,
@@ -48,7 +72,7 @@ maxLength,
     prefixTooltip,
     prefixAriaLabel,
 
-   
+    
 showSuffix,
 suffixContentType,
 suffixIcon,
@@ -61,22 +85,35 @@ suffixAction,
 suffixTooltip,
 suffixAriaLabel,
 inputTooltip
-}: AdvanceInputsContainerProps): ReactElement {
+}: AdvanceInputsContainerProps): ReactElement | null {
     const inputId = useId();
     const validationId = `${inputId}-validation`;
     const helperTextId = `${inputId}-helper`;
 
+    const [hasValidationStarted, setHasValidationStarted] =
+        useState(false);
     const [hasCopiedText, setHasCopiedText] = useState(false);
-    const mendixValue = valueAttribute.value ?? "";
-
-    const [value, setValue] = useState(mendixValue);
-
-    const isReadOnly = valueAttribute.readOnly;
+    const hasChangedSinceFocus = useRef(false);
+    const value = valueAttribute.value ?? "";
+    const isConditionalEditabilityAvailable =
+        editableCondition?.status === ValueStatus.Available &&
+        editableCondition.value === true;
+    const isReadOnly =
+        valueAttribute.readOnly ||
+        editable === "never" ||
+        (editable === "conditional" &&
+            !isConditionalEditabilityAvailable);
+    const isVisible =
+        visible === "default" ||
+        (visibleCondition?.status === ValueStatus.Available &&
+            visibleCondition.value === true);
+    const dynamicTooltip =
+        dynamicInputTooltip?.status === ValueStatus.Available &&
+        typeof dynamicInputTooltip.value === "string"
+            ? dynamicInputTooltip.value.trim()
+            : "";
+    const inputTitle = dynamicTooltip || inputTooltip?.trim() || undefined;
     const mendixValidationMessage = valueAttribute.validation;
-
-    useEffect(() => {
-    setValue(mendixValue);
-}, [mendixValue]);
 
     const resolvedMaxLength =
         enableMaxLength &&
@@ -100,80 +137,84 @@ inputTooltip
     ]
         .filter(Boolean)
         .join(" ");
-const getWidgetValidationMessage = (
-    inputValue: string
-): string | undefined => {
-    if (required && inputValue.trim().length === 0) {
-        return "This field is required.";
-    }
 
-    if (
-        resolvedMaxLength !== undefined &&
-        inputValue.length > resolvedMaxLength
-    ) {
-        return "The maximum character limit has been exceeded.";
-    }
-
-    if (
-        validationType === "numeric" &&
-        inputValue.length > 0 &&
-        !/^\d+$/.test(inputValue)
-    ) {
-        return "Please enter numbers only.";
-    }
-
-    if (
-        validationType === "decimal" &&
-        inputValue.length > 0 &&
-        !/^\d+(\.\d+)?$/.test(inputValue)
-    ) {
-        return "Please enter a valid decimal number.";
-    }
-
-    if (
-        validationType === "custom" &&
-        inputValue.length > 0
-    ) {
-        const normalizedPattern = customPattern?.trim();
-
-        if (!normalizedPattern) {
-            return undefined;
-        }
-
-        try {
-            const customValidationExpression =
-                new RegExp(normalizedPattern);
-
-            if (!customValidationExpression.test(inputValue)) {
-                return (
-                    validationMessage?.trim() ||
-                    "The entered value does not match the required format."
-                );
-            }
-        } catch (error) {
-            console.error(
-                "Advance Inputs: Invalid custom validation pattern.",
-                error
+    const getWidgetValidationMessage = (
+        inputValue: string
+    ): string | undefined => {
+        if (required && inputValue.trim().length === 0) {
+            return (
+                requiredValidationMessage?.trim() ||
+                "This field is required."
             );
-
-            return "The configured custom validation pattern is invalid.";
         }
-    }
 
-    return undefined;
-};
+        if (
+            validationType === "custom" &&
+            customValidationExpression?.status === ValueStatus.Available &&
+            customValidationExpression.value === false
+        ) {
+            return (
+                customValidationMessage?.trim() ||
+                "Please enter a valid value."
+            );
+        }
 
-    const widgetValidationMessage =
+        if (
+            resolvedMaxLength !== undefined &&
+            inputValue.length > resolvedMaxLength
+        ) {
+            return (
+                maxLengthValidationMessage?.trim() ||
+                `Maximum ${resolvedMaxLength} characters are allowed.`
+            );
+        }
+
+        if (
+            validationType === "numeric" &&
+            inputValue.length > 0 &&
+            !/^\d+$/.test(inputValue)
+        ) {
+            return (
+                numericValidationMessage?.trim() ||
+                "Please enter numbers only."
+            );
+        }
+
+        if (
+            validationType === "decimal" &&
+            inputValue.length > 0 &&
+            !/^\d+(\.\d+)?$/.test(inputValue)
+        ) {
+            return (
+                decimalValidationMessage?.trim() ||
+                "Please enter a valid decimal number."
+            );
+        }
+
+        if (
+            validationType === "alphabet" &&
+            inputValue.length > 0 &&
+            !/^[\p{L} ]+$/u.test(inputValue)
+        ) {
+            return (
+                alphabetValidationMessage?.trim() ||
+                "Please enter letters only."
+            );
+        }
+
+        return undefined;
+    };
+    const currentWidgetValidationMessage =
         getWidgetValidationMessage(value);
 
-    /*
-     * Mendix validation always has the highest priority.
-     */
-    const validationMessageToDisplay =
-        mendixValidationMessage?.trim() ||
-        widgetValidationMessage;
+    const widgetValidationMessage =
+        hasValidationStarted
+            ? currentWidgetValidationMessage
+            : undefined;
+    const validationMessage =
+        mendixValidationMessage?.trim() || widgetValidationMessage;
 
-    const hasValidationMessage = Boolean(validationMessageToDisplay?.trim());
+    const hasValidationMessage = Boolean(validationMessage?.trim());
     const hasValue = value.length > 0;
 
     const {
@@ -184,6 +225,26 @@ const getWidgetValidationMessage = (
 
     const prefixActionHandler = useActionHandler({
         action: prefixAction,
+        disabled: isReadOnly
+    });
+
+    const onChangeActionHandler = useActionHandler({
+        action: onChangeAction,
+        disabled: isReadOnly
+    });
+
+    const onEnterActionHandler = useActionHandler({
+        action: onEnterAction,
+        disabled: isReadOnly
+    });
+
+    const onLeaveActionHandler = useActionHandler({
+        action: onLeaveAction,
+        disabled: isReadOnly
+    });
+
+    const onEnterKeyPressActionHandler = useActionHandler({
+        action: onEnterKeyPressAction,
         disabled: isReadOnly
     });
 
@@ -200,12 +261,16 @@ const getWidgetValidationMessage = (
         !hasValidationMessage &&
         !shouldShowHelperText;
 
-const effectiveInputType =
-    suffixInteraction === "passwordToggle"
-        ? isPasswordVisible
-            ? "text"
-            : "password"
-        : inputType;
+    const effectiveInputType =
+        suffixInteraction === "passwordToggle"
+            ? isPasswordVisible
+                ? "text"
+                : "password"
+            : showAsPassword
+              ? "password"
+              : inputType;
+
+    const isTextReadOnly = isReadOnly && readOnlyStyle === "text";
 
 
 const showClearButton =
@@ -310,25 +375,68 @@ const passwordToggleLabel =
         : "Show password";
 
     const handleInputChange = (newValue: string): void => {
-    if (isReadOnly) {
-        return;
-    }
+        if (isReadOnly) {
+            return;
+        }
 
-    setValue(newValue);
-    valueAttribute.setValue(newValue);
+        valueAttribute.setValue(newValue);
+        hasChangedSinceFocus.current = true;
 
-};
+        if (applyChangesBehavior === "whileTyping") {
+            onChangeActionHandler.execute();
+        }
+    };
+
+    const handleInputFocus = (): void => {
+        hasChangedSinceFocus.current = false;
+        onEnterActionHandler.execute();
+    };
+
+    const handleInputBlur = (): void => {
+        if (isReadOnly) {
+            return;
+        }
+
+        setHasValidationStarted(true);
+        onLeaveActionHandler.execute();
+
+        if (
+            hasChangedSinceFocus.current &&
+            applyChangesBehavior === "onLeave"
+        ) {
+            onChangeActionHandler.execute();
+        }
+
+        hasChangedSinceFocus.current = false;
+    };
+
+    const handleInputKeyDown = (
+        event: KeyboardEvent<HTMLInputElement>
+    ): void => {
+        if (event.key === "Enter") {
+            onEnterKeyPressActionHandler.execute();
+        }
+    };
 
     const handleClear = (): void => {
-    if (isReadOnly || !hasValue) {
-        return;
+        if (isReadOnly || !hasValue) {
+            return;
+        }
+
+        valueAttribute.setValue("");
+        hasChangedSinceFocus.current = true;
+
+        if (applyChangesBehavior === "whileTyping") {
+            onChangeActionHandler.execute();
+        }
+
+        setHasValidationStarted(true);
+        resetPasswordVisibility();
+    };
+
+    if (!isVisible) {
+        return null;
     }
-
-    setValue("");
-    valueAttribute.setValue("");
-
-    resetPasswordVisibility();
-};
 
     return (
         <div
@@ -343,6 +451,17 @@ const passwordToggleLabel =
                 htmlFor={inputId}
             />
 
+            {isTextReadOnly ? (
+                <div
+                    className="advance-inputs__readonly-text"
+                    role="textbox"
+                    aria-readonly="true"
+                    aria-invalid={hasValidationMessage || undefined}
+                    aria-describedby={describedById}
+                >
+                    {value}
+                </div>
+            ) : (
             <div className={controlClassName}>
                 <Prefix
                     show={showPrefix}
@@ -368,7 +487,7 @@ const passwordToggleLabel =
                     id={inputId}
                     value={value}
                     placeholder={placeholder || ""}
-                    title={inputTooltip}
+                    title={inputTitle}
                     inputType={effectiveInputType}
                     autocomplete={autocomplete}
                     inputMode={inputMode}
@@ -381,6 +500,9 @@ const passwordToggleLabel =
                     ariaInvalid={hasValidationMessage}
                     ariaDescribedBy={describedById}
                     onChange={handleInputChange}
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
+                    onKeyDown={handleInputKeyDown}
                 />
 
                 {showClearButton ? (
@@ -486,6 +608,7 @@ tooltip="Clear input"
     />
 ) : null}
             </div>
+            )}
             <div className="advance-inputs__footer">
 
                 <div className="advance-inputs__footer-left">
@@ -495,7 +618,7 @@ tooltip="Clear input"
                             className="advance-inputs__validation"
                             role="alert"
                         >
-                            {validationMessageToDisplay}
+                            {validationMessage}
                         </div>
                     ) : !hasValidationMessage && shouldShowHelperText ? (
                         <HelperText

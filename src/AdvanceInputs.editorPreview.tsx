@@ -37,6 +37,7 @@ export function preview({
     autocomplete,
     inputMode,
     spellCheck,
+    showAsPassword,
     autoFocus: _autoFocus,
 
     showPrefix,
@@ -144,7 +145,9 @@ const showPasswordToggle =
     inputType={
         suffixInteraction === "passwordToggle"
             ? "password"
-            : "text"
+            : showAsPassword
+              ? "password"
+              : "text"
     }
     autocomplete={autocomplete}
     inputMode={inputMode}
