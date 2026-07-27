@@ -172,14 +172,143 @@ export function check(values: AdvanceInputsPreviewProps): Problem[] {
     return [];
 }
 
-// export function getPreview(values: AdvanceInputsPreviewProps, isDarkMode: boolean, version: number[]): PreviewProps {
-//     // Customize your pluggable widget appearance for Studio Pro.
-//     return {
-//         type: "Container",
-//         children: []
-//     }
-// }
+export function getPreview(
+    values: AdvanceInputsPreviewProps,
+    isDarkMode: boolean,
+    _version: number[]
+): PreviewProps {
+    const attribute = values.valueAttribute?.trim();
 
-// export function getCustomCaption(values: AdvanceInputsPreviewProps, platform: Platform): string {
-//     return "AdvanceInputs";
-// }
+    const formattedAttribute = attribute
+        ? attribute
+              .replace(/[\[\]]/g, "")
+              .replace(/\//g, " / ")
+        : "";
+
+    const label =
+        values.labelText?.trim() ||
+        formattedAttribute ||
+        "Configure input field";
+
+    const validationParts: string[] = [];
+
+    if (values.required) {
+        validationParts.push("Required");
+    }
+
+    if (values.validationType !== "none") {
+        validationParts.push(
+            values.validationType.charAt(0).toUpperCase() +
+                values.validationType.slice(1)
+        );
+    }
+
+    if (values.enableMaxLength && values.maxLength) {
+        validationParts.push(`Maximum ${values.maxLength} characters`);
+    }
+
+    const validationText =
+        validationParts.length > 0
+            ? `Validation: ${validationParts.join(", ")}`
+            : "";
+
+    const showCounter =
+        values.showCharacterCounter &&
+        values.enableMaxLength &&
+        Boolean(values.maxLength);
+
+    const footerChildren: PreviewProps[] = [];
+
+    if (validationText) {
+        footerChildren.push({
+            type: "Text",
+            content: validationText,
+            fontSize: 9,
+            fontColor: isDarkMode ? "#B8C0CC" : "#667085",
+            grow: 1
+        });
+    }
+
+    if (showCounter) {
+        footerChildren.push({
+            type: "Text",
+            content: `0 / ${values.maxLength}`,
+            fontSize: 9,
+            fontColor: isDarkMode ? "#B8C0CC" : "#667085"
+        });
+    }
+
+const children: PreviewProps[] = [];
+
+if (values.showLabel) {
+    children.push({
+        type: "Text",
+        content: `${label}${values.required ? " *" : ""}`,
+        bold: true,
+        fontSize: 9
+    });
+}
+
+children.push({
+    type: "Container",
+    borders: true,
+    borderRadius: 4,
+    borderWidth: 1,
+    padding: 7,
+    children: [
+        {
+            type: "Text",
+            content:
+                values.placeholder?.trim() ||
+                (attribute
+                    ? `[${formattedAttribute}]`
+                    : "No attribute selected"),
+            fontSize: 8,
+            fontColor: attribute
+                ? isDarkMode
+                    ? "#D4D4D4"
+                    : "#475467"
+                : "#D97706"
+        }
+    ]
+});
+
+if (footerChildren.length > 0) {
+    children.push({
+        type: "RowLayout",
+        columnSize: "grow",
+        children: footerChildren
+    });
+}
+
+    return {
+        type: "Container",
+        borders: true,
+        borderRadius: 6,
+        borderWidth: 1,
+        padding: 8,
+        children
+    };
+}
+export function getCustomCaption(
+    values: AdvanceInputsPreviewProps,
+    _platform: Platform
+): string {
+    const label = values.labelText?.trim();
+    const attribute = values.valueAttribute?.trim();
+
+    if (label) {
+        return `Advance Inputs - ${label}`;
+    }
+
+    if (attribute) {
+        const formattedAttribute = attribute
+            .replace(/[\[\]]/g, "")
+            .replace(/\//g, " / ")
+            .replace(/_/g, " ");
+
+        return `Advance Inputs - ${formattedAttribute}`;
+    }
+
+    return "Advance Inputs - Configure field";
+}

@@ -270,3 +270,249 @@
     color: var(--advance-inputs-invalid-color, #d14343);
     font-weight: 600;
 }
+
+
+/* =========================================================
+   Mendix Studio Pro design-time preview
+   ========================================================= */
+
+.advance-inputs-preview {
+    width: 100%;
+    min-width: 240px;
+    padding: 10px;
+    border: 1px solid #4b5563;
+    border-radius: 8px;
+    background: #242424;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-family: inherit;
+}
+
+.advance-inputs-preview--incomplete {
+    border-color: #b7791f;
+}
+
+.advance-inputs-preview__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #404040;
+}
+
+.advance-inputs-preview__widget {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.advance-inputs-preview__widget-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: #0d99ff;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.advance-inputs-preview__widget-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.advance-inputs-preview__title {
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.advance-inputs-preview__subtitle {
+    margin-top: 1px;
+    color: #a3a3a3;
+    font-size: 9px;
+    line-height: 1.2;
+}
+
+.advance-inputs-preview__badge {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-height: 20px;
+    padding: 2px 7px;
+    border: 1px solid #505050;
+    border-radius: 999px;
+    background: #303030;
+    color: #d4d4d4;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.advance-inputs-preview__content {
+    padding: 10px;
+    border: 1px solid #404040;
+    border-radius: 7px;
+    background: #2c2c2c;
+}
+
+.advance-inputs-preview__content .advance-inputs {
+    --advance-inputs-background: #333333;
+    --advance-inputs-border-color: #555555;
+    --advance-inputs-border-hover-color: #666666;
+    --advance-inputs-text-color: #ffffff;
+    --advance-inputs-muted-color: #b3b3b3;
+    --advance-inputs-affix-color: #d4d4d4;
+    --advance-inputs-affix-background: #3a3a3a;
+    --advance-inputs-affix-border: #555555;
+    --advance-inputs-disabled-background: #303030;
+}
+
+.advance-inputs-preview__content .advance-inputs__label {
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 5px !important;
+}
+
+.advance-inputs-preview__content .advance-inputs__control {
+    min-height: 34px;
+    border-radius: 6px;
+}
+
+.advance-inputs-preview__content .advance-inputs__input {
+    padding: 7px 10px;
+    font-size: 11px;
+}
+
+.advance-inputs-preview__content .advance-inputs__affix {
+    min-width: 34px;
+    padding: 8px 7px;
+}
+
+.advance-inputs-preview__content .advance-inputs__affix-button {
+    min-width: 34px;
+    min-height: 34px;
+    padding: 0 8px;
+}
+
+.advance-inputs-preview__content .advance-inputs__helper-text {
+    margin-top: 4px;
+    color: #a3a3a3;
+    font-size: 9px;
+}
+
+.advance-inputs-preview__label-note {
+    display: block;
+    margin: -2px 0 5px 2px;
+    color: #a3a3a3;
+    font-size: 8px;
+    font-style: italic;
+}
+
+.advance-inputs-preview__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 9px;
+    padding-top: 8px;
+    border-top: 1px dashed #4a4a4a;
+}
+
+.advance-inputs-preview__meta-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
+}
+
+.advance-inputs-preview__meta-label {
+    flex-shrink: 0;
+    color: #9ca3af;
+    font-size: 9px;
+    line-height: 1.35;
+}
+
+.advance-inputs-preview__meta-value {
+    min-width: 0;
+    color: #d4d4d4;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1.35;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-transform: capitalize;
+}
+
+.advance-inputs-preview__meta-value--warning {
+    color: #fbbf24;
+}
+
+.advance-inputs-preview--incomplete .advance-inputs-preview__widget-icon {
+    background: #b7791f;
+}
+
+.advance-inputs-preview {
+    width: 100%;
+    min-width: 220px;
+    padding: 6px;
+    border: 1px solid #4b5563;
+    border-radius: 7px;
+    background: #242424;
+    box-sizing: border-box;
+}
+
+.advance-inputs-preview__content {
+    padding: 8px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+}
+
+.advance-inputs-preview__footer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 4px;
+    min-height: 14px;
+}
+
+.advance-inputs-preview__footer-left {
+    flex: 1;
+    min-width: 0;
+}
+
+.advance-inputs-preview__validation-info {
+    display: block;
+    margin-left: 2px;
+    color: #a3a3a3;
+    font-size: 9px;
+    line-height: 1.4;
+    text-transform: capitalize;
+}
+
+.advance-inputs-preview__counter {
+    flex-shrink: 0;
+    color: #a3a3a3;
+    font-size: 9px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
