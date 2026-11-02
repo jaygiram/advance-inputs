@@ -446,15 +446,8 @@ const passwordToggleLabel =
 
         onEnterKeyPressActionHandler.execute();
 
-        const hasCustomSuffixContent =
-            suffixContentType === "icon"
-                ? Boolean(suffixIcon?.value)
-                : Boolean(suffixText.trim());
-
         if (
-            showCustomSuffix &&
-            isCustomSuffixInteractive &&
-            hasCustomSuffixContent &&
+            suffixInteraction === "action" &&
             suffixActionHandler.canExecute
         ) {
             suffixActionHandler.execute();
