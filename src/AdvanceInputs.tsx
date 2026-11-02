@@ -23,6 +23,7 @@ export function AdvanceInputs({
 
     showLabel,
     labelText,
+    inputAriaLabel,
     required,
     requiredIndicator,
     requiredValidationMessage,
@@ -373,6 +374,10 @@ const passwordToggleLabel =
     isPasswordVisible
         ? "Hide password"
         : "Show password";
+    const hasVisibleLabel = showLabel && Boolean(labelText?.trim());
+    const resolvedInputAriaLabel = hasVisibleLabel
+        ? undefined
+        : inputAriaLabel?.trim() || labelText?.trim() || undefined;
 
     const handleInputChange = (newValue: string): void => {
         if (isReadOnly) {
@@ -410,14 +415,6 @@ const passwordToggleLabel =
         hasChangedSinceFocus.current = false;
     };
 
-    const handleInputKeyDown = (
-        event: KeyboardEvent<HTMLInputElement>
-    ): void => {
-        if (event.key === "Enter") {
-            onEnterKeyPressActionHandler.execute();
-        }
-    };
-
     const handleClear = (): void => {
         if (isReadOnly || !hasValue) {
             return;
@@ -432,6 +429,62 @@ const passwordToggleLabel =
 
         setHasValidationStarted(true);
         resetPasswordVisibility();
+    };
+
+    const handleInputKeyDown = (
+        event: KeyboardEvent<HTMLInputElement>
+    ): void => {
+        if (event.key !== "Enter" || event.nativeEvent.isComposing) {
+            return;
+        }
+
+        event.preventDefault();
+
+        if (event.repeat) {
+            return;
+        }
+
+        onEnterKeyPressActionHandler.execute();
+
+        const hasCustomSuffixContent =
+            suffixContentType === "icon"
+                ? Boolean(suffixIcon?.value)
+                : Boolean(suffixText.trim());
+
+        if (
+            showCustomSuffix &&
+            isCustomSuffixInteractive &&
+            hasCustomSuffixContent &&
+            suffixActionHandler.canExecute
+        ) {
+            suffixActionHandler.execute();
+            return;
+        }
+
+        if (showClearButton && !isReadOnly && hasValue) {
+            handleClear();
+            return;
+        }
+
+        if (showPasswordToggle && !isReadOnly) {
+            togglePasswordVisibility();
+            return;
+        }
+
+        if (showCopyButton && hasValue) {
+            void handleCopyText();
+            return;
+        }
+
+        const nextFocusableElement = getNextTabbableElement(
+            event.currentTarget
+        );
+
+        if (nextFocusableElement) {
+            nextFocusableElement.focus();
+        } else {
+            event.currentTarget.blur();
+        }
     };
 
     if (!isVisible) {
@@ -458,6 +511,7 @@ const passwordToggleLabel =
                     aria-readonly="true"
                     aria-invalid={hasValidationMessage || undefined}
                     aria-describedby={describedById}
+                    aria-label={resolvedInputAriaLabel}
                 >
                     {value}
                 </div>
@@ -499,6 +553,7 @@ const passwordToggleLabel =
                     required={required}
                     ariaInvalid={hasValidationMessage}
                     ariaDescribedBy={describedById}
+                    ariaLabel={resolvedInputAriaLabel}
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
@@ -646,4 +701,65 @@ tooltip="Clear input"
             </div>
         </div>
     );
+}
+
+function getNextTabbableElement(
+    current: HTMLElement
+): HTMLElement | undefined {
+    const elements = Array.from(
+        document.querySelectorAll<HTMLElement>(
+            "a[href], area[href], button, input:not([type='hidden']), select, textarea, iframe, object, embed, audio[controls], video[controls], summary, [contenteditable], [tabindex]"
+        )
+    ).filter(element => {
+        if (element !== current && element.tabIndex < 0) {
+            return false;
+        }
+
+        if (
+            element.matches(":disabled") ||
+            element.closest("[inert], [aria-hidden='true']")
+        ) {
+            return false;
+        }
+
+        for (
+            let ancestor: HTMLElement | null = element;
+            ancestor;
+            ancestor = ancestor.parentElement
+        ) {
+            const style = window.getComputedStyle(ancestor);
+            if (
+                ancestor.hidden ||
+                ancestor.inert ||
+                style.display === "none" ||
+                style.visibility === "hidden" ||
+                style.visibility === "collapse"
+            ) {
+                return false;
+            }
+        }
+
+        return element === current || element.getClientRects().length > 0;
+    });
+
+    elements.sort((left, right) => {
+        const leftTabIndex = left.tabIndex > 0 ? left.tabIndex : 0;
+        const rightTabIndex = right.tabIndex > 0 ? right.tabIndex : 0;
+
+        if (leftTabIndex !== rightTabIndex) {
+            return leftTabIndex - rightTabIndex;
+        }
+
+        if (
+            left.compareDocumentPosition(right) &
+            Node.DOCUMENT_POSITION_FOLLOWING
+        ) {
+            return -1;
+        }
+
+        return 1;
+    });
+
+    const currentIndex = elements.indexOf(current);
+    return currentIndex >= 0 ? elements[currentIndex + 1] : undefined;
 }

@@ -103,6 +103,10 @@ export function getProperties(
         hiddenKeys.add("labelText");
     }
 
+    if (values.showLabel && values.labelText?.trim()) {
+        hiddenKeys.add("inputAriaLabel");
+    }
+
     if (!values.showLabel || !values.required) {
         hiddenKeys.add("requiredIndicator");
     }
@@ -157,19 +161,31 @@ export function getProperties(
 }
 
 export function check(values: AdvanceInputsPreviewProps): Problem[] {
+    const problems: Problem[] = [];
+
     if (
         values.enableMaxLength &&
         (values.maxLength === null || values.maxLength < 1)
     ) {
-        return [
-            {
-                property: "maxLength",
-                message: "Maximum length value must be at least 1."
-            }
-        ];
+        problems.push({
+            property: "maxLength",
+            message: "Maximum length value must be at least 1."
+        });
     }
 
-    return [];
+    if (
+        (!values.showLabel || !values.labelText?.trim()) &&
+        !values.inputAriaLabel?.trim()
+    ) {
+        problems.push({
+            property: "inputAriaLabel",
+            severity: "warning",
+            message:
+                "Provide an input ARIA label when no visible label is available."
+        });
+    }
+
+    return problems;
 }
 
 export function getPreview(

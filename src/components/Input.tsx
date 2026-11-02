@@ -28,6 +28,7 @@ export interface InputProps {
     readOnly?: boolean;
     disabled?: boolean;
     required?: boolean;
+    ariaLabel?: string;
     ariaInvalid?: boolean;
     ariaDescribedBy?: string;
     className?: string;
@@ -54,6 +55,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             readOnly,
             disabled,
             required,
+            ariaLabel,
             ariaInvalid,
             ariaDescribedBy,
             className,
@@ -86,12 +88,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 disabled={disabled}
                 required={required}
                 aria-required={required ? true : undefined}
+                aria-label={ariaLabel || undefined}
                 aria-invalid={ariaInvalid ? true : undefined}
                 aria-readonly={readOnly || undefined}
                 aria-describedby={ariaDescribedBy || undefined}
                 className={inputClassName}
                 onChange={event => onChange(event.target.value)}
-                onFocus={onFocus}
+                onFocus={onFocus} 
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}
             />

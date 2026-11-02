@@ -75,6 +75,7 @@ export interface AdvanceInputsContainerProps {
     helperText: string;
     reserveMessageSpace: boolean;
     inputTooltip: string;
+    inputAriaLabel: string;
     showAsPassword: boolean;
     showCharacterCounter: boolean;
     showPrefix: boolean;
@@ -148,6 +149,7 @@ export interface AdvanceInputsPreviewProps {
     helperText: string;
     reserveMessageSpace: boolean;
     inputTooltip: string;
+    inputAriaLabel: string;
     showAsPassword: boolean;
     showCharacterCounter: boolean;
     showPrefix: boolean;

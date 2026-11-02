@@ -1,7 +1,7 @@
 {
     "name": "advanceinputs",
     "widgetName": "AdvanceInputs",
-    "version": "1.0.2",
+    "version": "1.0.1",
     "description": "An advanced Mendix input widget with configurable prefix and suffix actions, validation, accessibility, and modern UI states.",
     "copyright": "ThreeMsoftware",
     "author": "Jay Giram ",

@@ -69,6 +69,7 @@
             </propertyGroup>
             <propertyGroup caption="Accessibility">
                 <property key="inputTooltip" type="string" required="false" defaultValue=""><caption>Tooltip fallback</caption><description>Legacy static tooltip used when the dynamic Tooltip is empty or unavailable.</description></property>
+                <property key="inputAriaLabel" type="string" required="false" defaultValue=""><caption>Input ARIA label</caption><description>Accessible name used when the visible label is hidden or empty.</description></property>
             </propertyGroup>
             <propertyGroup caption="Advanced behaviour">
                 <!-- Input mask is intentionally not exposed until masking and caret handling are fully supported. -->
@@ -94,7 +95,7 @@
         <propertyGroup caption="Suffix">
             <propertyGroup caption="Interaction">
                 <property key="suffixInteraction" type="enumeration" defaultValue="none"><caption>Interaction</caption><description>Select the built-in or custom suffix interaction.</description><enumerationValues><enumerationValue key="none">None</enumerationValue><enumerationValue key="action">Action</enumerationValue><enumerationValue key="clear">Clear input</enumerationValue><enumerationValue key="passwordToggle">Password toggle</enumerationValue><enumerationValue key="copyText">Copy text</enumerationValue></enumerationValues></property>
-                <property key="suffixAction" type="action" required="false"><caption>On click</caption><description>Mendix action executed when Interaction is set to Action.</description></property>
+                <property key="suffixAction" type="action" required="false"><caption>On click</caption><description>Mendix action executed when Interaction is set to Action, including when Enter is pressed in the input.</description></property>
             </propertyGroup>
             <propertyGroup caption="Content"><property key="showSuffix" type="boolean" defaultValue="false"><caption>Show suffix</caption><description/></property><property key="suffixContentType" type="enumeration" defaultValue="icon"><caption>Content type</caption><description/><enumerationValues><enumerationValue key="icon">Icon</enumerationValue><enumerationValue key="text">Text</enumerationValue></enumerationValues></property><property key="suffixIcon" type="icon" required="false"><caption>Icon</caption><description/></property><property key="suffixText" type="string" required="false" defaultValue=""><caption>Text</caption><description/></property></propertyGroup>
             <propertyGroup caption="Appearance"><property key="suffixShowAsButton" type="boolean" defaultValue="false"><caption>Show as button</caption><description>Displays custom suffix content with button styling.</description></property><property key="suffixButtonBackgroundColor" type="string" required="false" defaultValue=""><caption>Button background color</caption><description>Optional CSS color for the button background.</description></property><property key="suffixButtonIconColor" type="string" required="false" defaultValue=""><caption>Button icon color</caption><description>Optional CSS color for the icon or text.</description></property></propertyGroup>
@@ -104,7 +105,7 @@
             <property key="onChangeAction" type="action" required="false"><caption>On change</caption><description>Action executed after the value changes.</description></property>
             <property key="onEnterAction" type="action" required="false"><caption>On enter</caption><description>Action executed when the input receives focus.</description></property>
             <property key="onLeaveAction" type="action" required="false"><caption>On leave</caption><description>Action executed when the input loses focus.</description></property>
-            <property key="onEnterKeyPressAction" type="action" required="false"><caption>On Enter key press</caption><description>Action executed when the Enter key is pressed.</description></property>
+            <property key="onEnterKeyPressAction" type="action" required="false"><caption>On Enter key press</caption><description>Action executed when the Enter key is pressed; Enter also runs an available suffix interaction or advances focus when none is available.</description></property>
             <property key="applyChangesBehavior" type="enumeration" defaultValue="onLeave"><caption>Apply changes</caption><description>Determines when the On change action runs.</description><enumerationValues><enumerationValue key="onLeave">When user leaves input field</enumerationValue><enumerationValue key="whileTyping">While user is entering data</enumerationValue></enumerationValues></property>
         </propertyGroup>
     </properties>
